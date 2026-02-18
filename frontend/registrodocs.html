@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Documentos | CapaciTrack</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background-color: #e8f5e9;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #c8e6c9;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-container img {
+      height: 55px;
+    }
+
+    .logo-container a {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2e7d32;
+      text-decoration: none;
+    }
+
+    .topbar nav a {
+      margin-left: 25px;
+      color: #2e7d32;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* DASHBOARD */
+    .dashboard-container {
+      display: flex;
+      flex: 1;
+    }
+    /* BUSCADOR */
+#buscador {
+  width: 100%;
+  max-width: 420px;
+  padding: 12px 16px;
+  margin-bottom: 25px;
+  border-radius: 25px;
+  border: 1px solid #c8e6c9;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
+  background: #fff;
+}
+
+#buscador:focus {
+  border-color: #66bb6a;
+  box-shadow: 0 0 0 3px rgba(102,187,106,0.2);
+}
+
+/* TABLA */
+#tablaUsuarios {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* ENCABEZADO */
+#tablaUsuarios thead {
+  background: #e8f5e9;
+}
+
+#tablaUsuarios th {
+  padding: 14px 12px;
+  text-align: left;
+  font-size: 0.9rem;
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+/* CUERPO */
+#tablaUsuarios td {
+  padding: 14px 12px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #e0e0e0;
+  vertical-align: middle;
+}
+
+/* FILAS */
+#tablaUsuarios tbody tr {
+  transition: background 0.2s ease;
+}
+
+#tablaUsuarios tbody tr:hover {
+  background: #f1f8f4;
+}
+
+/* CURSOS (lista visual) */
+#tablaUsuarios td:nth-child(5) {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* PORCENTAJE */
+#tablaUsuarios td:nth-child(6) {
+  font-weight: 600;
+  color: #2e7d32;
+}
+
+/* BOTÓN ELIMINAR */
+#tablaUsuarios button {
+  background: #ffebee;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+#tablaUsuarios button:hover {
+  background: #ffcdd2;
+  transform: scale(1.1);
+}
+
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 240px;
+      background: #e8f5e9;
+      border-right: 1px solid #c8e6c9;
+      padding: 20px 0;
+    }
+
+    .sidebar-item {
+      padding: 14px 25px;
+      display: flex;
+      gap: 12px;
+      color: #2e7d32;
+      text-decoration: none;
+    }
+
+    .sidebar-item:hover {
+      background: #c8e6c9;
+    }
+
+    /* MAIN */
+    .main-content {
+      flex: 1;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #2e7d32;
+      margin-bottom: 30px;
+    }
+
+    /* FORM */
+    .form-container {
+      max-width: 600px;
+      background: #fff;
+      padding: 35px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #c8e6c9;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .roles {
+      display: flex;
+      gap: 25px;
+      margin-top: 10px;
+    }
+
+    .roles label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .btn-submit {
+      margin-top: 25px;
+      background: #66bb6a;
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      font-size: 1rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      background: #43a047;
+    }
+
+
+    /* FOOTER */
+    footer {
+      background: #e8f5e9;
+      padding: 15px;
+      text-align: center;
+      border-top: 1px solid #c8e6c9;
+    }
+
+    /*cerrar sesion*/
+    .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-box {
+  background: #fff;
+  padding: 30px;
+  width: 400px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  animation: aparecer 0.25s ease;
+}
+
+.modal-box h2 {
+  margin-bottom: 10px;
+  color: #19aa1e;
+}
+
+.modal-box p {
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn-cancelar {
+  background: #e5e5e5;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-confirmar {
+  background: #19aa1e;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-confirmar:hover {
+  background: #19aa1e;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* Icono hamburguesa */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #2e7d32;
+}
+
+/* Responsive: menú hamburguesa */
+@media screen and (max-width: 768px) {
+  .topbar nav {
+    display: none; /* Oculto por defecto */
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background-color: #e8f5e9;
+    width: 200px;
+    border-left: 1px solid #dcedc8;
+    padding: 10px 0;
+    z-index: 999;
+  }
+
+  .topbar nav a {
+    padding: 12px 20px;
+    border-top: 1px solid #dcedc8;
+    margin: 0;
+  }
+
+  .menu-toggle {
+    display: block; /* Mostrar hamburguesa en móvil */
+  }
+
+  /* Cuando el menú está abierto */
+  nav.show {
+    display: flex;
+  }
+}
+
+/* ===== SIDEBAR ESCRITORIO ===== */
+.sidebar {
+  width: 250px;
+  background-color: #e8f5e9;
+  border-right: 1px solid #c8e6c9;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+}
+
+/* Botón hamburguesa sidebar */
+.sidebar-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #2e7d32;
+}
+
+/* ===== MODO MÓVIL ===== */
+@media screen and (max-width: 768px) {
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px; /* Oculto */
+    height: 100%;
+    z-index: 1000;
+    transition: 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+  }
+
+  .sidebar.show {
+    left: 0; /* Se muestra */
+  }
+
+  .sidebar-toggle {
+    display: block;
+  }
+}
+.sidebar-toggle {
+  cursor: pointer;
+  font-size: 22px;
+  color: #2e7d32;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-toggle.rotate {
+  transform: rotate(90deg);
+}
+.sidebar-toggle {
+  margin-left: 15px;   /* Ajusta el espacio hacia la derecha */
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="Logo CapaciTrack">
+      <a href="paneladmin.html">CapaciTrack</a>
+    </div>
+    <div class="menu-toggle" id="menu-toggle">
+  <i class="fas fa-bars"></i> <!-- Icono hamburguesa -->
+</div>
+    <nav id="nav-menu">
+      <a href="registrousuarios.html">Registro de Usuarios</a>
+      <a href="registrodocs.html">Registro de Documentos</a>
+      <a href="perfil-admin.html">Perfil</a>
+         <a href="#" onclick="abrirModalCerrarSesion(event)">Cerrar Sesión</a>
+    </nav>
+  </header>
+
+  <div class="dashboard-container">
+
+   <!-- SIDEBAR -->
+<div class="sidebar-toggle" id="sidebar-toggle">
+  <i class="fas fa-chevron-right"></i>
+</div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="crear-curso.html" class="sidebar-item">
+    <i class="fas fa-plus-circle"></i>Agregar Curso
+  </a>
+  <a href="agregar-usuario.html" class="sidebar-item">
+    <i class="fas fa-user-plus"></i>Agregar Usuario
+  </a>
+  <a href="reportes.html" class="sidebar-item">
+    <i class="fas fa-chart-bar"></i>Reportes
+  </a>
+  <a href="ver-cursos.html" class="sidebar-item">
+    <i class="fas fa-play-circle"></i>Ver Cursos
+  </a>
+</aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+      <h1>Registro de Documentos</h1>
+
+      <input type="text" id="buscador" placeholder="Buscar por nombre, correo o rol">
+
+<table id="tablaUsuarios">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Correo</th>
+      <th>Rol</th>
+      <th>Telefono</th>
+      <th>Razon Social</th>
+      <th>Licencia de Conducir</th>
+      <th>Apto Médico</th>
+     
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+
+    </main>
+  </div>
+<script>
+let usuarios = [];
+
+fetch("../backend/admin/registro_docs.php")
+  .then(res => res.json())
+  .then(data => {
+    usuarios = data;
+    renderTabla(data);
+  });
+
+function renderTabla(data) {
+  const tbody = document.querySelector("#tablaUsuarios tbody");
+  tbody.innerHTML = "";
+
+  data.forEach(u => {
+
+    // 👇 Parsear documentos (vienen como JSON string)
+    let documentos = {};
+    try {
+      documentos = u.documentos ? JSON.parse(u.documentos) : {};
+    } catch (e) {
+      documentos = {};
+    }
+
+    const licencia = documentos.licencia_conducir
+      ? `<a href="../${documentos.licencia_conducir}" target="_blank">Ver</a>`
+      : "❌";
+
+    const acta = documentos.acta_medica
+      ? `<a href="../${documentos.acta_medica}" target="_blank">Ver</a>`
+      : "❌";
+
+    tbody.innerHTML += `
+      <tr>
+        <td>${u.nombre}</td>
+        <td>${u.email}</td>
+        <td>${u.rol}</td>
+        <td>${u.telefono ?? "-"}</td>
+        <td>${u.razon_social ?? "-"}</td>
+        <td>${licencia}</td>
+        <td>${acta}</td>
+       
+      </tr>
+    `;
+  });
+}
+
+// 🔍 BUSCADOR
+document.getElementById("buscador").addEventListener("input", e => {
+  const texto = e.target.value.toLowerCase();
+  const filtrados = usuarios.filter(u =>
+    u.nombre.toLowerCase().includes(texto) ||
+    u.email.toLowerCase().includes(texto) ||
+    u.rol.toLowerCase().includes(texto)
+  );
+  renderTabla(filtrados);
+});
+
+// ⬇️ DESCARGAR DOCUMENTOS
+function descargar(documentosJson) {
+  try {
+    const documentos = JSON.parse(documentosJson);
+
+    if (documentos.licencia_conducir) {
+      window.open("../" + documentos.licencia_conducir, "_blank");
+    }
+
+    if (documentos.acta_medica) {
+      window.open("../" + documentos.acta_medica, "_blank");
+    }
+
+  } catch (e) {
+    alert("No se pudieron leer los documentos");
+  }
+}
+</script>
+
+<!-- MODAL CERRAR SESIÓN -->
+<div id="modalCerrarSesion" class="modal-overlay">
+  <div class="modal-box">
+    <h2>⚠️ Cerrar sesión</h2>
+    <p>¿Seguro que deseas cerrar la sesión?</p>
+
+    <div class="modal-actions">
+      <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+      <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
+    </div>
+  </div>
+</div>
+<script>
+function abrirModalCerrarSesion(e) {
+  e.preventDefault();
+  document.getElementById("modalCerrarSesion").style.display = "flex";
+}
+
+function cerrarModal() {
+  document.getElementById("modalCerrarSesion").style.display = "none";
+}
+
+function confirmarCerrarSesion() {
+  // Si usas sesiones o tokens, aquí los limpias
+  // localStorage.clear();
+  // sessionStorage.clear();
+
+  window.location.href = "index.html";
+}
+//menu ham//
+const menuToggle = document.getElementById('menu-toggle');
+const navMenu = document.getElementById('nav-menu');
+
+menuToggle.addEventListener('click', () => {
+  navMenu.classList.toggle('show'); // Agrega/quita clase para mostrar menú
+});
+
+//menu lateral//
+const sidebarToggle = document.getElementById('sidebar-toggle');
+const sidebar = document.getElementById('sidebar');
+
+sidebarToggle.addEventListener('click', () => {
+  sidebar.classList.toggle('show');
+  sidebarToggle.classList.toggle('rotate');
+});
+</script>
+
+
+  <footer>
+    © 2026 CapaciTrack
+  </footer>
+
+</body>
+</html>

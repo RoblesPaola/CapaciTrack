@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso | CapaciTrack</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .topbar {
+    background-color: #e8f5e9;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dcedc8;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-container img { height: 55px; }
+
+  .logo-container a {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #2e7d32;
+    text-decoration: none;
+  }
+
+  .topbar nav a {
+    margin-left: 25px;
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .breadcrumb {
+    margin-bottom: 20px;
+    color: #666;
+  }
+
+  .breadcrumb a {
+    color: #2e7d32;
+    text-decoration: none;
+  }
+
+  /* Header del curso */
+  .curso-header {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+  }
+
+  .curso-info-grid {
+    display: grid;
+    grid-template-columns: 250px 1fr auto;
+    gap: 25px;
+    align-items: start;
+  }
+
+  .curso-portada-pequena {
+    width: 250px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .curso-info-texto {
+    flex: 1;
+  }
+
+  .curso-titulo {
+    font-size: 2rem;
+    color: #2e7d32;
+    margin-bottom: 15px;
+  }
+
+  .curso-meta {
+    display: flex;
+    gap: 20px;
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+  }
+
+  .curso-descripcion {
+    line-height: 1.6;
+    color: #555;
+  }
+
+  /* Barra de progreso en el header */
+  .progreso-curso-header {
+    min-width: 200px;
+  }
+
+  .progreso-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .progreso-header span {
+    font-weight: 600;
+    color: #2e7d32;
+    font-size: 0.9rem;
+  }
+
+  .progreso-porcentaje {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2e7d32;
+  }
+
+  .barra-progreso {
+    width: 100%;
+    height: 12px;
+    background: #e0e0e0;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .barra-progreso-fill {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #66bb6a, #2e7d32);
+    width: 0%;
+    transition: width 0.6s ease;
+  }
+
+  /* Layout principal con sidebar */
+  .curso-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 25px;
+    align-items: start;
+  }
+
+  /* Sidebar con módulos */
+  .sidebar-modulos {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 20px;
+    position: sticky;
+    top: 20px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+  }
+
+  .sidebar-titulo {
+    font-size: 1.3rem;
+    color: #2e7d32;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .modulo-nav-item {
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .modulo-nav-item:hover {
+    border-color: #2e7d32;
+    background: #f1f8f4;
+  }
+
+  .modulo-nav-item.active {
+    background: #e8f5e9;
+    border-color: #2e7d32;
+    font-weight: 600;
+  }
+
+  .modulo-nav-item.completado {
+    border-color: #4caf50;
+    background: #e8f5e9;
+  }
+
+  .modulo-nav-item .icono {
+    font-size: 1.2rem;
+    color: #666;
+  }
+
+  .modulo-nav-item.active .icono {
+    color: #2e7d32;
+  }
+
+  .modulo-nav-item.completado .icono {
+    color: #4caf50;
+  }
+
+  .modulo-nav-texto {
+    flex: 1;
+    font-size: 0.95rem;
+  }
+
+  .check-completado {
+    color: #4caf50;
+    font-size: 1.2rem;
+  }
+
+  /* Área de contenido principal */
+  .contenido-area {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 30px;
+    min-height: 500px;
+  }
+
+  .contenido-header {
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+  }
+
+  .contenido-tipo {
+    display: inline-block;
+    padding: 6px 14px;
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+
+  .contenido-titulo {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 12px;
+  }
+
+  .contenido-descripcion {
+    color: #666;
+    line-height: 1.6;
+  }
+
+  /* Visualizadores de contenido */
+  .modulo-imagen {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .modulo-imagen:hover {
+    transform: scale(1.02);
+  }
+
+  .modulo-pdf {
+    width: 100%;
+    height: 600px;
+    border: none;
+    border-radius: 8px;
+  }
+
+  .modulo-video {
+    width: 100%;
+    height: 500px;
+    border-radius: 8px;
+  }
+
+  .archivo-descarga {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid #2e7d32;
+  }
+
+  .archivo-icono {
+    font-size: 2.5rem;
+    color: #2e7d32;
+  }
+
+  .archivo-info {
+    flex: 1;
+  }
+
+  .archivo-nombre {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+  .archivo-detalles {
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  .btn-descargar {
+    padding: 10px 20px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+  }
+
+  .btn-descargar:hover {
+    background: #1b5e20;
+  }
+
+  /* Evaluación */
+  .evaluacion-container {
+    max-width: 800px;
+  }
+
+  .pregunta-item {
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 2px solid #e0e0e0;
+  }
+
+  .pregunta-numero {
+    font-weight: 600;
+    color: #2e7d32;
+    margin-bottom: 10px;
+  }
+
+  .pregunta-texto {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .opciones-lista {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .opcion {
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .opcion:hover:not(.disabled) {
+    border-color: #2e7d32;
+    background: #f1f8f4;
+  }
+
+  .opcion input[type="radio"] {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+  }
+
+  .opcion.correcta-mostrada {
+    border-color: #4caf50;
+    background: #e8f5e9;
+    font-weight: 600;
+  }
+
+  .opcion.incorrecta-mostrada {
+    border-color: #f44336;
+    background: #ffebee;
+  }
+
+  .opcion.disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .resultado-pregunta {
+    margin-top: 15px;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    display: none;
+  }
+
+  .resultado-pregunta.correcto {
+    background: #e8f5e9;
+    color: #2e7d32;
+    display: block;
+  }
+
+  .resultado-pregunta.incorrecto {
+    background: #ffebee;
+    color: #c62828;
+    display: block;
+  }
+
+  .evaluacion-resultado {
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 8px;
+    margin-top: 25px;
+    text-align: center;
+    display: none;
+  }
+
+  .evaluacion-resultado.aprobado {
+    background: #e8f5e9;
+    border: 2px solid #4caf50;
+  }
+
+  .evaluacion-resultado.reprobado {
+    background: #ffebee;
+    border: 2px solid #f44336;
+  }
+
+  .evaluacion-resultado h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .evaluacion-resultado.aprobado h3 {
+    color: #2e7d32;
+  }
+
+  .evaluacion-resultado.reprobado h3 {
+    color: #c62828;
+  }
+
+  /* Botones de navegación */
+  .navegacion-botones {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #e0e0e0;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+  }
+
+  .btn-primary {
+    background: #2e7d32;
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background: #1b5e20;
+  }
+
+  .btn-secondary {
+    background: #757575;
+    color: #fff;
+  }
+
+  .btn-secondary:hover {
+    background: #616161;
+  }
+
+  .btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  /* Checkbox completado */
+  .modulo-completado {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 25px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .modulo-completado:hover {
+    background: #f0f0f0;
+  }
+
+  .modulo-completado input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    accent-color: #2e7d32;
+  }
+
+  .modulo-completado label {
+    cursor: pointer;
+    font-weight: 500;
+    color: #555;
+    user-select: none;
+  }
+
+  .modulo-completado.completado {
+    background: #e8f5e9;
+  }
+
+  .modulo-completado.completado label {
+    color: #2e7d32;
+  }
+
+  .no-contenido {
+    padding: 40px;
+    text-align: center;
+    color: #999;
+    font-style: italic;
+  }
+
+  .loading {
+    text-align: center;
+    padding: 60px;
+    color: #2e7d32;
+  }
+
+  .loading i {
+    font-size: 3rem;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .error-message {
+    background: #ffebee;
+    color: #c62828;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  footer {
+    background: #e8f5e9;
+    padding: 15px;
+    text-align: center;
+    border-top: 1px solid #c8e6c9;
+    margin-top: auto;
+  }
+
+  /* Modal para imágenes */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal.active {
+    display: flex;
+  }
+
+  .modal-content {
+    max-width: 90%;
+    max-height: 90%;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  /* Modal cerrar sesión */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .modal-box {
+    background: #fff;
+    padding: 30px;
+    width: 400px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: aparecer 0.25s ease;
+  }
+
+  .modal-box h2 {
+    margin-bottom: 10px;
+    color: #2e7d32;
+  }
+
+  .modal-box p {
+    color: #555;
+    margin-bottom: 25px;
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .btn-cancelar {
+    background: #e5e5e5;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .btn-confirmar {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .btn-confirmar:hover {
+    background: #1b5e20;
+  }
+
+  @keyframes aparecer {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Icono hamburguesa */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #2e7d32;
+}
+
+/* Responsive: menú hamburguesa */
+@media screen and (max-width: 768px) {
+  .topbar nav {
+    display: none; /* Oculto por defecto */
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background-color: #e8f5e9;
+    width: 200px;
+    border-left: 1px solid #dcedc8;
+    padding: 10px 0;
+    z-index: 999;
+  }
+
+  .topbar nav a {
+    padding: 12px 20px;
+    border-top: 1px solid #dcedc8;
+    margin: 0;
+  }
+
+  .menu-toggle {
+    display: block; /* Mostrar hamburguesa en móvil */
+  }
+
+  /* Cuando el menú está abierto */
+  nav.show {
+    display: flex;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="logo-container">
+    <img src="assets/logo.png" alt="Logo">
+    <a href="panelusuarios.html">CapaciTrack</a>
+  </div>
+  <div class="menu-toggle" id="menu-toggle">
+  <i class="fas fa-bars"></i> <!-- Icono hamburguesa -->
+</div>
+
+ <div class="menu-toggle" id="menu-toggle">
+  <i class="fas fa-bars"></i> <!-- Icono hamburguesa -->
+</div>
+
+<nav id="nav-menu">
+  <a href="catalogo-curso.html">Catálogo de Cursos</a>
+  <a href="mis-cursos.html">Mis Cursos</a>
+  <a href="perfil.html">Perfil</a>
+  <a href="#" onclick="abrirModalCerrarSesion(event)">Cerrar Sesión</a>
+</nav>
+</header>
+
+<main class="main-content">
+  <div class="breadcrumb">
+    <a href="panelusuarios.html">Inicio</a> / 
+    <a href="mis-cursos.html">Mis Cursos</a> / 
+    <span id="breadcrumbTitulo">Detalle</span>
+  </div>
+
+  <div id="loading" class="loading">
+    <i class="fas fa-spinner"></i>
+    <p>Cargando curso...</p>
+  </div>
+
+  <div id="errorContainer" style="display:none;">
+    <div class="error-message">
+      <i class="fas fa-exclamation-circle" style="font-size:2rem;"></i>
+      <h3>Error al cargar el curso</h3>
+      <p id="errorMessage"></p>
+      <br>
+    </div>
+  </div>
+
+  <div id="cursoContainer" style="display:none;">
+    <!-- El contenido se cargará dinámicamente -->
+  </div>
+</main>
+
+<footer>© 2026 CapaciTrack</footer>
+
+<div id="imageModal" class="modal" onclick="closeModal()">
+  <span class="modal-close">&times;</span>
+  <img class="modal-content" id="modalImage">
+</div>
+
+<!-- MODAL CERRAR SESIÓN -->
+<div id="modalCerrarSesion" class="modal-overlay">
+  <div class="modal-box">
+    <h2>⚠️ Cerrar sesión</h2>
+    <p>¿Seguro que deseas cerrar la sesión?</p>
+    <div class="modal-actions">
+      <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+      <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const cursoId = urlParams.get('id');
+const backendURL = '/capacitrack/backend/';
+
+// Obtener el ID del usuario desde localStorage
+let usuarioId = localStorage.getItem('user_id');
+
+// Si no hay usuario, verificar sesión o redirigir
+if (!usuarioId) {
+  fetch(`${backendURL}verificar_sesion.php`, {
+  credentials: 'include'
+})
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        usuarioId = data.user_id;
+        localStorage.setItem('user_id', data.user_id);
+        localStorage.setItem('user_nombre', data.nombre);
+        localStorage.setItem('user_rol', data.rol);
+      } else {
+        alert('Debes iniciar sesión');
+        window.location.href = 'index.html';
+      }
+    })
+    .catch(() => {
+      usuarioId = 1;
+      console.warn('Usando usuario por defecto. Implementa el sistema de login.');
+    });
+}
+
+// Variables globales
+let cursoData = null;
+let indiceActual = 0; // Índice del módulo o evaluación actual
+let modulosCompletados = [];
+let respuestasEvaluacion = {};
+let evaluacionCalificada = false;
+
+// Cargar progreso desde la base de datos
+async function cargarProgresoDesdeDB() {
+    try {
+        const usuarioId = localStorage.getItem("usuario_id");
+
+        const res = await fetch(
+            `/capacitrack/backend/gestionar_progreso.php?accion=obtener&usuario_id=${usuarioId}&curso_id=${cursoId}`
+        );
+
+        const data = await res.json();
+        console.log(data);
+
+    } catch (error) {
+        console.error("Error al cargar progreso:", error);
+    }
+}
+// Guardar progreso en la base de datos
+async function guardarProgresoEnDB(porcentaje) {
+    try {
+        const usuarioId = localStorage.getItem("usuario_id");
+
+        const res = await fetch(
+            `/capacitrack/backend/gestionar_progreso.php?accion=actualizar`,
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    usuario_id: usuarioId,
+                    curso_id: cursoId,
+                    porcentaje: porcentaje
+                })
+            }
+        );
+
+        const data = await res.json();
+        console.log(data);
+
+    } catch (error) {
+        console.error("Error al guardar progreso:", error);
+    }
+}
+
+
+// Guardar módulos en localStorage
+function guardarModulosLocal() {
+  localStorage.setItem(`curso_${cursoId}_modulos`, JSON.stringify(modulosCompletados));
+}
+
+if (!cursoId) {
+  mostrarError('No se especificó un ID de curso');
+} else {
+  cargarProgresoDesdeDB().then(() => {
+    cargarCursoDetalle(cursoId);
+  });
+}
+
+async function cargarCursoDetalle(id) {
+  try {
+    const res = await fetch(`${backendURL}obtener_curso_detalle.php?id=${id}`);
+    const data = await res.json();
+    
+    document.getElementById('loading').style.display = 'none';
+    
+    if (data.success) {
+      cursoData = data.curso;
+      mostrarCurso(data.curso);
+    } else {
+      mostrarError(data.message || 'Error al cargar el curso');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    mostrarError('Error de conexión al servidor');
+  }
+}
+
+function calcularPorcentajeProgreso() {
+  if (!cursoData) return 0;
+  
+  const totalModulos = cursoData.modulos ? cursoData.modulos.length : 0;
+  const tieneEvaluacion = cursoData.evaluaciones && cursoData.evaluaciones.length > 0;
+  
+  if (totalModulos === 0 && !tieneEvaluacion) return 0;
+  
+  // Calcular progreso de módulos
+  let progresoModulos = 0;
+  if (totalModulos > 0) {
+    progresoModulos = (modulosCompletados.length / totalModulos) * 70; // 70% del progreso
+  }
+  
+  // Calcular progreso de evaluación (30% del progreso total)
+  let progresoEvaluacion = 0;
+  if (tieneEvaluacion && evaluacionCalificada) {
+    const totalPreguntas = cursoData.evaluaciones.length;
+    const respuestasCorrectas = Object.values(respuestasEvaluacion).filter(r => r.correcta).length;
+    const porcentajeCorrectas = (respuestasCorrectas / totalPreguntas) * 100;
+    
+    // Solo se suma el 30% si aprueba con 80% o más
+    if (porcentajeCorrectas >= 80) {
+      progresoEvaluacion = 30;
+    }
+  }
+  
+  return Math.round(progresoModulos + progresoEvaluacion);
+}
+
+function actualizarBarraProgreso() {
+  const porcentaje = calcularPorcentajeProgreso();
+  const barraFill = document.querySelector('.barra-progreso-fill');
+  const textoPorcentaje = document.querySelector('.progreso-porcentaje');
+  
+  if (barraFill) {
+    barraFill.style.width = `${porcentaje}%`;
+  }
+  
+  if (textoPorcentaje) {
+    textoPorcentaje.textContent = `${porcentaje}%`;
+  }
+  
+  guardarProgresoEnDB(porcentaje);
+}
+
+function mostrarCurso(curso) {
+  document.getElementById('breadcrumbTitulo').textContent = curso.titulo;
+  document.getElementById('cursoContainer').style.display = 'block';
+  
+  let portadaHTML = '';
+  if (curso.portada && curso.portada !== '') {
+    portadaHTML = `<img src="${backendURL}${curso.portada}" 
+                       alt="${curso.titulo}" 
+                       class="curso-portada-pequena">`;
+  }
+  
+  const porcentajeInicial = calcularPorcentajeProgreso();
+  const totalModulos = curso.modulos ? curso.modulos.length : 0;
+  const totalPreguntas = curso.evaluaciones ? curso.evaluaciones.length : 0;
+  
+  const html = `
+    <div class="curso-header">
+      <div class="curso-info-grid">
+        ${portadaHTML}
+        <div class="curso-info-texto">
+          <h1 class="curso-titulo">${curso.titulo}</h1>
+          <div class="curso-meta">
+            <span><i class="fas fa-user"></i> ${curso.creador_nombre || 'Desconocido'}</span>
+            <span><i class="fas fa-calendar"></i> ${formatearFecha(curso.creado_en)}</span>
+            <span><i class="fas fa-book"></i> ${totalModulos} módulos</span>
+            <span><i class="fas fa-question-circle"></i> ${totalPreguntas} preguntas</span>
+          </div>
+          <div class="curso-descripcion">${curso.descripcion}</div>
+        </div>
+        <div class="progreso-curso-header">
+          <div class="progreso-header">
+            <span>Progreso</span>
+          </div>
+          <div class="progreso-porcentaje">${porcentajeInicial}%</div>
+          <div class="barra-progreso">
+            <span class="barra-progreso-fill" style="width: ${porcentajeInicial}%;"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="curso-container">
+      <aside class="sidebar-modulos">
+        <h3 class="sidebar-titulo">
+          <i class="fas fa-list"></i>
+          Contenido del Curso
+        </h3>
+        <div id="menuModulos">
+          <!-- Se llena dinámicamente -->
+        </div>
+      </aside>
+
+      <div class="contenido-area">
+        <div id="contenidoActual">
+          <!-- Se llena dinámicamente -->
+        </div>
+      </div>
+    </div>
+  `;
+  
+  document.getElementById('cursoContainer').innerHTML = html;
+  
+  // Generar menú de navegación
+  generarMenuNavegacion();
+  
+  // Mostrar el primer módulo
+  mostrarContenido(0);
+}
+
+function generarMenuNavegacion() {
+  const menuDiv = document.getElementById('menuModulos');
+  let html = '';
+  
+  // Añadir módulos
+  if (cursoData.modulos && cursoData.modulos.length > 0) {
+    cursoData.modulos.forEach((mod, index) => {
+      const estaCompletado = modulosCompletados.includes(`modulo_${index}`);
+      const esActivo = index === indiceActual;
+      
+      html += `
+        <div class="modulo-nav-item ${esActivo ? 'active' : ''} ${estaCompletado ? 'completado' : ''}" 
+             onclick="cambiarContenido(${index})">
+          <i class="fas fa-${obtenerIconoTipo(mod.tipo_contenido)} icono"></i>
+          <span class="modulo-nav-texto">Módulo ${index + 1}: ${mod.titulo}</span>
+          ${estaCompletado ? '<i class="fas fa-check-circle check-completado"></i>' : ''}
+        </div>
+      `;
+    });
+  }
+  
+  // Añadir evaluación
+  if (cursoData.evaluaciones && cursoData.evaluaciones.length > 0) {
+    const indexEvaluacion = cursoData.modulos.length;
+    const esActivo = indexEvaluacion === indiceActual;
+    const estaCompleta = evaluacionCalificada && calcularPorcentajeEvaluacion() >= 80;
+    
+    html += `
+      <div class="modulo-nav-item ${esActivo ? 'active' : ''} ${estaCompleta ? 'completado' : ''}" 
+           onclick="cambiarContenido(${indexEvaluacion})">
+        <i class="fas fa-clipboard-check icono"></i>
+        <span class="modulo-nav-texto">Evaluación Final</span>
+        ${estaCompleta ? '<i class="fas fa-check-circle check-completado"></i>' : ''}
+      </div>
+    `;
+  }
+  
+  menuDiv.innerHTML = html;
+}
+
+function cambiarContenido(nuevoIndice) {
+  indiceActual = nuevoIndice;
+  mostrarContenido(nuevoIndice);
+  generarMenuNavegacion(); // Actualizar el menú para reflejar el activo
+}
+
+function mostrarContenido(index) {
+  const contenidoDiv = document.getElementById('contenidoActual');
+  const totalModulos = cursoData.modulos ? cursoData.modulos.length : 0;
+  
+  // Si es un módulo
+  if (index < totalModulos) {
+    const modulo = cursoData.modulos[index];
+    contenidoDiv.innerHTML = generarHTMLModulo(modulo, index);
+  } 
+  // Si es la evaluación
+  else if (cursoData.evaluaciones && cursoData.evaluaciones.length > 0) {
+    contenidoDiv.innerHTML = generarHTMLEvaluacion();
+  }
+  
+  // Scroll al inicio
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function generarHTMLModulo(modulo, index) {
+  let contenidoHTML = '';
+  
+  if (modulo.archivo && modulo.archivo !== '') {
+    const extension = obtenerExtension(modulo.archivo);
+    const tipoArchivo = modulo.tipo_contenido || detectarTipoArchivo(extension);
+    contenidoHTML = generarVisualizadorArchivo(modulo.archivo, tipoArchivo, extension, modulo.titulo);
+  } else {
+    contenidoHTML = '<div class="no-contenido">Este módulo no tiene archivos adjuntos</div>';
+  }
+  
+  const estaCompletado = modulosCompletados.includes(`modulo_${index}`);
+  const totalModulos = cursoData.modulos.length;
+  const tieneEvaluacion = cursoData.evaluaciones && cursoData.evaluaciones.length > 0;
+  const esUltimoModulo = index === totalModulos - 1;
+  
+  return `
+    <div class="contenido-header">
+      <span class="contenido-tipo">
+        <i class="fas fa-${obtenerIconoTipo(modulo.tipo_contenido)}"></i>
+        ${modulo.tipo_contenido || 'Módulo'}
+      </span>
+      <h2 class="contenido-titulo">Módulo ${index + 1}: ${modulo.titulo}</h2>
+      <p class="contenido-descripcion">${modulo.descripcion || 'Sin descripción'}</p>
+    </div>
+
+    <div style="margin: 25px 0;">
+      ${contenidoHTML}
+    </div>
+
+    <div class="modulo-completado ${estaCompletado ? 'completado' : ''}" 
+         onclick="this.querySelector('input').click()">
+      <input type="checkbox" 
+             id="checkbox_${index}" 
+             ${estaCompletado ? 'checked' : ''}
+             onclick="event.stopPropagation(); marcarModuloCompletado(${index}, this)">
+      <label for="checkbox_${index}">
+        <i class="fas fa-check-circle"></i>
+        Marcar como completado
+      </label>
+    </div>
+
+    <div class="navegacion-botones">
+      <button class="btn btn-secondary" 
+              onclick="navegarAnterior()" 
+              ${index === 0 ? 'disabled' : ''}>
+        <i class="fas fa-arrow-left"></i>
+        Anterior
+      </button>
+      
+      <button class="btn btn-primary" 
+              onclick="navegarSiguiente()">
+        ${esUltimoModulo && tieneEvaluacion ? 'Ir a Evaluación' : 'Siguiente'}
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  `;
+}
+
+function generarHTMLEvaluacion() {
+  let preguntasHTML = '';
+  
+  cursoData.evaluaciones.forEach((pregunta, index) => {
+    let opcionesHTML = '';
+    
+    if (pregunta.tipo === 'opcion' && pregunta.opciones) {
+      const opciones = JSON.parse(pregunta.opciones);
+      opcionesHTML = '<div class="opciones-lista">';
+      
+      opciones.forEach((opcion, i) => {
+        const letra = String.fromCharCode(65 + i);
+        const respuestaGuardada = respuestasEvaluacion[index];
+        const estaSeleccionada = respuestaGuardada && respuestaGuardada.seleccionada === letra;
+        const esCorrecta = letra === pregunta.respuesta_correcta;
+        const mostrarResultado = evaluacionCalificada;
+        
+        let claseOpcion = '';
+        if (mostrarResultado) {
+          if (estaSeleccionada && esCorrecta) {
+            claseOpcion = 'correcta-mostrada';
+          } else if (estaSeleccionada && !esCorrecta) {
+            claseOpcion = 'incorrecta-mostrada';
+          } else if (esCorrecta) {
+            claseOpcion = 'correcta-mostrada';
+          }
+        }
+        
+        opcionesHTML += `
+          <div class="opcion ${claseOpcion} ${mostrarResultado ? 'disabled' : ''}" 
+               onclick="${!mostrarResultado ? `seleccionarOpcion(${index}, '${letra}', this)` : ''}">
+            <input type="radio" 
+                   name="pregunta_${index}" 
+                   value="${letra}" 
+                   ${estaSeleccionada ? 'checked' : ''}
+                   ${mostrarResultado ? 'disabled' : ''}
+                   onclick="event.stopPropagation(); ${!mostrarResultado ? `seleccionarOpcion(${index}, '${letra}', this.parentElement)` : ''}">
+            <label>${letra}) ${opcion}</label>
+          </div>
+        `;
+      });
+      
+      opcionesHTML += '</div>';
+    }
+    
+    preguntasHTML += `
+      <div class="pregunta-item">
+        <div class="pregunta-numero">Pregunta ${index + 1}</div>
+        <div class="pregunta-texto">${pregunta.pregunta}</div>
+        ${opcionesHTML}
+      </div>
+    `;
+  });
+  
+  // Resultado de la evaluación
+  let resultadoHTML = '';
+  if (evaluacionCalificada) {
+    const porcentaje = calcularPorcentajeEvaluacion();
+    const aprobado = porcentaje >= 80;
+    
+    resultadoHTML = `
+      <div class="evaluacion-resultado ${aprobado ? 'aprobado' : 'reprobado'}">
+        <h3>
+          <i class="fas fa-${aprobado ? 'check-circle' : 'times-circle'}"></i>
+          ${aprobado ? '¡Felicidades! Has aprobado' : 'No has aprobado'}
+        </h3>
+        <p style="font-size: 1.2rem; margin: 15px 0;">
+          Calificación: <strong>${porcentaje}%</strong>
+        </p>
+        <p>
+          Respuestas correctas: ${Object.values(respuestasEvaluacion).filter(r => r.correcta).length} de ${cursoData.evaluaciones.length}
+        </p>
+        ${!aprobado ? `
+          <p style="margin-top: 15px;">Necesitas al menos 80% para aprobar el curso.</p>
+          <button class="btn btn-primary" onclick="reiniciarEvaluacion()" style="margin-top: 15px;">
+            <i class="fas fa-redo"></i> Volver a intentar
+          </button>
+        ` : ''}
+      </div>
+    `;
+  }
+  
+  return `
+    <div class="contenido-header">
+      <span class="contenido-tipo">
+        <i class="fas fa-clipboard-check"></i>
+        Evaluación
+      </span>
+      <h2 class="contenido-titulo">Evaluación Final</h2>
+      <p class="contenido-descripcion">
+        Responde las siguientes preguntas. Necesitas obtener al menos 80% de respuestas correctas para completar el curso.
+      </p>
+    </div>
+
+    <div class="evaluacion-container">
+      ${preguntasHTML}
+      
+      ${!evaluacionCalificada ? `
+        <button class="btn btn-primary" 
+                onclick="calificarEvaluacion()"
+                style="width: 100%; margin-top: 20px; font-size: 1.1rem;">
+          <i class="fas fa-check"></i>
+          Enviar Evaluación
+        </button>
+      ` : ''}
+      
+      ${resultadoHTML}
+    </div>
+
+    <div class="navegacion-botones">
+      <button class="btn btn-secondary" onclick="navegarAnterior()">
+        <i class="fas fa-arrow-left"></i>
+        Volver a Módulos
+      </button>
+      
+      ${evaluacionCalificada && calcularPorcentajeEvaluacion() >= 80 ? `
+        <button class="btn btn-primary" onclick="finalizarCurso()">
+          Finalizar Curso
+          <i class="fas fa-graduation-cap"></i>
+        </button>
+      ` : ''}
+    </div>
+  `;
+}
+
+function seleccionarOpcion(preguntaIndex, opcion, elemento) {
+  if (evaluacionCalificada) return;
+  
+  // Guardar respuesta
+  respuestasEvaluacion[preguntaIndex] = {
+    seleccionada: opcion,
+    correcta: opcion === cursoData.evaluaciones[preguntaIndex].respuesta_correcta
+  };
+  
+  // Actualizar visualización
+  const todasOpciones = elemento.parentElement.querySelectorAll('.opcion');
+  todasOpciones.forEach(opc => opc.classList.remove('seleccionada'));
+  elemento.classList.add('seleccionada');
+}
+
+function calcularPorcentajeEvaluacion() {
+  const totalPreguntas = cursoData.evaluaciones.length;
+  const respuestasCorrectas = Object.values(respuestasEvaluacion).filter(r => r.correcta).length;
+  return Math.round((respuestasCorrectas / totalPreguntas) * 100);
+}
+
+function calificarEvaluacion() {
+  // Verificar que todas las preguntas estén respondidas
+  if (Object.keys(respuestasEvaluacion).length < cursoData.evaluaciones.length) {
+    alert('Por favor responde todas las preguntas antes de enviar la evaluación.');
+    return;
+  }
+  
+  evaluacionCalificada = true;
+  
+  // Actualizar progreso
+  actualizarBarraProgreso();
+  
+  // Regenerar la evaluación con resultados
+  mostrarContenido(indiceActual);
+  
+  // Actualizar menú
+  generarMenuNavegacion();
+}
+
+function reiniciarEvaluacion() {
+  // Reiniciar estado de evaluación
+  respuestasEvaluacion = {};
+  evaluacionCalificada = false;
+  
+  // Regenerar evaluación
+  mostrarContenido(indiceActual);
+  
+  // Actualizar progreso y menú
+  actualizarBarraProgreso();
+  generarMenuNavegacion();
+  
+  // Scroll al inicio
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function marcarModuloCompletado(index, checkbox) {
+  const moduloId = `modulo_${index}`;
+  
+  if (checkbox.checked) {
+    if (!modulosCompletados.includes(moduloId)) {
+      modulosCompletados.push(moduloId);
+    }
+    checkbox.parentElement.classList.add('completado');
+  } else {
+    modulosCompletados = modulosCompletados.filter(id => id !== moduloId);
+    checkbox.parentElement.classList.remove('completado');
+  }
+  
+  guardarModulosLocal();
+  actualizarBarraProgreso();
+  generarMenuNavegacion();
+}
+
+function navegarAnterior() {
+  if (indiceActual > 0) {
+    cambiarContenido(indiceActual - 1);
+  }
+}
+
+function navegarSiguiente() {
+  const totalModulos = cursoData.modulos ? cursoData.modulos.length : 0;
+  const tieneEvaluacion = cursoData.evaluaciones && cursoData.evaluaciones.length > 0;
+  const maxIndice = totalModulos + (tieneEvaluacion ? 1 : 0) - 1;
+  
+  if (indiceActual < maxIndice) {
+    cambiarContenido(indiceActual + 1);
+  }
+}
+
+function finalizarCurso() {
+  const porcentaje = calcularPorcentajeProgreso();
+  const porcentajeEval = calcularPorcentajeEvaluacion();
+  
+  if (porcentaje === 100 && porcentajeEval >= 80) {
+    fetch('../backend/guardar_progreso.php', { 
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    curso_id: cursoId,
+    porcentaje: 100
+  })
+})
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        mostrarModalCertificado();
+      } else {
+        alert('Error al marcar curso como completado');
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Error al conectar con el servidor');
+    });
+  } else {
+    alert('Completa todos los módulos y aprueba la evaluación con al menos 80% para finalizar el curso.');
+  }
+}
+
+
+function mostrarModalCertificado() {
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay';
+  modal.style.display = 'flex';
+  modal.innerHTML = `
+    <div class="modal-box" style="max-width: 500px;">
+      <h2 style="color: #2e7d32; margin-bottom: 15px;">
+        <i class="fas fa-trophy"></i> ¡Felicidades!
+      </h2>
+      <p style="font-size: 1.1rem; margin-bottom: 20px;">
+        Has completado exitosamente el curso:<br>
+        <strong>${cursoData.titulo}</strong>
+      </p>
+      <div style="margin: 25px 0;">
+        <button class="btn btn-primary" onclick="descargarCertificado()" style="width: 100%; margin-bottom: 10px;">
+          <i class="fas fa-download"></i> Descargar Certificado
+        </button>
+        <button class="btn btn-secondary" onclick="volverMisCursos()" style="width: 100%;">
+          <i class="fas fa-arrow-left"></i> Ir a Mis Cursos
+        </button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+function descargarCertificado() {
+  window.open(`${backendURL}generar_certificado.php?usuario_id=${usuarioId}&curso_id=${cursoId}`, '_blank');
+}
+
+function volverMisCursos() {
+  window.location.href = 'mis-cursos.html';
+}
+
+function generarVisualizadorArchivo(rutaArchivo, tipo, extension, titulo) {
+  const urlCompleta = `${backendURL}${rutaArchivo}`;
+  
+  if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'].includes(extension) || tipo === 'imagen') {
+    return `
+      <img src="${urlCompleta}" 
+           alt="${titulo}" 
+           class="modulo-imagen"
+           onclick="openModal('${urlCompleta}')"
+           onerror="this.parentElement.innerHTML='<div class=\\'no-contenido\\'>Error al cargar la imagen</div>'">
+    `;
+  }
+  
+  if (extension === 'pdf' || tipo === 'pdf') {
+    return `
+      <iframe src="${urlCompleta}" 
+              class="modulo-pdf"
+              title="${titulo}"></iframe>
+      <div style="margin-top:10px;">
+        <a href="${urlCompleta}" target="_blank" class="btn-descargar">
+          <i class="fas fa-download"></i> Descargar PDF
+        </a>
+      </div>
+    `;
+  }
+  
+  if (['mp4', 'webm', 'ogg'].includes(extension) || tipo === 'video') {
+    return `
+      <video controls class="modulo-video">
+        <source src="${urlCompleta}" type="video/${extension}">
+        Tu navegador no soporta el elemento de video.
+      </video>
+    `;
+  }
+  
+  if (['mp3', 'wav', 'ogg'].includes(extension)) {
+    return `
+      <audio controls style="width:100%;">
+        <source src="${urlCompleta}" type="audio/${extension}">
+        Tu navegador no soporta el elemento de audio.
+      </audio>
+      <div style="margin-top:10px;">
+        <a href="${urlCompleta}" download class="btn-descargar">
+          <i class="fas fa-download"></i> Descargar Audio
+        </a>
+      </div>
+    `;
+  }
+  
+  const iconos = {
+    'doc': 'file-word', 'docx': 'file-word',
+    'xls': 'file-excel', 'xlsx': 'file-excel',
+    'ppt': 'file-powerpoint', 'pptx': 'file-powerpoint',
+    'txt': 'file-alt',
+    'zip': 'file-archive', 'rar': 'file-archive'
+  };
+  
+  const icono = iconos[extension] || 'file';
+  const nombreArchivo = rutaArchivo.split('/').pop();
+  
+  return `
+    <div class="archivo-descarga">
+      <div class="archivo-icono">
+        <i class="fas fa-${icono}"></i>
+      </div>
+      <div class="archivo-info">
+        <div class="archivo-nombre">${nombreArchivo}</div>
+        <div class="archivo-detalles">Tipo: ${extension.toUpperCase()} • ${tipo || 'Documento'}</div>
+      </div>
+      <a href="${urlCompleta}" download class="btn-descargar">
+        <i class="fas fa-download"></i> Descargar
+      </a>
+    </div>
+  `;
+}
+
+function obtenerExtension(rutaArchivo) {
+  return rutaArchivo.split('.').pop().toLowerCase();
+}
+
+function detectarTipoArchivo(extension) {
+  const tipos = {
+    'jpg': 'imagen', 'jpeg': 'imagen', 'png': 'imagen', 'gif': 'imagen', 'webp': 'imagen',
+    'pdf': 'pdf',
+    'mp4': 'video', 'webm': 'video', 'ogg': 'video',
+    'doc': 'documento', 'docx': 'documento', 'txt': 'documento',
+    'xls': 'documento', 'xlsx': 'documento',
+    'ppt': 'documento', 'pptx': 'documento'
+  };
+  return tipos[extension] || 'documento';
+}
+
+function obtenerIconoTipo(tipo) {
+  const iconos = {
+    'video': 'video',
+    'pdf': 'file-pdf',
+    'imagen': 'image',
+    'documento': 'file-alt'
+  };
+  return iconos[tipo] || 'book';
+}
+
+function openModal(imageSrc) {
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImage');
+  modal.classList.add('active');
+  modalImg.src = imageSrc;
+}
+
+function closeModal() {
+  document.getElementById('imageModal').classList.remove('active');
+}
+
+function mostrarError(mensaje) {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('errorContainer').style.display = 'block';
+  document.getElementById('errorMessage').textContent = mensaje;
+}
+
+function formatearFecha(fecha) {
+  const date = new Date(fecha);
+  return date.toLocaleDateString('es-MX', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+}
+
+function abrirModalCerrarSesion(e) {
+  e.preventDefault();
+  document.getElementById("modalCerrarSesion").style.display = "flex";
+}
+
+function cerrarModal() {
+  document.getElementById("modalCerrarSesion").style.display = "none";
+}
+
+function confirmarCerrarSesion() {
+  window.location.href = "index.html";
+}
+const menuToggle = document.getElementById('menu-toggle');
+const navMenu = document.getElementById('nav-menu');
+
+menuToggle.addEventListener('click', () => {
+  navMenu.classList.toggle('show'); // Agrega/quita clase para mostrar menú
+});
+</script>
+
+</body>
+</html>

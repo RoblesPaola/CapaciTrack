@@ -12,3 +12,7 @@ yarn-error.log*
 # OS
 .DS_Store
 Thumbs.db
+
+config.local.php
+
+vendor/

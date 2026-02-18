@@ -1,0 +1,16 @@
+<?php
+header("Content-Type: application/json");
+require_once __DIR__ . "/../config/db.php";
+
+$sql = "SELECT id, nombre, email, rol, telefono, razon_social, documentos
+FROM usuarios";
+
+$result = $conn->query($sql);
+
+$usuarios = [];
+
+while ($row = $result->fetch_assoc()) {
+  $usuarios[] = $row;
+}
+
+echo json_encode($usuarios);

@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crear Curso | CapaciTrack</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+ <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background-color: #e8f5e9;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #dcedc8;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-container img {
+      height: 55px;
+    }
+
+    .logo-container a {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #2e7d32;
+      text-decoration: none;
+    }
+
+    .topbar nav a {
+      margin-left: 25px;
+      color: #2e7d32;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .dashboard-container {
+      display: flex;
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 240px;
+      background: #e8f5e9;
+      border-right: 1px solid #c8e6c9;
+      padding: 20px 0;
+    }
+
+    .sidebar-item {
+      padding: 14px 25px;
+      display: flex;
+      gap: 12px;
+      color: #2e7d32;
+      text-decoration: none;
+    }
+
+    .sidebar-item:hover {
+      background: #c8e6c9;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      background: #fff;
+      overflow-y: auto;
+    }
+
+    .form-container {
+      max-width: 900px;
+      margin: auto;
+      background: #f9f9f9;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    h2, h3, h4, h5 {
+      color: #2e7d32;
+      margin-bottom: 15px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .module, .question {
+      background: #fff;
+      border: 1px solid #c8e6c9;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      padding: 10px 22px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background: #2e7d32;
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: #9e9e9e;
+      color: #fff;
+    }
+
+    .btn-add {
+      background: #388e3c;
+      color: #fff;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      background: #e8f5e9;
+      padding: 15px;
+      text-align: center;
+      border-top: 1px solid #c8e6c9;
+    }
+
+    .preview-image {
+      max-width: 200px;
+      margin-top: 10px;
+      border-radius: 6px;
+    }
+    .admin-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.admin-modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.admin-modal-content input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-size: 1.1rem;
+}
+/*cerrar sesion*/
+    .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-box {
+  background: #fff;
+  padding: 30px;
+  width: 400px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  animation: aparecer 0.25s ease;
+}
+
+.modal-box h2 {
+  margin-bottom: 10px;
+  color: #19aa1e;
+}
+
+.modal-box p {
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn-cancelar {
+  background: #e5e5e5;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-confirmar {
+  background: #19aa1e;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-confirmar:hover {
+  background: #19aa1e;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Icono hamburguesa */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #2e7d32;
+}
+
+/* Responsive: menú hamburguesa */
+@media screen and (max-width: 768px) {
+  .topbar nav {
+    display: none; /* Oculto por defecto */
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background-color: #e8f5e9;
+    width: 200px;
+    border-left: 1px solid #dcedc8;
+    padding: 10px 0;
+    z-index: 999;
+  }
+
+  .topbar nav a {
+    padding: 12px 20px;
+    border-top: 1px solid #dcedc8;
+    margin: 0;
+  }
+
+  .menu-toggle {
+    display: block; /* Mostrar hamburguesa en móvil */
+  }
+
+  /* Cuando el menú está abierto */
+  nav.show {
+    display: flex;
+  }
+}
+
+/* ===== SIDEBAR ESCRITORIO ===== */
+.sidebar {
+  width: 250px;
+  background-color: #e8f5e9;
+  border-right: 1px solid #c8e6c9;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+}
+
+/* Botón hamburguesa sidebar */
+.sidebar-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #2e7d32;
+}
+
+/* ===== MODO MÓVIL ===== */
+@media screen and (max-width: 768px) {
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px; /* Oculto */
+    height: 100%;
+    z-index: 1000;
+    transition: 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+  }
+
+  .sidebar.show {
+    left: 0; /* Se muestra */
+  }
+
+  .sidebar-toggle {
+    display: block;
+  }
+}
+.sidebar-toggle {
+  cursor: pointer;
+  font-size: 22px;
+  color: #2e7d32;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-toggle.rotate {
+  transform: rotate(90deg);
+}
+.sidebar-toggle {
+  margin-left: 15px;   /* Ajusta el espacio hacia la derecha */
+}
+
+  </style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="logo-container">
+    <img src="assets/logo.png">
+    <a href="paneladmin.html">CapaciTrack</a>
+  </div>
+  <div class="menu-toggle" id="menu-toggle">
+  <i class="fas fa-bars"></i> <!-- Icono hamburguesa -->
+</div>
+    <nav id="nav-menu">
+      <a href="registrousuarios.html">Registro de Usuarios</a>
+      <a href="registrodocs.html">Registro de Documentos</a>
+      <a href="perfil-admin.html">Perfil</a>
+         <a href="#" onclick="abrirModalCerrarSesion(event)">Cerrar Sesión</a>
+    </nav>
+</header>
+
+<div class="dashboard-container">
+
+ <!-- SIDEBAR -->
+<div class="sidebar-toggle" id="sidebar-toggle">
+  <i class="fas fa-chevron-right"></i>
+</div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="crear-curso.html" class="sidebar-item">
+    <i class="fas fa-plus-circle"></i>Agregar Curso
+  </a>
+  <a href="agregar-usuario.html" class="sidebar-item">
+    <i class="fas fa-user-plus"></i>Agregar Usuario
+  </a>
+  <a href="reportes.html" class="sidebar-item">
+    <i class="fas fa-chart-bar"></i>Reportes
+  </a>
+  <a href="ver-cursos.html" class="sidebar-item">
+    <i class="fas fa-play-circle"></i>Ver Cursos
+  </a>
+</aside>
+
+<main class="main-content">
+<div class="form-container">
+<!-- MODAL DE VERIFICACIÓN ADMIN -->
+<div id="adminModal" class="admin-modal">
+  <div class="admin-modal-content">
+    <h3>⚠️ Acceso restringido</h3>
+    <p>Solo los <strong>administradores</strong> pueden crear cursos.</p>
+    <p>Ingresa el código de verificación:</p>
+
+    <input type="password" id="adminCode" placeholder="Código de administrador">
+    
+    <div style="margin-top:15px;">
+      <button class="btn btn-primary" onclick="verificarCodigo()">Verificar</button>
+    </div>
+
+    <p id="errorCodigo" style="color:red; display:none; margin-top:10px;">
+      ❌ Código incorrecto
+    </p>
+  </div>
+</div>
+
+<h2>Crear Nuevo Curso</h2>
+
+<div class="form-group">
+<label>Nombre del Curso</label>
+<input id="cursoNombre">
+</div>
+
+<div class="form-group">
+<label>Descripción</label>
+<textarea id="cursoDescripcion"></textarea>
+</div>
+
+<div class="form-group">
+  <label>Portada del Curso</label>
+  <input type="file" id="cursoPortada" accept="image/*" onchange="previewPortada(this)">
+  <img id="portadaPreview" class="preview-image" style="display:none;">
+</div>
+
+<h3>Módulos / Actividades</h3>
+<div id="modules"></div>
+<button class="btn btn-add" onclick="addModule()">➕ Agregar Módulo</button>
+
+<h3>Evaluación</h3>
+<div id="questions"></div>
+<button class="btn btn-add" onclick="addQuestion()">➕ Agregar Pregunta</button>
+
+<div style="display:flex;justify-content:space-between;margin-top:25px">
+<button class="btn btn-secondary" onclick="location.href='paneladmin.html'">Cancelar</button>
+<button class="btn btn-primary" onclick="guardarCurso()">Guardar Curso</button>
+</div>
+
+</div>
+</main>
+</div>
+
+<footer>© 2026 CapaciTrack</footer>
+
+<script>
+let moduleCount=0,questionCount=0;
+
+function previewPortada(input) {
+  const preview = document.getElementById('portadaPreview');
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      preview.src = e.target.result;
+      preview.style.display = 'block';
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function previewModuloArchivo(input) {
+  const preview = input.parentElement.querySelector('.archivo-preview');
+  if (preview && input.files && input.files[0]) {
+    preview.textContent = `📎 ${input.files[0].name}`;
+    preview.style.display = 'block';
+  }
+}
+
+function addModule(){
+  moduleCount++;
+  const div=document.createElement("div");
+  div.className="module";
+  div.innerHTML=`
+    <h4>Módulo ${moduleCount}</h4>
+    <div class="form-group">
+      <label>Nombre del Módulo</label>
+      <input type="text" class="mod-nombre">
+    </div>
+
+    <div class="form-group">
+      <label>Descripción</label>
+      <textarea class="mod-desc"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label>Tipo de Contenido</label>
+      <select class="mod-tipo">
+        <option value="">Seleccionar...</option>
+        <option value="video">Video</option>
+        <option value="pdf">PDF</option>
+        <option value="imagen">Imagen</option>
+        <option value="documento">Documento</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label>Archivo del Módulo</label>
+      <input type="file" class="contenidoFile" onchange="previewModuloArchivo(this)">
+      <div class="archivo-preview" style="display:none; margin-top:8px; color:#2e7d32;"></div>
+    </div>
+  `;
+  modules.appendChild(div);
+}
+
+function addQuestion(){
+  questionCount++;
+  const div=document.createElement("div");
+  div.className="question";
+  div.innerHTML=`
+     <h4>Pregunta ${questionCount}</h4>
+
+  <div class="form-group">
+    <label>Tipo de pregunta</label>
+    <select class="q-tipo" onchange="changeType(this)">
+      <option value="">Tipo</option>
+      <option value="opcion">Opción múltiple</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Pregunta</label>
+    <input class="q-texto" placeholder="Escribe la pregunta">
+  </div>
+
+  <div class="form-group">
+    <label>Puntos que vale esta pregunta</label>
+    <input type="number" class="q-puntos" min="1" value="1">
+  </div>
+
+  <div class="q-opciones"></div>
+`;
+  questions.appendChild(div);
+}
+
+function changeType(sel){
+  const box=sel.closest(".question").querySelector(".q-opciones");
+  if(sel.value==="opcion"){
+    box.innerHTML=`
+      <input class="opcion" placeholder="Opción A">
+      <input class="opcion" placeholder="Opción B">
+      <input class="opcion" placeholder="Opción C">
+      <input class="opcion" placeholder="Opción D">
+      <select class="respuesta-correcta">
+        <option value="">Respuesta Correcta</option>
+        <option>A</option><option>B</option><option>C</option><option>D</option>
+      </select>
+    `;
+  } else box.innerHTML="";
+}
+
+async function guardarCurso(){
+  const titulo=cursoNombre.value.trim();
+  const descripcion=cursoDescripcion.value.trim();
+  
+  if(!titulo||!descripcion){
+    alert("Por favor completa el nombre y descripción del curso");
+    return;
+  }
+
+  // Crear FormData para enviar archivos
+  const formData = new FormData();
+  formData.append("titulo", titulo);
+  formData.append("descripcion", descripcion);
+
+  // Agregar portada si existe
+  const portadaFile = document.getElementById("cursoPortada").files[0];
+  if(portadaFile) {
+    formData.append("portada", portadaFile);
+  }
+
+  // Recopilar módulos
+  const modulos = [];
+  const modulosElements = document.querySelectorAll(".module");
+  
+  modulosElements.forEach((m, index) => {
+    const nombreMod = m.querySelector(".mod-nombre").value.trim();
+    if(nombreMod) {
+      const modulo = {
+        titulo: nombreMod,
+        descripcion: m.querySelector(".mod-desc").value.trim(),
+        tipo_contenido: m.querySelector(".mod-tipo").value
+      };
+      
+      modulos.push(modulo);
+      
+      // Agregar archivo del módulo si existe
+      const archivoInput = m.querySelector(".contenidoFile");
+      if(archivoInput.files[0]) {
+        formData.append(`modulo_archivo_${index}`, archivoInput.files[0]);
+      }
+    }
+  });
+
+  formData.append("modulos", JSON.stringify(modulos));
+
+  // Recopilar evaluaciones
+  const evaluaciones = [];
+ document.querySelectorAll(".question").forEach(q => {
+  const tipo = q.querySelector(".q-tipo").value;
+  const texto = q.querySelector(".q-texto").value.trim();
+  const puntos = parseInt(q.querySelector(".q-puntos").value) || 0;
+
+  if (!tipo || !texto || puntos <= 0) return;
+
+  if (tipo === "opcion") {
+    const opciones = [...q.querySelectorAll(".opcion")].map(o => o.value.trim());
+    const correcta = q.querySelector(".respuesta-correcta").value;
+
+    if (opciones.some(o => o) && correcta) {
+      evaluaciones.push({
+        tipo,
+        pregunta: texto,
+        opciones,
+        correcta,
+        puntos
+      });
+    }
+  }
+});
+
+
+  formData.append("evaluaciones", JSON.stringify(evaluaciones));
+
+  try {
+   const res = await fetch("http://localhost/capacitrack/backend/crear_curso.php", {
+  method: "POST",
+  body: formData,
+  credentials: "include" // 🔥 ESTO ES CLAVE
+});
+
+const text = await res.text();
+console.log("Respuesta del servidor:", text);
+
+let data;
+try {
+  data = JSON.parse(text);
+} catch (e) {
+  alert("El servidor no devolvió JSON válido:\n" + text);
+  return;
+}
+
+    
+    if(data.success) {
+  document.getElementById("modalExito").style.display = "flex";
+}
+
+ else {
+      alert("Error: " + (data.message || "No se pudo guardar el curso"));
+    }
+  } catch(error) {
+    console.error("Error:", error);
+    alert("Error de conexión. Verifica la consola para más detalles.");
+  }
+}
+function irACursos() {
+  window.location.href = "ver-cursos.html";
+}
+const CODIGO_ADMIN = "12345678";
+
+function verificarCodigo() {
+  const input = document.getElementById("adminCode").value;
+  const error = document.getElementById("errorCodigo");
+
+  if (input === CODIGO_ADMIN) {
+    document.getElementById("adminModal").style.display = "none";
+  } else {
+    error.style.display = "block";
+  }
+}
+
+</script>
+
+<!-- MODAL CERRAR SESIÓN -->
+<div id="modalCerrarSesion" class="modal-overlay">
+  <div class="modal-box">
+    <h2>⚠️ Cerrar sesión</h2>
+    <p>¿Seguro que deseas cerrar la sesión?</p>
+
+    <div class="modal-actions">
+      <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+      <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
+    </div>
+  </div>
+</div>
+<script>
+function abrirModalCerrarSesion(e) {
+  e.preventDefault();
+  document.getElementById("modalCerrarSesion").style.display = "flex";
+}
+
+function cerrarModal() {
+  document.getElementById("modalCerrarSesion").style.display = "none";
+}
+
+function confirmarCerrarSesion() {
+  // Si usas sesiones o tokens, aquí los limpias
+  // localStorage.clear();
+  // sessionStorage.clear();
+
+  window.location.href = "index.html";
+}
+
+//menu hamburguesa//
+const menuToggle = document.getElementById('menu-toggle');
+const navMenu = document.getElementById('nav-menu');
+
+menuToggle.addEventListener('click', () => {
+  navMenu.classList.toggle('show'); // Agrega/quita clase para mostrar menú
+});
+
+//menu lateral//
+const sidebarToggle = document.getElementById('sidebar-toggle');
+const sidebar = document.getElementById('sidebar');
+
+sidebarToggle.addEventListener('click', () => {
+  sidebar.classList.toggle('show');
+  sidebarToggle.classList.toggle('rotate');
+});
+
+</script>
+<!-- MODAL CURSO CREADO -->
+<div id="modalExito" class="modal-overlay">
+  <div class="modal-box">
+    <div style="font-size:50px; color:#2e7d32;">✔️</div>
+    <h2>¡Curso creado!</h2>
+    <p>El curso se ha creado exitosamente.</p>
+
+    <div class="modal-actions">
+      <button class="btn-confirmar" onclick="irACursos()">Ir a cursos</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1630 @@
+2026-01-29 16:37:56 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => vasd
+    [descripcion] => adv
+    [modulos] => []
+    [evaluaciones] => []
+)
+
+FILES: Array
+(
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Contenido JSON: {"modulos":[],"evaluaciones":[]}
+ÉXITO: Curso ID 103 creado
+Fin de ejecución
+
+2026-01-29 20:41:12 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => lhojop
+    [descripcion] => gyujf
+    [modulos] => [{"titulo":"lih","descripcion":"kiolj","tipo_contenido":"documento"}]
+    [evaluaciones] => []
+)
+
+FILES: Array
+(
+    [portada] => Array
+        (
+            [name] => Captura de pantalla 2025-10-22 165219.png
+            [type] => image/png
+            [tmp_name] => D:\xampp\tmp\php71F9.tmp
+            [error] => 0
+            [size] => 425249
+        )
+
+    [modulo_archivo_0] => Array
+        (
+            [name] => Metodologias-Agiles-en-Desarrollo-Movil.pptx
+            [type] => application/vnd.openxmlformats-officedocument.presentationml.presentation
+            [tmp_name] => D:\xampp\tmp\php71FA.tmp
+            [error] => 0
+            [size] => 4088909
+        )
+
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Portada guardada: uploads/portadas/portada_1769715672_697bb7d819b02.png
+Archivo módulo 0 guardado: uploads/modulos/modulo_1769715672_0.pptx
+Contenido JSON: {"modulos":[{"titulo":"lih","descripcion":"kiolj","tipo_contenido":"documento","archivo":"uploads\/modulos\/modulo_1769715672_0.pptx"}],"evaluaciones":[]}
+ÉXITO: Curso ID 104 creado
+Fin de ejecución
+
+2026-01-30 15:15:47 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => jsjs
+    [descripcion] => sjnañs
+    [modulos] => []
+    [evaluaciones] => []
+)
+
+FILES: Array
+(
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Contenido JSON: {"modulos":[],"evaluaciones":[]}
+ÉXITO: Curso ID 105 creado
+Fin de ejecución
+
+2026-01-30 15:19:16 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => ttt
+    [descripcion] => ttttt
+    [modulos] => []
+    [evaluaciones] => []
+)
+
+FILES: Array
+(
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Contenido JSON: {"modulos":[],"evaluaciones":[]}
+ÉXITO: Curso ID 106 creado
+Fin de ejecución
+
+2026-01-30 15:20:23 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => eeeeee
+    [descripcion] => eeeeeeeee
+    [modulos] => []
+    [evaluaciones] => []
+)
+
+FILES: Array
+(
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Contenido JSON: {"modulos":[],"evaluaciones":[]}
+ÉXITO: Curso ID 107 creado
+Fin de ejecución
+
+2026-01-30 15:40:37 - Inicio crear_curso.php
+SESSION: Array
+(
+    [user_id] => 1
+    [rol] => admin
+    [nombre] => Paola Robles
+)
+
+ÉXITO curso ID 108
+Fin ejecución
+
+2026-01-30 15:42:11 - Inicio crear_curso.php
+SESSION: Array
+(
+    [user_id] => 1
+    [rol] => admin
+    [nombre] => Paola Robles
+)
+
+ÉXITO curso ID 109
+Fin ejecución
+
+2026-01-30 16:02:36 - INICIO
+POST:
+Array
+(
+    [titulo] => dsw
+    [descripcion] => sd
+    [modulos] => []
+    [evaluaciones] => []
+    [contenido] => {"modulos":[],"evaluaciones":[]}
+)
+FILES:
+Array
+(
+)
+CURSO CREADO ID: 110
+FIN
+
+2026-01-30 16:05:45 - INICIO
+POST:
+Array
+(
+    [titulo] => bs
+    [descripcion] => bfsd
+    [modulos] => []
+    [evaluaciones] => []
+    [contenido] => {"modulos":[],"evaluaciones":[]}
+)
+FILES:
+Array
+(
+)
+ERROR: No se pudo guardar el curso
+FIN
+
+2026-01-30 16:05:48 - INICIO
+POST:
+Array
+(
+    [titulo] => bs
+    [descripcion] => bfsd
+    [modulos] => []
+    [evaluaciones] => []
+    [contenido] => {"modulos":[],"evaluaciones":[]}
+)
+FILES:
+Array
+(
+)
+ERROR: No se pudo guardar el curso
+FIN
+
+2026-01-30 16:07:29 - INICIO
+POST:
+Array
+(
+    [titulo] => dgs
+    [descripcion] => sg
+    [modulos] => []
+    [evaluaciones] => []
+    [contenido] => {"modulos":[],"evaluaciones":[]}
+)
+FILES:
+Array
+(
+)
+ERROR: Error SQL: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '))' at line 3
+2026-01-30 16:34:28 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => ZSDV
+    [descripcion] => VDS
+    [modulos] => []
+    [evaluaciones] => []
+    [contenido] => {"modulos":[],"evaluaciones":[]}
+)
+
+FILES: Array
+(
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Contenido JSON: {"modulos":[],"evaluaciones":[]}
+ÉXITO: Curso ID 116 creado
+Fin de ejecución
+
+2026-01-30 16:34:59 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => ES
+    [descripcion] => SDVSS
+    [modulos] => []
+    [evaluaciones] => []
+    [contenido] => {"modulos":[],"evaluaciones":[]}
+)
+
+FILES: Array
+(
+    [portada] => Array
+        (
+            [name] => manejo defensivo.jpg
+            [type] => image/jpeg
+            [tmp_name] => D:\xampp\tmp\php99BC.tmp
+            [error] => 0
+            [size] => 33354
+        )
+
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Portada guardada: uploads/portadas/portada_1769787299_697ccfa3e780c.jpg
+Contenido JSON: {"modulos":[],"evaluaciones":[]}
+ÉXITO: Curso ID 117 creado
+Fin de ejecución
+
+2026-01-30 16:35:52 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => SDVS
+    [descripcion] => SDV
+    [modulos] => [{"titulo":"ZDVZ","descripcion":"DVAZ","tipo_contenido":"pdf"}]
+    [evaluaciones] => []
+    [contenido] => {"modulos":[{"titulo":"ZDVZ","descripcion":"DVAZ","tipo_contenido":"pdf"}],"evaluaciones":[]}
+)
+
+FILES: Array
+(
+    [portada] => Array
+        (
+            [name] => manejo defensivo.jpg
+            [type] => image/jpeg
+            [tmp_name] => D:\xampp\tmp\php6913.tmp
+            [error] => 0
+            [size] => 33354
+        )
+
+    [modulo_archivo_0] => Array
+        (
+            [name] => modulos.pdf
+            [type] => application/pdf
+            [tmp_name] => D:\xampp\tmp\php6914.tmp
+            [error] => 0
+            [size] => 105128
+        )
+
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Portada guardada: uploads/portadas/portada_1769787353_697ccfd9041f8.jpg
+Archivo módulo 0 guardado: uploads/modulos/modulo_1769787353_0.pdf
+Contenido JSON: {"modulos":[{"titulo":"ZDVZ","descripcion":"DVAZ","tipo_contenido":"pdf","archivo":"uploads\/modulos\/modulo_1769787353_0.pdf"}],"evaluaciones":[]}
+ÉXITO: Curso ID 118 creado
+Fin de ejecución
+
+2026-01-30 16:37:30 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => QWSF
+    [descripcion] => AF
+    [modulos] => []
+    [evaluaciones] => [{"tipo":"opcion","pregunta":"ASVA","opciones":["A","A","A","A"],"correcta":"A"}]
+    [contenido] => {"modulos":[],"evaluaciones":[{"tipo":"opcion","pregunta":"ASVA","opciones":["A","A","A","A"],"correcta":"A"}]}
+)
+
+FILES: Array
+(
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Contenido JSON: {"modulos":[],"evaluaciones":[{"tipo":"opcion","pregunta":"ASVA","opciones":["A","A","A","A"],"correcta":"A"}]}
+ÉXITO: Curso ID 119 creado
+Fin de ejecución
+
+2026-01-30 16:40:49 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => eaa
+    [descripcion] => ascf
+    [modulos] => []
+    [evaluaciones] => []
+)
+
+FILES: Array
+(
+    [portada] => Array
+        (
+            [name] => manejo defensivo.jpg
+            [type] => image/jpeg
+            [tmp_name] => D:\xampp\tmp\phpF072.tmp
+            [error] => 0
+            [size] => 33354
+        )
+
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Portada guardada: uploads/portadas/portada_1769787649_697cd101d161e.jpg
+Contenido JSON: {"modulos":[],"evaluaciones":[]}
+ÉXITO: Curso ID 120 creado
+Fin de ejecución
+
+2026-01-30 16:41:32 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => sdv
+    [descripcion] => sd
+    [modulos] => [{"titulo":"sdzv","descripcion":"sdv","tipo_contenido":"pdf"}]
+    [evaluaciones] => []
+)
+
+FILES: Array
+(
+    [portada] => Array
+        (
+            [name] => manejo defensivo.jpg
+            [type] => image/jpeg
+            [tmp_name] => D:\xampp\tmp\php984C.tmp
+            [error] => 0
+            [size] => 33354
+        )
+
+    [modulo_archivo_0] => Array
+        (
+            [name] => modulos.pdf
+            [type] => application/pdf
+            [tmp_name] => D:\xampp\tmp\php985C.tmp
+            [error] => 0
+            [size] => 105128
+        )
+
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Portada guardada: uploads/portadas/portada_1769787692_697cd12cc6c17.jpg
+Archivo módulo 0 guardado: uploads/modulos/modulo_1769787692_0.pdf
+Contenido JSON: {"modulos":[{"titulo":"sdzv","descripcion":"sdv","tipo_contenido":"pdf","archivo":"uploads\/modulos\/modulo_1769787692_0.pdf"}],"evaluaciones":[]}
+ÉXITO: Curso ID 121 creado
+Fin de ejecución
+
+2026-01-30 16:42:41 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => wwwwwwwwwwww
+    [descripcion] => sdv
+    [modulos] => []
+    [evaluaciones] => []
+)
+
+FILES: Array
+(
+    [portada] => Array
+        (
+            [name] => manejo defensivo.jpg
+            [type] => image/jpeg
+            [tmp_name] => D:\xampp\tmp\phpA336.tmp
+            [error] => 0
+            [size] => 33354
+        )
+
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Portada guardada: uploads/portadas/portada_1769787761_697cd17136c2e.jpg
+Contenido JSON: {"modulos":[],"evaluaciones":[]}
+ÉXITO: Curso ID 122 creado
+Fin de ejecución
+
+2026-01-30 16:43:00 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => dsssssssssss
+    [descripcion] => wwwwww
+    [modulos] => []
+    [evaluaciones] => []
+)
+
+FILES: Array
+(
+    [portada] => Array
+        (
+            [name] => manejo defensivo.jpg
+            [type] => image/jpeg
+            [tmp_name] => D:\xampp\tmp\phpEF05.tmp
+            [error] => 0
+            [size] => 33354
+        )
+
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Portada guardada: uploads/portadas/portada_1769787780_697cd18486c24.jpg
+Contenido JSON: {"modulos":[],"evaluaciones":[]}
+ÉXITO: Curso ID 123 creado
+Fin de ejecución
+
+2026-01-30 17:13:52 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => koko
+    [descripcion] => koko
+    [modulos] => [{"titulo":"sca","descripcion":"as","tipo_contenido":"imagen"}]
+    [evaluaciones] => []
+)
+
+FILES: Array
+(
+    [portada] => Array
+        (
+            [name] => manejo defensivo.jpg
+            [type] => image/jpeg
+            [tmp_name] => D:\xampp\tmp\php30BB.tmp
+            [error] => 0
+            [size] => 33354
+        )
+
+    [modulo_archivo_0] => Array
+        (
+            [name] => imagen1.jpeg
+            [type] => image/jpeg
+            [tmp_name] => D:\xampp\tmp\php30BC.tmp
+            [error] => 0
+            [size] => 109309
+        )
+
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Portada guardada: uploads/portadas/portada_1769789632_697cd8c09a44f.jpg
+Archivo módulo 0 guardado: uploads/modulos/modulo_1769789632_0.jpeg
+Contenido JSON: {"modulos":[{"titulo":"sca","descripcion":"as","tipo_contenido":"imagen","archivo":"uploads\/modulos\/modulo_1769789632_0.jpeg"}],"evaluaciones":[]}
+ÉXITO: Curso ID 124 creado
+Fin de ejecución
+
+
+
+2026-01-30 17:20:59 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => sisisi
+    [descripcion] => adv
+    [modulos] => [{"titulo":"adf","descripcion":"asd","tipo_contenido":"imagen"}]
+    [evaluaciones] => []
+)
+
+FILES: Array
+(
+    [portada] => Array
+        (
+            [name] => manejo defensivo.jpg
+            [type] => image/jpeg
+            [tmp_name] => D:\xampp\tmp\phpB503.tmp
+            [error] => 0
+            [size] => 33354
+        )
+
+    [modulo_archivo_0] => Array
+        (
+            [name] => imagen1.jpeg
+            [type] => image/jpeg
+            [tmp_name] => D:\xampp\tmp\phpB504.tmp
+            [error] => 0
+            [size] => 109309
+        )
+
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Portada guardada: uploads/portadas/portada_1769790059_697cda6b918e0.jpg
+Módulos recibidos: 1
+Archivo módulo 0 guardado: uploads/modulos/modulo_1769790059_0.jpeg
+Evaluaciones recibidas: 0
+Curso insertado con ID: 125
+Insertando 1 módulos...
+Insertando módulo 0: adf
+✅ Módulo 0 insertado correctamente (ID: 26)
+✅ ÉXITO TOTAL: Curso ID 125 creado con 1 módulos y 0 evaluaciones
+Fin de ejecución
+
+
+2026-01-30 17:22:27 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => kokoko
+    [descripcion] => okoko
+    [modulos] => [{"titulo":"ookokok","descripcion":"okokokoko","tipo_contenido":"pdf"}]
+    [evaluaciones] => [{"tipo":"opcion","pregunta":"sdksl","opciones":["a","a","a","a"],"correcta":"A"}]
+)
+
+FILES: Array
+(
+    [portada] => Array
+        (
+            [name] => manejo defensivo.jpg
+            [type] => image/jpeg
+            [tmp_name] => D:\xampp\tmp\phpC87.tmp
+            [error] => 0
+            [size] => 33354
+        )
+
+    [modulo_archivo_0] => Array
+        (
+            [name] => modulos.pdf
+            [type] => application/pdf
+            [tmp_name] => D:\xampp\tmp\phpCA7.tmp
+            [error] => 0
+            [size] => 105128
+        )
+
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Portada guardada: uploads/portadas/portada_1769790147_697cdac37f638.jpg
+Módulos recibidos: 1
+Archivo módulo 0 guardado: uploads/modulos/modulo_1769790147_0.pdf
+Evaluaciones recibidas: 1
+Curso insertado con ID: 126
+Insertando 1 módulos...
+Insertando módulo 0: ookokok
+✅ Módulo 0 insertado correctamente (ID: 27)
+Insertando 1 evaluaciones...
+Insertando evaluación 0: sdksl
+✅ Evaluación 0 insertada correctamente (ID: 20)
+✅ ÉXITO TOTAL: Curso ID 126 creado con 1 módulos y 1 evaluaciones
+Fin de ejecución
+
+
+2026-01-30 17:26:00 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => sdfs
+    [descripcion] => asfa
+    [modulos] => [{"titulo":"asf","descripcion":"asf","tipo_contenido":"documento"}]
+    [evaluaciones] => [{"tipo":"abierta","pregunta":"csacads?"}]
+)
+
+FILES: Array
+(
+    [portada] => Array
+        (
+            [name] => imagen1.jpeg
+            [type] => image/jpeg
+            [tmp_name] => D:\xampp\tmp\php4B49.tmp
+            [error] => 0
+            [size] => 109309
+        )
+
+    [modulo_archivo_0] => Array
+        (
+            [name] => PlaticaTitulaciónUtJalpanGeneración-2024-2026.pptx
+            [type] => application/vnd.openxmlformats-officedocument.presentationml.presentation
+            [tmp_name] => D:\xampp\tmp\php4B69.tmp
+            [error] => 0
+            [size] => 2669011
+        )
+
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Portada guardada: uploads/portadas/portada_1769790360_697cdb983dd6a.jpeg
+Módulos recibidos: 1
+Archivo módulo 0 guardado: uploads/modulos/modulo_1769790360_0.pptx
+Evaluaciones recibidas: 1
+Curso insertado con ID: 127
+Insertando 1 módulos...
+Insertando módulo 0: asf
+✅ Módulo 0 insertado correctamente (ID: 28)
+Insertando 1 evaluaciones...
+Insertando evaluación 0: csacads?
+ERROR al insertar evaluación 0: CONSTRAINT `evaluaciones.opciones` failed for `capacitrack1`.`evaluaciones`
+❌ ERROR: Error al insertar evaluación: CONSTRAINT `evaluaciones.opciones` failed for `capacitrack1`.`evaluaciones`
+Stack trace: #0 {main}
+Fin de ejecución
+
+
+2026-01-30 17:26:15 - Inicio de crear_curso.php
+POST: Array
+(
+    [titulo] => sdfs
+    [descripcion] => asfa
+    [modulos] => [{"titulo":"asf","descripcion":"asf","tipo_contenido":"documento"}]
+    [evaluaciones] => [{"tipo":"opcion","pregunta":"csacads?","opciones":["q","q","q","q"],"correcta":"D"}]
+)
+
+FILES: Array
+(
+    [portada] => Array
+        (
+            [name] => imagen1.jpeg
+            [type] => image/jpeg
+            [tmp_name] => D:\xampp\tmp\php86EC.tmp
+            [error] => 0
+            [size] => 109309
+        )
+
+    [modulo_archivo_0] => Array
+        (
+            [name] => PlaticaTitulaciónUtJalpanGeneración-2024-2026.pptx
+            [type] => application/vnd.openxmlformats-officedocument.presentationml.presentation
+            [tmp_name] => D:\xampp\tmp\php86ED.tmp
+            [error] => 0
+            [size] => 2669011
+        )
+
+)
+
+ADVERTENCIA: No hay usuario en sesión, usando ID 1 por defecto
+Portada guardada: uploads/portadas/portada_1769790375_697cdba771633.jpeg
+Módulos recibidos: 1
+Archivo módulo 0 guardado: uploads/modulos/modulo_1769790375_0.pptx
+Evaluaciones recibidas: 1
+Curso insertado con ID: 128
+Insertando 1 módulos...
+Insertando módulo 0: asf
+✅ Módulo 0 insertado correctamente (ID: 29)
+Insertando 1 evaluaciones...
+Insertando evaluación 0: csacads?
+✅ Evaluación 0 insertada correctamente (ID: 21)
+✅ ÉXITO TOTAL: Curso ID 128 creado con 1 módulos y 1 evaluaciones
+Fin de ejecución
+
+
+============================================================
+2026-01-30 17:30:17 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: aef
+Descripción: www
+✅ Portada guardada: uploads/portadas/portada_1769790617_697cdc996b321.jpeg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1769790617_697cdc996bc71_0.pdf
+Evaluaciones recibidas: 1
+✅ Curso insertado - ID: 129
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: ww
+✅ Módulo 0 insertado - ID: 30
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: sdgws
+✅ Evaluación 0 insertada - ID: 22
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 129
+Módulos insertados: 1
+Evaluaciones insertadas: 1
+============================================================
+
+
+============================================================
+2026-01-30 17:30:49 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: sndfoila
+Descripción: sdhuvola
+✅ Portada guardada: uploads/portadas/portada_1769790649_697cdcb91d085.jpeg
+Módulos recibidos: 0
+Evaluaciones recibidas: 1
+✅ Curso insertado - ID: 130
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: daisdfa
+❌ Error eval 0: CONSTRAINT `evaluaciones.opciones` failed for `capacitrack1`.`evaluaciones`
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 130
+Módulos insertados: 0
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-01-30 17:44:13 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: MANEJO DEFENSIVO 3
+Descripción: PRUEBA
+✅ Portada guardada: uploads/portadas/portada_1769791453_697cdfddab2c1.jpg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1769791453_697cdfddab7bc_0.pptx
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 131
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: MANEJO DEFENSIVO
+✅ Módulo 0 insertado - ID: 31
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 131
+Módulos insertados: 1
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-01-30 17:46:14 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: ISOIJS
+Descripción: SDKL
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1769791574_697ce056459df_0.jpeg
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 132
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: FBD
+✅ Módulo 0 insertado - ID: 32
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 132
+Módulos insertados: 1
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-01-30 17:51:16 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: DAVA
+Descripción: ADVF
+Módulos recibidos: 0
+Evaluaciones recibidas: 1
+✅ Curso insertado - ID: 133
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: VDSGD
+✅ Evaluación 0 insertada - ID: 23
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 133
+Módulos insertados: 0
+Evaluaciones insertadas: 1
+============================================================
+
+
+============================================================
+2026-01-30 18:12:32 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: VECO
+Descripción: EL CONDUCTOR APRENDERA DEL SISTEMA VECO Y MEJORARÁ SUS HABILIDADES PARA DONDUCIR
+✅ Portada guardada: uploads/portadas/portada_1769793153_697ce68106ade.jpg
+Módulos recibidos: 2
+✅ Archivo módulo 0: uploads/modulos/modulo_1769793153_697ce68109d0a_0.pdf
+✅ Archivo módulo 1: uploads/modulos/modulo_1769793153_697ce6810bc2d_1.pdf
+Evaluaciones recibidas: 2
+✅ Curso insertado - ID: 134
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: MODULO DE MANEJO DEFENSIVO
+✅ Módulo 0 insertado - ID: 33
+Módulo 1: MODULO DE MANEJO DEFENSIVO 2
+✅ Módulo 1 insertado - ID: 34
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: QUÉ ES EL MANEJO DEFENSIVO
+✅ Evaluación 0 insertada - ID: 24
+Evaluación 1: El alcohol puede ser factor determinado de acciden
+✅ Evaluación 1 insertada - ID: 25
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 134
+Módulos insertados: 2
+Evaluaciones insertadas: 2
+============================================================
+
+
+============================================================
+2026-01-30 19:22:45 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: Manejo Defensivo
+Descripción: OBJETIVONDFJAK
+✅ Portada guardada: uploads/portadas/portada_1769797365_697cf6f5b78ac.jpeg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1769797365_697cf6f5b8264_0.mp4
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 136
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: KAKDKA
+✅ Módulo 0 insertado - ID: 36
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 136
+Módulos insertados: 1
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-01-30 20:25:56 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: 
+Descripción: 
+
+❌❌❌ ERROR ❌❌❌
+Título y descripción son obligatorios
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 56
+
+
+============================================================
+2026-01-30 20:26:03 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: 
+Descripción: 
+
+❌❌❌ ERROR ❌❌❌
+Título y descripción son obligatorios
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 56
+
+
+============================================================
+2026-01-30 20:26:11 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: sdv
+Descripción: sdv
+✅ Portada guardada: uploads/portadas/portada_1769801172_697d05d4246a8.jpg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1769801172_697d05d424dcc_0.mp4
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 137
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: dvsw
+✅ Módulo 0 insertado - ID: 37
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 137
+Módulos insertados: 1
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-02-03 16:15:50 - INICIO CREAR CURSO
+============================================================
+
+
+============================================================
+2026-02-03 16:15:51 - INICIO CREAR CURSO
+============================================================
+
+
+============================================================
+2026-02-03 16:15:58 - INICIO CREAR CURSO
+============================================================
+
+
+============================================================
+2026-02-03 16:15:59 - INICIO CREAR CURSO
+============================================================
+
+
+============================================================
+2026-02-03 16:15:59 - INICIO CREAR CURSO
+============================================================
+
+
+============================================================
+2026-02-03 16:16:07 - INICIO CREAR CURSO
+============================================================
+
+
+============================================================
+2026-02-03 16:16:09 - INICIO CREAR CURSO
+============================================================
+
+
+============================================================
+2026-02-03 16:16:09 - INICIO CREAR CURSO
+============================================================
+
+
+============================================================
+2026-02-03 16:16:10 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: nlkk
+Descripción: ,jmn
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+
+❌❌❌ ERROR ❌❌❌
+Error prepare curso: MySQL server has gone away
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 153
+Usuario ID: 1
+Título: nlkk
+Descripción: ,jmn
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+
+❌❌❌ ERROR ❌❌❌
+Error prepare curso: MySQL server has gone away
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 153
+Usuario ID: 1
+Título: nlkk
+Descripción: ,jmn
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+
+❌❌❌ ERROR ❌❌❌
+Error prepare curso: MySQL server has gone away
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 153
+Usuario ID: 1
+Título: nlkk
+Descripción: ,jmn
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+
+❌❌❌ ERROR ❌❌❌
+Error prepare curso: MySQL server has gone away
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 153
+Usuario ID: 1
+Título: nlkk
+Descripción: ,jmn
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+
+❌❌❌ ERROR ❌❌❌
+Error prepare curso: MySQL server has gone away
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 153
+Usuario ID: 1
+Título: kuj
+Descripción: ihk
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+
+❌❌❌ ERROR ❌❌❌
+Error prepare curso: MySQL server has gone away
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 153
+Usuario ID: 1
+Título: kuj
+Descripción: ihk
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+
+❌❌❌ ERROR ❌❌❌
+Error prepare curso: MySQL server has gone away
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 153
+Usuario ID: 1
+Título: kuj
+Descripción: ihk
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+
+❌❌❌ ERROR ❌❌❌
+Error prepare curso: MySQL server has gone away
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 153
+Usuario ID: 1
+Título: kuj
+Descripción: ihk
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+
+❌❌❌ ERROR ❌❌❌
+Error prepare curso: MySQL server has gone away
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 153
+
+
+============================================================
+2026-02-03 16:53:38 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: MANEJO DEFENSIVO 2
+Descripción: PRUEBA
+✅ Portada guardada: uploads/portadas/portada_1770134018_69821a022102e.jpeg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1770134018_69821a022653b_0.mp4
+Evaluaciones recibidas: 1
+✅ Curso insertado - ID: 138
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: PRUEBA
+✅ Módulo 0 insertado - ID: 38
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: ¿CUAL ES EL BUEN MANEJO DEFENSIVO?
+✅ Evaluación 0 insertada - ID: 26
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 138
+Módulos insertados: 1
+Evaluaciones insertadas: 1
+============================================================
+
+
+============================================================
+2026-02-03 20:06:07 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: MANEJO DEFENSIVO 3
+Descripción: prueba
+✅ Portada guardada: uploads/portadas/portada_1770145567_6982471f7b76c.jpeg
+Módulos recibidos: 2
+✅ Archivo módulo 0: uploads/modulos/modulo_1770145567_6982471f7bd76_0.mp4
+✅ Archivo módulo 1: uploads/modulos/modulo_1770145567_6982471f7c14e_1.mp4
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 139
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: fvs
+✅ Módulo 0 insertado - ID: 39
+Módulo 1: xa
+✅ Módulo 1 insertado - ID: 40
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 139
+Módulos insertados: 2
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-02-04 16:00:48 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: Manejo Defensivoooo
+Descripción: asca
+✅ Portada guardada: uploads/portadas/portada_1770217248_69835f2048185.jpeg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1770217248_69835f204bb9d_0.mp4
+Evaluaciones recibidas: 1
+
+
+============================================================
+2026-02-04 16:00:50 - INICIO CREAR CURSO
+============================================================
+
+
+============================================================
+2026-02-04 16:00:50 - INICIO CREAR CURSO
+============================================================
+
+
+============================================================
+2026-02-04 16:00:51 - INICIO CREAR CURSO
+============================================================
+
+❌❌❌ ERROR ❌❌❌
+Error execute curso: MySQL server has gone away
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 159
+Usuario ID: 1
+Título: Manejo Defensivoooo
+Descripción: asca
+✅ Portada guardada: uploads/portadas/portada_1770217255_69835f27e00c8.jpeg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1770217255_69835f27e0d16_0.mp4
+Evaluaciones recibidas: 1
+
+❌❌❌ ERROR ❌❌❌
+Error prepare curso: MySQL server has gone away
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 153
+Usuario ID: 1
+Título: Manejo Defensivoooo
+Descripción: asca
+✅ Portada guardada: uploads/portadas/portada_1770217255_69835f27e2edf.jpeg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1770217255_69835f27e382b_0.mp4
+Evaluaciones recibidas: 1
+
+❌❌❌ ERROR ❌❌❌
+Error prepare curso: MySQL server has gone away
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 153
+Usuario ID: 1
+Título: Manejo Defensivoooo
+Descripción: asca
+✅ Portada guardada: uploads/portadas/portada_1770217255_69835f27e6ce7.jpeg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1770217255_69835f27e7536_0.mp4
+Evaluaciones recibidas: 1
+
+❌❌❌ ERROR ❌❌❌
+Error prepare curso: MySQL server has gone away
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 153
+
+
+============================================================
+2026-02-04 16:01:14 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: Manejo Defensivoooo
+Descripción: asca
+✅ Portada guardada: uploads/portadas/portada_1770217274_69835f3a9429b.jpeg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1770217274_69835f3a948af_0.mp4
+Evaluaciones recibidas: 1
+✅ Curso insertado - ID: 140
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: asca
+✅ Módulo 0 insertado - ID: 41
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+
+❌❌❌ ERROR ❌❌❌
+Error prepare evaluaciones: Column count doesn't match value count at row 1
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 231
+
+
+============================================================
+2026-02-04 16:02:07 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: qaeq
+Descripción: afxz
+✅ Portada guardada: uploads/portadas/portada_1770217327_69835f6f87b2d.jpeg
+Módulos recibidos: 0
+Evaluaciones recibidas: 1
+✅ Curso insertado - ID: 141
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+
+❌❌❌ ERROR ❌❌❌
+Error prepare evaluaciones: Column count doesn't match value count at row 1
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 231
+
+
+============================================================
+2026-02-04 16:03:46 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: egw
+Descripción: wef
+✅ Portada guardada: uploads/portadas/portada_1770217426_69835fd2096f6.jpeg
+Módulos recibidos: 0
+Evaluaciones recibidas: 2
+✅ Curso insertado - ID: 142
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: asfa
+✅ Evaluación 0 insertada - ID: 27
+Evaluación 1: asfa
+✅ Evaluación 1 insertada - ID: 28
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 142
+Módulos insertados: 0
+Evaluaciones insertadas: 2
+============================================================
+
+
+============================================================
+2026-02-05 18:54:08 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: MANEJO DEFENSIVO
+Descripción: El curso de Manejo Defensivo capacita al participante para adoptar una conducción proactiva, antici
+✅ Portada guardada: uploads/portadas/portada_1770314048_6984d940e1125.jpeg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1770314048_6984d940e2628_0.mp4
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 143
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: INTRODUCCION
+✅ Módulo 0 insertado - ID: 42
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 143
+Módulos insertados: 1
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-02-06 16:32:59 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: sss
+Descripción: ssssss
+✅ Portada guardada: uploads/portadas/portada_1770391979_698609abbd015.jpeg
+Módulos recibidos: 2
+✅ Archivo módulo 0: uploads/modulos/modulo_1770391979_698609abc2a42_0.pdf
+✅ Archivo módulo 1: uploads/modulos/modulo_1770391979_698609abc2d45_1.mp4
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 144
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: saaaaaaaaaa
+✅ Módulo 0 insertado - ID: 43
+Módulo 1: asdcsa
+✅ Módulo 1 insertado - ID: 44
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 144
+Módulos insertados: 2
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-02-10 19:05:00 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: MANEJO DEFENSIVO
+Descripción: El curso de Manejo Defensivo capacita al participante para adoptar una conducción proactiva, antici
+✅ Portada guardada: uploads/portadas/portada_1770746700_698b734c2fa60.jpeg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1770746700_698b734c321fd_0.mp4
+Evaluaciones recibidas: 2
+✅ Curso insertado - ID: 145
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: INTRODUCCIÓN
+✅ Módulo 0 insertado - ID: 45
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: QUE ES EL MANEJO DEFENSIVO?
+✅ Evaluación 0 insertada - ID: 29
+Evaluación 1: QUE ES EL MANEJO DEFENSIVO?
+✅ Evaluación 1 insertada - ID: 30
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 145
+Módulos insertados: 1
+Evaluaciones insertadas: 2
+============================================================
+
+
+============================================================
+2026-02-11 15:21:32 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: jsjs
+Descripción: kkkkkkkkkkkkkkkkkkkkkkkk
+✅ Portada guardada: uploads/portadas/portada_1770819692_698c906cc12d6.jpg
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 146
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 146
+Módulos insertados: 0
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-02-11 15:24:28 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: pppp
+Descripción: pppppppppppp
+✅ Portada guardada: uploads/portadas/portada_1770819868_698c911c6e7d1.jpg
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 147
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 147
+Módulos insertados: 0
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-02-11 15:24:51 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: wwwwwwwww
+Descripción: wwwwwwwww
+✅ Portada guardada: uploads/portadas/portada_1770819891_698c9133cb2f8.jpg
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 148
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 148
+Módulos insertados: 0
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-02-11 15:51:07 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: eeeee
+Descripción: eeeeeeeee
+✅ Portada guardada: uploads/portadas/portada_1770821467_698c975b8564a.jpg
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 149
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 149
+Módulos insertados: 0
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-02-11 18:33:39 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: jjjjjjjj
+Descripción: aaaaaa
+✅ Portada guardada: uploads/portadas/portada_1770831219_698cbd73619c3.jpg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1770831219_698cbd7361ed8_0.jpg
+Evaluaciones recibidas: 1
+✅ Curso insertado - ID: 150
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: sdsssssss
+✅ Módulo 0 insertado - ID: 46
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: aaaaaaaaaaaaaaa
+✅ Evaluación 0 insertada - ID: 31
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 150
+Módulos insertados: 1
+Evaluaciones insertadas: 1
+============================================================
+
+
+============================================================
+2026-02-12 15:37:41 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: kkkk
+Descripción: aaaaaaaa
+✅ Portada guardada: uploads/portadas/portada_1770907061_698de5b563342.jpg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1770907061_698de5b5669fd_0.jpg
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 151
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: aaaaa
+✅ Módulo 0 insertado - ID: 47
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 151
+Módulos insertados: 1
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-02-12 19:22:14 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: llllll
+Descripción: lllllll
+✅ Portada guardada: uploads/portadas/portada_1770920534_698e1a5610736.png
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 152
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 152
+Módulos insertados: 0
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-02-12 19:27:06 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: tttt
+Descripción: yyyyyyy
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 153
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 153
+Módulos insertados: 0
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-02-12 19:45:12 - INICIO CREAR CURSO
+============================================================
+Usuario ID: 1
+Título: mj
+Descripción: jbk
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 154
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 154
+Módulos insertados: 0
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-02-12 19:48:21 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: k
+Descripción: kj
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 155
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 155
+Módulos insertados: 0
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-02-12 20:08:58 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: wrgw
+Descripción: ss
+✅ Portada guardada: uploads/portadas/portada_1770923338_698e254a59ff5.jpeg
+Módulos recibidos: 2
+✅ Archivo módulo 0: uploads/modulos/modulo_1770923338_698e254a5a5b3_0.pdf
+✅ Archivo módulo 1: uploads/modulos/modulo_1770923338_698e254a5a95c_1.mp4
+Evaluaciones recibidas: 3
+✅ Curso insertado - ID: 156
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: ad
+✅ Módulo 0 insertado - ID: 48
+Módulo 1: dv
+✅ Módulo 1 insertado - ID: 49
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: adava
+✅ Evaluación 0 insertada - ID: 32
+Evaluación 1: adva
+✅ Evaluación 1 insertada - ID: 33
+Evaluación 2: dvs
+✅ Evaluación 2 insertada - ID: 34
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 156
+Módulos insertados: 2
+Evaluaciones insertadas: 3
+============================================================
+
+
+============================================================
+2026-02-12 20:18:12 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: ehhsw
+Descripción: wef
+✅ Portada guardada: uploads/portadas/portada_1770923892_698e27747a55d.jpeg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1770923892_698e27747b2bb_0.pdf
+Evaluaciones recibidas: 1
+✅ Curso insertado - ID: 157
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: wef
+✅ Módulo 0 insertado - ID: 50
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: wef
+✅ Evaluación 0 insertada - ID: 35
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 157
+Módulos insertados: 1
+Evaluaciones insertadas: 1
+============================================================
+
+
+============================================================
+2026-02-17 15:23:11 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: sa
+Descripción: sa
+✅ Portada guardada: uploads/portadas/portada_1771338191_699479cfb8aef.jpeg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1771338191_699479cfb94f5_0.pdf
+Evaluaciones recibidas: 1
+✅ Curso insertado - ID: 158
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: trh
+✅ Módulo 0 insertado - ID: 51
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: gnfd
+✅ Evaluación 0 insertada - ID: 36
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 158
+Módulos insertados: 1
+Evaluaciones insertadas: 1
+============================================================
+
+
+============================================================
+2026-02-17 18:10:02 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: MANEJO DEFENSIVO
+Descripción: Este curso te ayudara a conducir con mas seguridad y responsabilidad en el trayecto
+✅ Portada guardada: uploads/portadas/portada_1771348202_6994a0ea36487.jpeg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1771348202_6994a0ea36e4e_0.pdf
+Evaluaciones recibidas: 2
+✅ Curso insertado - ID: 159
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: Introduccion
+✅ Módulo 0 insertado - ID: 52
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: Cual es la definicion de Manejo Defensivo
+✅ Evaluación 0 insertada - ID: 37
+Evaluación 1: Que es el cogin de seguridad
+✅ Evaluación 1 insertada - ID: 38
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 159
+Módulos insertados: 1
+Evaluaciones insertadas: 2
+============================================================
+
+
+============================================================
+2026-02-17 20:31:04 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: avdkv
+Descripción: adv
+✅ Portada guardada: uploads/portadas/portada_1771356664_6994c1f8f2ff1.png
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1771356664_6994c1f8f3a27_0.pdf
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 160
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: adv
+✅ Módulo 0 insertado - ID: 53
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 160
+Módulos insertados: 1
+Evaluaciones insertadas: 0
+============================================================

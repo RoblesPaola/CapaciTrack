@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | CapaciTrack</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    /* LOGO EN TOPBAR */
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-container img {
+    height: 60px;        /* tamaño ideal */
+    width: auto;
+  }
+   .logo-container a {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2e7d32;
+      text-decoration: none;
+    }
+
+  .logo-container span {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2e7d32;
+  }
+
+
+    /* TOPBAR */
+    .topbar {
+      background-color: #e8f5e9;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e8f5e9;
+    }
+
+    
+
+    .topbar nav a {
+      margin-left: 25px;
+      color: #2e7d32;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* CONTENEDOR */
+    .dashboard-container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 240px;
+      background-color: #e8f5e9;
+      padding: 20px 0;
+      border-right: 1px solid #e8f5e9;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sidebar-item {
+      padding: 14px 25px;
+      color: #2e7d32;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: 0.2s;
+    }
+
+    .sidebar-item:hover {
+      background-color: #c8e6c9;
+      color: #1b5e20;
+    }
+
+    /* CONTENIDO */
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      background-color: #fff;
+      overflow-y: auto;
+    }
+
+    /* === CARRUSEL === */
+    .carousel-container {
+      width: 100%;
+      max-width: 2000px;
+      margin: 0 auto;
+      display: flex;
+      overflow: hidden;
+      scroll-snap-type: x mandatory;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      position: relative;
+      scroll-snap-align: center;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 600px;
+      object-fit: contain;
+      background-color: #ffffff;
+      border-radius: 10px;
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      background-color: #e8f5e9;
+      padding: 15px;
+      text-align: center;
+      color: #2e7d32;
+      border-top: 1px solid #e8f5e9;
+    }
+
+    .footer-logo {
+      position: absolute;
+      bottom: 5px;
+      opacity: 0.9;
+    }
+
+    .footer-logo.left {
+      left: 20px;
+      width: 100px;
+    }
+
+    .footer-logo.right {
+      right: 20px;
+      width: 110px;
+    }
+
+    /*cerrar sesion*/
+    .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-box {
+  background: #fff;
+  padding: 30px;
+  width: 400px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  animation: aparecer 0.25s ease;
+}
+
+.modal-box h2 {
+  margin-bottom: 10px;
+  color: #19aa1e;
+}
+
+.modal-box p {
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn-cancelar {
+  background: #e5e5e5;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-confirmar {
+  background: #19aa1e;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-confirmar:hover {
+  background: #19aa1e;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Icono hamburguesa */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #2e7d32;
+}
+
+/* Responsive: menú hamburguesa */
+@media screen and (max-width: 768px) {
+  .topbar nav {
+    display: none; /* Oculto por defecto */
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background-color: #e8f5e9;
+    width: 200px;
+    border-left: 1px solid #dcedc8;
+    padding: 10px 0;
+    z-index: 999;
+  }
+
+  .topbar nav a {
+    padding: 12px 20px;
+    border-top: 1px solid #dcedc8;
+    margin: 0;
+  }
+
+  .menu-toggle {
+    display: block; /* Mostrar hamburguesa en móvil */
+  }
+
+  /* Cuando el menú está abierto */
+  nav.show {
+    display: flex;
+  }
+}
+
+/* ===== SIDEBAR ESCRITORIO ===== */
+.sidebar {
+  width: 250px;
+  background-color: #e8f5e9;
+  border-right: 1px solid #c8e6c9;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+}
+
+/* Botón hamburguesa sidebar */
+.sidebar-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #2e7d32;
+}
+
+/* ===== MODO MÓVIL ===== */
+@media screen and (max-width: 768px) {
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px; /* Oculto */
+    height: 100%;
+    z-index: 1000;
+    transition: 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+  }
+
+  .sidebar.show {
+    left: 0; /* Se muestra */
+  }
+
+  .sidebar-toggle {
+    display: block;
+  }
+}
+.sidebar-toggle {
+  cursor: pointer;
+  font-size: 22px;
+  color: #2e7d32;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-toggle.rotate {
+  transform: rotate(90deg);
+}
+.sidebar-toggle {
+  margin-left: 15px;   /* Ajusta el espacio hacia la derecha */
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+  <div class="logo-container">
+    <img src="assets/logo.png" alt="Logo CapaciTrack">
+  <a href="paneladmin.html" class="sidebar-item"></i>CapaciTrack</a>
+  </div>
+  
+  <div id="bienvenida">Bienvenido</div>
+    <div class="menu-toggle" id="menu-toggle">
+  <i class="fas fa-bars"></i> <!-- Icono hamburguesa -->
+</div>
+    <nav id="nav-menu">
+      <a href="registrousuarios.html">Registro de Usuarios</a>
+      <a href="registrodocs.html">Registro de Documentos</a>
+      <a href="perfil-admin.html">Perfil</a>
+         <a href="#" onclick="abrirModalCerrarSesion(event)">Cerrar Sesión</a>
+    </nav>
+  </header>
+
+  <!-- CONTENEDOR -->
+  <div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+<div class="sidebar-toggle" id="sidebar-toggle">
+  <i class="fas fa-chevron-right"></i>
+</div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="crear-curso.html" class="sidebar-item">
+    <i class="fas fa-plus-circle"></i>Agregar Curso
+  </a>
+  <a href="agregar-usuario.html" class="sidebar-item">
+    <i class="fas fa-user-plus"></i>Agregar Usuario
+  </a>
+  <a href="reportes.html" class="sidebar-item">
+    <i class="fas fa-chart-bar"></i>Reportes
+  </a>
+  <a href="ver-cursos.html" class="sidebar-item">
+    <i class="fas fa-play-circle"></i>Ver Cursos
+  </a>
+</aside>
+
+    <!-- CONTENIDO -->
+    <main class="main-content">
+      <div class="carousel-container" id="carousel">
+
+        <div class="carousel-slide">
+          <img src="assets/imagen1.jpeg" alt="Curso 1">
+          <div class="caption">Curso de Seguridad</div>
+        </div>
+
+        <div class="carousel-slide">
+          <img src="assets/imagen10.jpeg" alt="Curso 3">
+          <div class="caption">Vacantes Disponibles</div>
+        </div>
+
+        <div class="carousel-slide">
+          <img src="assets/imagen11.jpeg" alt="Curso 4">
+          <div class="caption">Vacantes Disponibles</div>
+        </div>
+
+        <div class="carousel-slide">
+          <img src="assets/imagen12.jpeg" alt="Curso 4">
+          <div class="caption">Nuestros equipos</div>
+        </div>
+
+      <div class="carousel-slide">
+          <img src="assets/imagen8.jpeg" alt="Curso 4">
+          <div class="caption">Vacantes Disponibles</div>
+        </div>
+
+        <div class="carousel-slide">
+          <img src="assets/imagen9.jpeg" alt="Curso 4">
+          <div class="caption">Nuestros equipos</div>
+        </div>
+
+        <div class="carousel-slide">
+          <img src="assets/imagen13.jpeg" alt="Curso 4">
+          <div class="caption">Nuestros equipos</div>
+        </div>
+
+        <div class="carousel-slide">
+          <img src="assets/imagen14.jpeg" alt="Curso 4">
+          <div class="caption">Nuestros equipos</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="assets/imagen15.jpeg" alt="Curso 4">
+          <div class="caption">Nuestros equipos</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="assets/imagen16.jpeg" alt="Curso 4">
+          <div class="caption">Nuestros equipos</div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="assets/esr.png" class="footer-logo left" alt="">
+    <p>&copy; 2026 CapaciTrack. Todos los derechos reservados.</p>
+    <img src="assets/Grupo-Gusi.png" class="footer-logo right" alt="">
+  </footer>
+
+  <!-- JS CARRUSEL AUTOMÁTICO -->
+  <script>
+    const carousel = document.getElementById('carousel');
+    let index = 0;
+
+    setInterval(() => {
+      index++;
+      if (index >= carousel.children.length) {
+        index = 0;
+      }
+
+      carousel.scrollTo({
+        left: carousel.clientWidth * index,
+        behavior: 'smooth'
+      });
+    }, 2000);
+  </script>
+
+  <script>
+fetch("/capacitrack/backend/auth/usuario_actual.php")
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      document.getElementById("bienvenida").textContent =
+        "Bienvenido, " + data.nombre;
+    }
+  });
+</script>
+<!-- MODAL CERRAR SESIÓN -->
+<div id="modalCerrarSesion" class="modal-overlay">
+  <div class="modal-box">
+    <h2>⚠️ Cerrar sesión</h2>
+    <p>¿Seguro que deseas cerrar la sesión?</p>
+
+    <div class="modal-actions">
+      <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+      <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
+    </div>
+  </div>
+</div>
+<script>
+function abrirModalCerrarSesion(e) {
+  e.preventDefault();
+  document.getElementById("modalCerrarSesion").style.display = "flex";
+}
+
+function cerrarModal() {
+  document.getElementById("modalCerrarSesion").style.display = "none";
+}
+
+function confirmarCerrarSesion() {
+  // Si usas sesiones o tokens, aquí los limpias
+  // localStorage.clear();
+  // sessionStorage.clear();
+
+  window.location.href = "index.html";
+}
+
+//menu ham//
+const menuToggle = document.getElementById('menu-toggle');
+const navMenu = document.getElementById('nav-menu');
+
+menuToggle.addEventListener('click', () => {
+  navMenu.classList.toggle('show'); // Agrega/quita clase para mostrar menú
+});
+
+//menu lateral//
+const sidebarToggle = document.getElementById('sidebar-toggle');
+const sidebar = document.getElementById('sidebar');
+
+sidebarToggle.addEventListener('click', () => {
+  sidebar.classList.toggle('show');
+  sidebarToggle.classList.toggle('rotate');
+});
+</script>
+
+</body>
+</html>

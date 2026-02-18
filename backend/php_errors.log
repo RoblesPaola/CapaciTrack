@@ -1,0 +1,414 @@
+[28-Jan-2026 17:45:31 Europe/Berlin] ============================================
+[28-Jan-2026 17:45:31 Europe/Berlin] INICIO CREAR_CURSO.PHP - 2026-01-28 17:45:31
+[28-Jan-2026 17:45:31 Europe/Berlin] ============================================
+[28-Jan-2026 17:45:31 Europe/Berlin] Usuario ID: 1
+[28-Jan-2026 17:45:31 Europe/Berlin] POST data: Array
+(
+    [titulo] => rrr
+    [descripcion] => feha
+    [modulos] => []
+    [evaluaciones] => []
+)
+
+[28-Jan-2026 17:45:31 Europe/Berlin] FILES data: Array
+(
+)
+
+[28-Jan-2026 17:45:31 Europe/Berlin] Título recibido: rrr
+[28-Jan-2026 17:45:31 Europe/Berlin] Descripción recibida: feha
+[28-Jan-2026 17:45:31 Europe/Berlin] modulos JSON recibido: []
+[28-Jan-2026 17:45:31 Europe/Berlin] Módulos decodificados: 0
+[28-Jan-2026 17:45:31 Europe/Berlin] evaluaciones JSON recibido: []
+[28-Jan-2026 17:45:31 Europe/Berlin] Evaluaciones decodificadas: 0
+[28-Jan-2026 17:45:31 Europe/Berlin] Verificando portada...
+[28-Jan-2026 17:45:31 Europe/Berlin] No se recibió archivo de portada
+[28-Jan-2026 17:45:31 Europe/Berlin] Preparando inserción en BD...
+[28-Jan-2026 17:45:31 Europe/Berlin] Bind params...
+[28-Jan-2026 17:45:31 Europe/Berlin] Ejecutando insert...
+[28-Jan-2026 17:45:31 Europe/Berlin] ✅ CURSO GUARDADO CON ID: 89
+[28-Jan-2026 17:45:31 Europe/Berlin] ============================================
+[28-Jan-2026 17:45:31 Europe/Berlin] FIN EXITOSO - Curso ID: 89
+[28-Jan-2026 17:45:31 Europe/Berlin] ============================================
+[28-Jan-2026 17:47:00 Europe/Berlin] ============================================
+[28-Jan-2026 17:47:00 Europe/Berlin] INICIO CREAR_CURSO.PHP - 2026-01-28 17:47:00
+[28-Jan-2026 17:47:00 Europe/Berlin] ============================================
+[28-Jan-2026 17:47:00 Europe/Berlin] Usuario ID: 1
+[28-Jan-2026 17:47:00 Europe/Berlin] POST data: Array
+(
+    [titulo] => sf
+    [descripcion] => vsdb
+    [modulos] => []
+    [evaluaciones] => []
+)
+
+[28-Jan-2026 17:47:00 Europe/Berlin] FILES data: Array
+(
+    [portada] => Array
+        (
+            [name] => imagen1.jpeg
+            [type] => image/jpeg
+            [tmp_name] => D:\xampp\tmp\php5BA0.tmp
+            [error] => 0
+            [size] => 109309
+        )
+
+)
+
+[28-Jan-2026 17:47:00 Europe/Berlin] Título recibido: sf
+[28-Jan-2026 17:47:00 Europe/Berlin] Descripción recibida: vsdb
+[28-Jan-2026 17:47:00 Europe/Berlin] modulos JSON recibido: []
+[28-Jan-2026 17:47:00 Europe/Berlin] Módulos decodificados: 0
+[28-Jan-2026 17:47:00 Europe/Berlin] evaluaciones JSON recibido: []
+[28-Jan-2026 17:47:00 Europe/Berlin] Evaluaciones decodificadas: 0
+[28-Jan-2026 17:47:00 Europe/Berlin] Verificando portada...
+[28-Jan-2026 17:47:00 Europe/Berlin] Archivo portada presente. Error code: 0
+[28-Jan-2026 17:47:00 Europe/Berlin] Intentando mover archivo a: uploads/portadas/curso_1769618820_697a3d847c370.jpeg
+[28-Jan-2026 17:47:00 Europe/Berlin] ✅ Portada guardada: uploads/portadas/curso_1769618820_697a3d847c370.jpeg
+[28-Jan-2026 17:47:00 Europe/Berlin] Preparando inserción en BD...
+[28-Jan-2026 17:47:00 Europe/Berlin] Bind params...
+[28-Jan-2026 17:47:00 Europe/Berlin] Ejecutando insert...
+[28-Jan-2026 17:47:00 Europe/Berlin] ✅ CURSO GUARDADO CON ID: 90
+[28-Jan-2026 17:47:00 Europe/Berlin] ============================================
+[28-Jan-2026 17:47:00 Europe/Berlin] FIN EXITOSO - Curso ID: 90
+[28-Jan-2026 17:47:00 Europe/Berlin] ============================================
+[28-Jan-2026 18:00:31 Europe/Berlin] ============================================
+[28-Jan-2026 18:00:31 Europe/Berlin] INICIO CREAR_CURSO.PHP - 2026-01-28 18:00:31
+[28-Jan-2026 18:00:31 Europe/Berlin] ============================================
+[28-Jan-2026 18:00:31 Europe/Berlin] Usuario ID: 1
+[28-Jan-2026 18:00:31 Europe/Berlin] POST data: Array
+(
+    [titulo] => dvws
+    [descripcion] => vaew
+    [modulos] => [{"titulo":"avd","descripcion":"svdzv","tipo_contenido":"video"}]
+    [evaluaciones] => [{"tipo":"abierta","pregunta":"dvavs"},{"tipo":"opcion","pregunta":"vadvd","opciones":["a","a","a","aa"],"correcta":"A"}]
+)
+
+[28-Jan-2026 18:00:31 Europe/Berlin] FILES data: Array
+(
+    [portada] => Array
+        (
+            [name] => Captura de pantalla 2025-05-28 154149.png
+            [type] => image/png
+            [tmp_name] => D:\xampp\tmp\phpB986.tmp
+            [error] => 0
+            [size] => 546951
+        )
+
+    [modulo_archivo_0] => Array
+        (
+            [name] => Grabación de pantalla 2025-11-28 200017.mp4
+            [type] => video/mp4
+            [tmp_name] => D:\xampp\tmp\phpB997.tmp
+            [error] => 0
+            [size] => 20835243
+        )
+
+)
+
+[28-Jan-2026 18:00:31 Europe/Berlin] Título recibido: dvws
+[28-Jan-2026 18:00:31 Europe/Berlin] Descripción recibida: vaew
+[28-Jan-2026 18:00:31 Europe/Berlin] modulos JSON recibido: [{"titulo":"avd","descripcion":"svdzv","tipo_contenido":"video"}]
+[28-Jan-2026 18:00:31 Europe/Berlin] Módulos decodificados: 1
+[28-Jan-2026 18:00:31 Europe/Berlin] evaluaciones JSON recibido: [{"tipo":"abierta","pregunta":"dvavs"},{"tipo":"opcion","pregunta":"vadvd","opciones":["a","a","a","aa"],"correcta":"A"}]
+[28-Jan-2026 18:00:31 Europe/Berlin] Evaluaciones decodificadas: 2
+[28-Jan-2026 18:00:31 Europe/Berlin] Verificando portada...
+[28-Jan-2026 18:00:31 Europe/Berlin] Archivo portada presente. Error code: 0
+[28-Jan-2026 18:00:31 Europe/Berlin] Intentando mover archivo a: uploads/portadas/curso_1769619631_697a40af5801d.png
+[28-Jan-2026 18:00:31 Europe/Berlin] ✅ Portada guardada: uploads/portadas/curso_1769619631_697a40af5801d.png
+[28-Jan-2026 18:00:31 Europe/Berlin] Preparando inserción en BD...
+[28-Jan-2026 18:00:31 Europe/Berlin] Bind params...
+[28-Jan-2026 18:00:31 Europe/Berlin] Ejecutando insert...
+[28-Jan-2026 18:00:31 Europe/Berlin] ✅ CURSO GUARDADO CON ID: 91
+[28-Jan-2026 18:00:31 Europe/Berlin] Guardando 1 módulos...
+[28-Jan-2026 18:00:31 Europe/Berlin] Módulo 0: avd
+[28-Jan-2026 18:00:31 Europe/Berlin] ✅ Archivo módulo guardado: uploads/modulos/modulo_91_1769619631_697a40af69883.mp4
+[28-Jan-2026 18:00:31 Europe/Berlin] ✅ Módulo 0 guardado
+[28-Jan-2026 18:00:31 Europe/Berlin] Guardando 2 evaluaciones...
+[28-Jan-2026 18:00:31 Europe/Berlin] Evaluación 0: dvavs
+[28-Jan-2026 18:00:31 Europe/Berlin] ❌ Error guardar evaluación 0: CONSTRAINT `evaluaciones.opciones` failed for `capacitrack1`.`evaluaciones`
+[28-Jan-2026 18:00:31 Europe/Berlin] Evaluación 1: vadvd
+[28-Jan-2026 18:00:31 Europe/Berlin] ✅ Evaluación 1 guardada
+[28-Jan-2026 18:00:31 Europe/Berlin] ============================================
+[28-Jan-2026 18:00:31 Europe/Berlin] FIN EXITOSO - Curso ID: 91
+[28-Jan-2026 18:00:31 Europe/Berlin] ============================================
+[28-Jan-2026 18:01:14 Europe/Berlin] ============================================
+[28-Jan-2026 18:01:14 Europe/Berlin] INICIO CREAR_CURSO.PHP - 2026-01-28 18:01:14
+[28-Jan-2026 18:01:14 Europe/Berlin] ============================================
+[28-Jan-2026 18:01:14 Europe/Berlin] Usuario ID: 1
+[28-Jan-2026 18:01:14 Europe/Berlin] POST data: Array
+(
+    [titulo] => asf
+    [descripcion] => as
+    [modulos] => [{"titulo":"asf","descripcion":"asf","tipo_contenido":""},{"titulo":"asz","descripcion":"asf","tipo_contenido":""}]
+    [evaluaciones] => []
+)
+
+[28-Jan-2026 18:01:14 Europe/Berlin] FILES data: Array
+(
+)
+
+[28-Jan-2026 18:01:14 Europe/Berlin] Título recibido: asf
+[28-Jan-2026 18:01:14 Europe/Berlin] Descripción recibida: as
+[28-Jan-2026 18:01:14 Europe/Berlin] modulos JSON recibido: [{"titulo":"asf","descripcion":"asf","tipo_contenido":""},{"titulo":"asz","descripcion":"asf","tipo_contenido":""}]
+[28-Jan-2026 18:01:14 Europe/Berlin] Módulos decodificados: 2
+[28-Jan-2026 18:01:14 Europe/Berlin] evaluaciones JSON recibido: []
+[28-Jan-2026 18:01:14 Europe/Berlin] Evaluaciones decodificadas: 0
+[28-Jan-2026 18:01:14 Europe/Berlin] Verificando portada...
+[28-Jan-2026 18:01:14 Europe/Berlin] No se recibió archivo de portada
+[28-Jan-2026 18:01:14 Europe/Berlin] Preparando inserción en BD...
+[28-Jan-2026 18:01:14 Europe/Berlin] Bind params...
+[28-Jan-2026 18:01:14 Europe/Berlin] Ejecutando insert...
+[28-Jan-2026 18:01:15 Europe/Berlin] ✅ CURSO GUARDADO CON ID: 92
+[28-Jan-2026 18:01:15 Europe/Berlin] Guardando 2 módulos...
+[28-Jan-2026 18:01:15 Europe/Berlin] Módulo 0: asf
+[28-Jan-2026 18:01:15 Europe/Berlin] ✅ Módulo 0 guardado
+[28-Jan-2026 18:01:15 Europe/Berlin] Módulo 1: asz
+[28-Jan-2026 18:01:15 Europe/Berlin] ✅ Módulo 1 guardado
+[28-Jan-2026 18:01:15 Europe/Berlin] ============================================
+[28-Jan-2026 18:01:15 Europe/Berlin] FIN EXITOSO - Curso ID: 92
+[28-Jan-2026 18:01:15 Europe/Berlin] ============================================
+[28-Jan-2026 18:01:44 Europe/Berlin] ============================================
+[28-Jan-2026 18:01:44 Europe/Berlin] INICIO CREAR_CURSO.PHP - 2026-01-28 18:01:44
+[28-Jan-2026 18:01:44 Europe/Berlin] ============================================
+[28-Jan-2026 18:01:44 Europe/Berlin] Usuario ID: 1
+[28-Jan-2026 18:01:44 Europe/Berlin] POST data: Array
+(
+    [titulo] => zasc
+    [descripcion] => sv
+    [modulos] => []
+    [evaluaciones] => [{"tipo":"abierta","pregunta":"asvasz"},{"tipo":"abierta","pregunta":"asva"},{"tipo":"opcion","pregunta":"avz","opciones":["w","w","w","w"],"correcta":"A"}]
+)
+
+[28-Jan-2026 18:01:44 Europe/Berlin] FILES data: Array
+(
+)
+
+[28-Jan-2026 18:01:44 Europe/Berlin] Título recibido: zasc
+[28-Jan-2026 18:01:44 Europe/Berlin] Descripción recibida: sv
+[28-Jan-2026 18:01:44 Europe/Berlin] modulos JSON recibido: []
+[28-Jan-2026 18:01:44 Europe/Berlin] Módulos decodificados: 0
+[28-Jan-2026 18:01:44 Europe/Berlin] evaluaciones JSON recibido: [{"tipo":"abierta","pregunta":"asvasz"},{"tipo":"abierta","pregunta":"asva"},{"tipo":"opcion","pregunta":"avz","opciones":["w","w","w","w"],"correcta":"A"}]
+[28-Jan-2026 18:01:44 Europe/Berlin] Evaluaciones decodificadas: 3
+[28-Jan-2026 18:01:44 Europe/Berlin] Verificando portada...
+[28-Jan-2026 18:01:44 Europe/Berlin] No se recibió archivo de portada
+[28-Jan-2026 18:01:44 Europe/Berlin] Preparando inserción en BD...
+[28-Jan-2026 18:01:44 Europe/Berlin] Bind params...
+[28-Jan-2026 18:01:44 Europe/Berlin] Ejecutando insert...
+[28-Jan-2026 18:01:44 Europe/Berlin] ✅ CURSO GUARDADO CON ID: 93
+[28-Jan-2026 18:01:44 Europe/Berlin] Guardando 3 evaluaciones...
+[28-Jan-2026 18:01:44 Europe/Berlin] Evaluación 0: asvasz
+[28-Jan-2026 18:01:44 Europe/Berlin] ❌ Error guardar evaluación 0: CONSTRAINT `evaluaciones.opciones` failed for `capacitrack1`.`evaluaciones`
+[28-Jan-2026 18:01:44 Europe/Berlin] Evaluación 1: asva
+[28-Jan-2026 18:01:44 Europe/Berlin] ❌ Error guardar evaluación 1: CONSTRAINT `evaluaciones.opciones` failed for `capacitrack1`.`evaluaciones`
+[28-Jan-2026 18:01:44 Europe/Berlin] Evaluación 2: avz
+[28-Jan-2026 18:01:45 Europe/Berlin] ✅ Evaluación 2 guardada
+[28-Jan-2026 18:01:45 Europe/Berlin] ============================================
+[28-Jan-2026 18:01:45 Europe/Berlin] FIN EXITOSO - Curso ID: 93
+[28-Jan-2026 18:01:45 Europe/Berlin] ============================================
+[28-Jan-2026 18:57:20 Europe/Berlin] ============================================
+[28-Jan-2026 18:57:20 Europe/Berlin] INICIO CREAR_CURSO.PHP - 2026-01-28 18:57:20
+[28-Jan-2026 18:57:20 Europe/Berlin] ============================================
+[28-Jan-2026 18:57:20 Europe/Berlin] Usuario ID: 1
+[28-Jan-2026 18:57:20 Europe/Berlin] POST data: Array
+(
+    [titulo] => vsd
+    [descripcion] => ds
+    [modulos] => []
+    [evaluaciones] => [{"tipo":"abierta","pregunta":"dvad"}]
+)
+
+[28-Jan-2026 18:57:20 Europe/Berlin] FILES data: Array
+(
+)
+
+[28-Jan-2026 18:57:20 Europe/Berlin] Título recibido: vsd
+[28-Jan-2026 18:57:20 Europe/Berlin] Descripción recibida: ds
+[28-Jan-2026 18:57:20 Europe/Berlin] modulos JSON recibido: []
+[28-Jan-2026 18:57:20 Europe/Berlin] Módulos decodificados: 0
+[28-Jan-2026 18:57:20 Europe/Berlin] evaluaciones JSON recibido: [{"tipo":"abierta","pregunta":"dvad"}]
+[28-Jan-2026 18:57:20 Europe/Berlin] Evaluaciones decodificadas: 1
+[28-Jan-2026 18:57:20 Europe/Berlin] Verificando portada...
+[28-Jan-2026 18:57:20 Europe/Berlin] No se recibió archivo de portada
+[28-Jan-2026 18:57:20 Europe/Berlin] Preparando inserción en BD...
+[28-Jan-2026 18:57:20 Europe/Berlin] Bind params...
+[28-Jan-2026 18:57:20 Europe/Berlin] Ejecutando insert...
+[28-Jan-2026 18:57:20 Europe/Berlin] ✅ CURSO GUARDADO CON ID: 94
+[28-Jan-2026 18:57:20 Europe/Berlin] Guardando 1 evaluaciones...
+[28-Jan-2026 18:57:20 Europe/Berlin] Evaluación 0: dvad
+[28-Jan-2026 18:57:20 Europe/Berlin] ❌ Error guardar evaluación 0: CONSTRAINT `evaluaciones.opciones` failed for `capacitrack1`.`evaluaciones`
+[28-Jan-2026 18:57:20 Europe/Berlin] ============================================
+[28-Jan-2026 18:57:20 Europe/Berlin] FIN EXITOSO - Curso ID: 94
+[28-Jan-2026 18:57:20 Europe/Berlin] ============================================
+[28-Jan-2026 19:10:06 Europe/Berlin] ============================================
+[28-Jan-2026 19:10:06 Europe/Berlin] INICIO CREAR_CURSO.PHP - 2026-01-28 19:10:06
+[28-Jan-2026 19:10:06 Europe/Berlin] ============================================
+[28-Jan-2026 19:10:06 Europe/Berlin] Usuario ID: 1
+[28-Jan-2026 19:10:06 Europe/Berlin] POST data: Array
+(
+    [titulo] => jppjoibn
+    [descripcion] => ivyiu
+    [modulos] => []
+    [evaluaciones] => []
+)
+
+[28-Jan-2026 19:10:06 Europe/Berlin] FILES data: Array
+(
+    [portada] => Array
+        (
+            [name] => Documento A4 Portada de Proyecto Orgánico Minimalista Morado y Blanco.png
+            [type] => image/png
+            [tmp_name] => D:\xampp\tmp\php6E30.tmp
+            [error] => 0
+            [size] => 221215
+        )
+
+)
+
+[28-Jan-2026 19:10:06 Europe/Berlin] Título recibido: jppjoibn
+[28-Jan-2026 19:10:06 Europe/Berlin] Descripción recibida: ivyiu
+[28-Jan-2026 19:10:06 Europe/Berlin] modulos JSON recibido: []
+[28-Jan-2026 19:10:06 Europe/Berlin] Módulos decodificados: 0
+[28-Jan-2026 19:10:06 Europe/Berlin] evaluaciones JSON recibido: []
+[28-Jan-2026 19:10:06 Europe/Berlin] Evaluaciones decodificadas: 0
+[28-Jan-2026 19:10:06 Europe/Berlin] Verificando portada...
+[28-Jan-2026 19:10:06 Europe/Berlin] Archivo portada presente. Error code: 0
+[28-Jan-2026 19:10:06 Europe/Berlin] Intentando mover archivo a: uploads/portadas/curso_1769623806_697a50fe10253.png
+[28-Jan-2026 19:10:06 Europe/Berlin] ✅ Portada guardada: uploads/portadas/curso_1769623806_697a50fe10253.png
+[28-Jan-2026 19:10:06 Europe/Berlin] Preparando inserción en BD...
+[28-Jan-2026 19:10:06 Europe/Berlin] Bind params...
+[28-Jan-2026 19:10:06 Europe/Berlin] Ejecutando insert...
+[28-Jan-2026 19:10:06 Europe/Berlin] ✅ CURSO GUARDADO CON ID: 95
+[28-Jan-2026 19:10:06 Europe/Berlin] ============================================
+[28-Jan-2026 19:10:06 Europe/Berlin] FIN EXITOSO - Curso ID: 95
+[28-Jan-2026 19:10:06 Europe/Berlin] ============================================
+[28-Jan-2026 19:12:41 Europe/Berlin] ============================================
+[28-Jan-2026 19:12:41 Europe/Berlin] INICIO CREAR_CURSO.PHP - 2026-01-28 19:12:41
+[28-Jan-2026 19:12:41 Europe/Berlin] ============================================
+[28-Jan-2026 19:12:41 Europe/Berlin] Usuario ID: 1
+[28-Jan-2026 19:12:41 Europe/Berlin] POST data: Array
+(
+    [titulo] => lnñp
+    [descripcion] => kibik
+    [modulos] => []
+    [evaluaciones] => []
+)
+
+[28-Jan-2026 19:12:41 Europe/Berlin] FILES data: Array
+(
+)
+
+[28-Jan-2026 19:12:41 Europe/Berlin] Título recibido: lnñp
+[28-Jan-2026 19:12:41 Europe/Berlin] Descripción recibida: kibik
+[28-Jan-2026 19:12:41 Europe/Berlin] modulos JSON recibido: []
+[28-Jan-2026 19:12:41 Europe/Berlin] Módulos decodificados: 0
+[28-Jan-2026 19:12:41 Europe/Berlin] evaluaciones JSON recibido: []
+[28-Jan-2026 19:12:41 Europe/Berlin] Evaluaciones decodificadas: 0
+[28-Jan-2026 19:12:41 Europe/Berlin] Verificando portada...
+[28-Jan-2026 19:12:41 Europe/Berlin] No se recibió archivo de portada
+[28-Jan-2026 19:12:41 Europe/Berlin] Preparando inserción en BD...
+[28-Jan-2026 19:12:41 Europe/Berlin] Bind params...
+[28-Jan-2026 19:12:41 Europe/Berlin] Ejecutando insert...
+[28-Jan-2026 19:12:41 Europe/Berlin] ✅ CURSO GUARDADO CON ID: 96
+[28-Jan-2026 19:12:41 Europe/Berlin] ============================================
+[28-Jan-2026 19:12:41 Europe/Berlin] FIN EXITOSO - Curso ID: 96
+[28-Jan-2026 19:12:41 Europe/Berlin] ============================================
+[28-Jan-2026 19:31:53 Europe/Berlin] ============================================
+[28-Jan-2026 19:31:53 Europe/Berlin] INICIO CREAR_CURSO.PHP - 2026-01-28 19:31:53
+[28-Jan-2026 19:31:53 Europe/Berlin] ============================================
+[28-Jan-2026 19:31:53 Europe/Berlin] Usuario ID: 1
+[28-Jan-2026 19:31:53 Europe/Berlin] POST data: Array
+(
+    [titulo] => eabñp´ñw
+    [descripcion] => dsijpñs
+    [modulos] => [{"titulo":"6tu6","descripcion":"n5i7","tipo_contenido":""}]
+    [evaluaciones] => []
+)
+
+[28-Jan-2026 19:31:53 Europe/Berlin] FILES data: Array
+(
+    [portada] => Array
+        (
+            [name] => Captura de pantalla 2025-09-01 145222.png
+            [type] => image/png
+            [tmp_name] => D:\xampp\tmp\php6346.tmp
+            [error] => 0
+            [size] => 982498
+        )
+
+)
+
+[28-Jan-2026 19:31:53 Europe/Berlin] Título recibido: eabñp´ñw
+[28-Jan-2026 19:31:53 Europe/Berlin] Descripción recibida: dsijpñs
+[28-Jan-2026 19:31:53 Europe/Berlin] modulos JSON recibido: [{"titulo":"6tu6","descripcion":"n5i7","tipo_contenido":""}]
+[28-Jan-2026 19:31:53 Europe/Berlin] Módulos decodificados: 1
+[28-Jan-2026 19:31:53 Europe/Berlin] evaluaciones JSON recibido: []
+[28-Jan-2026 19:31:53 Europe/Berlin] Evaluaciones decodificadas: 0
+[28-Jan-2026 19:31:53 Europe/Berlin] Verificando portada...
+[28-Jan-2026 19:31:53 Europe/Berlin] Archivo portada presente. Error code: 0
+[28-Jan-2026 19:31:53 Europe/Berlin] Intentando mover archivo a: uploads/portadas/curso_1769625113_697a5619eed4f.png
+[28-Jan-2026 19:31:53 Europe/Berlin] ✅ Portada guardada: uploads/portadas/curso_1769625113_697a5619eed4f.png
+[28-Jan-2026 19:31:53 Europe/Berlin] Preparando inserción en BD...
+[28-Jan-2026 19:31:53 Europe/Berlin] Bind params...
+[28-Jan-2026 19:31:53 Europe/Berlin] Ejecutando insert...
+[28-Jan-2026 19:31:54 Europe/Berlin] ✅ CURSO GUARDADO CON ID: 97
+[28-Jan-2026 19:31:54 Europe/Berlin] Guardando 1 módulos...
+[28-Jan-2026 19:31:54 Europe/Berlin] Módulo 0: 6tu6
+[28-Jan-2026 19:31:54 Europe/Berlin] ✅ Módulo 0 guardado
+[28-Jan-2026 19:31:54 Europe/Berlin] ============================================
+[28-Jan-2026 19:31:54 Europe/Berlin] FIN EXITOSO - Curso ID: 97
+[28-Jan-2026 19:31:54 Europe/Berlin] ============================================
+[28-Jan-2026 19:34:38 Europe/Berlin] ============================================
+[28-Jan-2026 19:34:38 Europe/Berlin] INICIO CREAR_CURSO.PHP - 2026-01-28 19:34:38
+[28-Jan-2026 19:34:38 Europe/Berlin] ============================================
+[28-Jan-2026 19:34:38 Europe/Berlin] Usuario ID: 1
+[28-Jan-2026 19:34:38 Europe/Berlin] POST data: Array
+(
+    [titulo] => Manejo Defensivo
+    [descripcion] => El objetivo de este curso es que el operador...
+    [modulos] => [{"titulo":"Introducción al Manejo Defensivo","descripcion":"","tipo_contenido":"pdf"}]
+    [evaluaciones] => []
+)
+
+[28-Jan-2026 19:34:38 Europe/Berlin] FILES data: Array
+(
+    [portada] => Array
+        (
+            [name] => Captura de pantalla 2026-01-28 123257.png
+            [type] => image/png
+            [tmp_name] => D:\xampp\tmp\phpE7AF.tmp
+            [error] => 0
+            [size] => 707818
+        )
+
+    [modulo_archivo_0] => Array
+        (
+            [name] => Guía-reporte-de-estadía-2025.pdf
+            [type] => application/pdf
+            [tmp_name] => D:\xampp\tmp\phpE7EF.tmp
+            [error] => 0
+            [size] => 854247
+        )
+
+)
+
+[28-Jan-2026 19:34:38 Europe/Berlin] Título recibido: Manejo Defensivo
+[28-Jan-2026 19:34:38 Europe/Berlin] Descripción recibida: El objetivo de este curso es que el operador...
+[28-Jan-2026 19:34:38 Europe/Berlin] modulos JSON recibido: [{"titulo":"Introducción al Manejo Defensivo","descripcion":"","tipo_contenido":"pdf"}]
+[28-Jan-2026 19:34:38 Europe/Berlin] Módulos decodificados: 1
+[28-Jan-2026 19:34:38 Europe/Berlin] evaluaciones JSON recibido: []
+[28-Jan-2026 19:34:38 Europe/Berlin] Evaluaciones decodificadas: 0
+[28-Jan-2026 19:34:38 Europe/Berlin] Verificando portada...
+[28-Jan-2026 19:34:38 Europe/Berlin] Archivo portada presente. Error code: 0
+[28-Jan-2026 19:34:38 Europe/Berlin] Intentando mover archivo a: uploads/portadas/curso_1769625278_697a56beed7c0.png
+[28-Jan-2026 19:34:38 Europe/Berlin] ✅ Portada guardada: uploads/portadas/curso_1769625278_697a56beed7c0.png
+[28-Jan-2026 19:34:38 Europe/Berlin] Preparando inserción en BD...
+[28-Jan-2026 19:34:38 Europe/Berlin] Bind params...
+[28-Jan-2026 19:34:38 Europe/Berlin] Ejecutando insert...
+[28-Jan-2026 19:34:39 Europe/Berlin] ✅ CURSO GUARDADO CON ID: 98
+[28-Jan-2026 19:34:39 Europe/Berlin] Guardando 1 módulos...
+[28-Jan-2026 19:34:39 Europe/Berlin] Módulo 0: Introducción al Manejo Defensivo
+[28-Jan-2026 19:34:39 Europe/Berlin] ✅ Archivo módulo guardado: uploads/modulos/modulo_98_1769625279_697a56bf0d382.pdf
+[28-Jan-2026 19:34:39 Europe/Berlin] ✅ Módulo 0 guardado
+[28-Jan-2026 19:34:39 Europe/Berlin] ============================================
+[28-Jan-2026 19:34:39 Europe/Berlin] FIN EXITOSO - Curso ID: 98
+[28-Jan-2026 19:34:39 Europe/Berlin] ============================================

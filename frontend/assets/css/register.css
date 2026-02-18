@@ -1,0 +1,245 @@
+:root {
+  --green-primary: #2ecc40;
+  --green-dark: #1e9e3e;
+  --green-light: #b7e4c7;
+  --gray-text: #6b7280;
+  --gray-border: #d1d5db;
+}
+
+body {
+  margin: 0;
+  font-family: 'Times New Roman', Times, serif, sans-serif;
+  background-color: #ffffff;
+}
+/* CONTENEDOR GENERAL */
+.register-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+
+  /* 👇 desplazamiento suave a la derecha */
+  padding-left: 500px;
+}
+/* TARJETA */
+.register-card {
+  position: relative;
+  width: 420px;              /* 🔹 más grande */
+  padding: 30px 40px 40px;   /* 🔹 más aire */
+  border: 4px solid var(--green-light);
+  border-radius: 20px;
+  background-color: white;
+}
+
+
+
+
+/* LOGO */
+.logo {
+  position: absolute;
+  top: -70px;                 /* 🔹 alineado verticalmente */
+  left: -600px;               /* 🔹 sale del recuadro */
+  width: 600px;              /* 🔹 un poco más grande */
+
+}
+/* TEXTO */
+h1 {
+  text-align: center;
+  font-size: 40px;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 40px;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+
+label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-border);
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--green-primary);
+}
+.password-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 42px;
+}
+
+.password-wrapper i {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #2e7d32;
+  font-size: 1.1rem;
+}
+
+.password-wrapper i:hover {
+  color: #1b5e20;
+}
+
+
+/* LINK */
+.forgot {
+  display: block;
+  text-align: right;
+  font-size: 14px;
+  color: var(--gray-text);
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+/* BOTÓN */
+button {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--green-primary);
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--green-dark);
+}
+
+/* TEXTO INFERIOR */
+.footer-text {
+  font-size: 15px;
+  color: var(--gray-text);
+  text-align: center;
+  margin-top: 16px;
+}
+
+/* GRUPO DE ROL */
+.role-group {
+  margin-bottom: 20px;
+}
+
+/* SELECT ESTILIZADO */
+.role-group select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 2px solid var(--green-light);
+  background-color: #ffffff;
+  font-size: 15px;
+  cursor: pointer;
+  appearance: none;          /* quita estilo nativo */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* FLECHA PERSONALIZADA */
+.role-group {
+  position: relative;
+}
+
+.role-group::after {
+  content: "▾";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-20%);
+  font-size: 16px;
+  color: var(--green-dark);
+  pointer-events: none;
+}
+
+/* FOCUS */
+.role-group select:focus {
+  border-color: var(--green-primary);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(46, 204, 64, 0.2);
+}
+
+
+/* FOOTER */
+
+.footer {
+  width: 100%;
+  top: 550px;
+  padding: -21px 24px;
+  border-top: 1px solid var(--green-light);
+  font-size: 12px;
+  color: var(--gray-text);
+  text-align: center;
+
+}
+
+/* LOGOS DEL FOOTER */
+.footer-logo {
+  position: absolute;
+  bottom: 12px;
+  width: 80px;
+  opacity: 0.9;
+}
+
+/* IZQUIERDA */
+.footer-logo.left {
+  left: -700px;
+  top: 550px;
+   width: 150px; 
+}
+
+/* DERECHA */
+.footer-logo.right {
+  right: -250px;
+  top: 550px;
+  width: 200px; 
+}
+
+/* ========================= */
+/*        RESPONSIVE         */
+/* ========================= */
+
+
+@media (max-width: 768px) {
+
+  .login-page {
+    padding-left: 0;
+  }
+
+  .login-card {
+    width: 90%;
+    padding: 48px 24px 32px;
+  }
+
+  .logo {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+    margin: 0 auto 16px;
+    width: 120px;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+}

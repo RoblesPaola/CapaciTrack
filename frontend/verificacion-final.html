@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Verificación Final - CapaciTrack</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #2e7d32; }
+        .check-item {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #ccc;
+        }
+        .check-item.success {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+        .check-item.error {
+            background: #ffebee;
+            border-color: #f44336;
+        }
+        .check-item.warning {
+            background: #fff3e0;
+            border-color: #ff9800;
+        }
+        button {
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover { background: #1b5e20; }
+        .code {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        #loadingSpinner {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2e7d32;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Verificación Final del Sistema</h1>
+        <p>Este script verificará que todo esté configurado correctamente.</p>
+        
+        <button onclick="verificarTodo()">▶️ Iniciar Verificación</button>
+        <button onclick="probarCrearCurso()">🧪 Probar Crear Curso</button>
+        
+        <div id="loadingSpinner">
+            <div class="spinner"></div>
+            <p>Verificando...</p>
+        </div>
+        
+        <div id="resultados"></div>
+    </div>
+
+    <script>
+        async function verificarTodo() {
+            const resultadosDiv = document.getElementById('resultados');
+            resultadosDiv.innerHTML = '';
+            document.getElementById('loadingSpinner').style.display = 'block';
+            
+            const checks = [
+                { 
+                    nombre: "1. Conexión al PHP",
+                    test: async () => {
+                        const response = await fetch('../backend/crear_curso.php', {
+                            method: 'POST',
+                            body: new FormData()
+                        });
+                        return {
+                            success: response.status !== 404,
+                            message: response.status === 404 
+                                ? "❌ El archivo crear_curso.php NO existe en backend/"
+                                : `✅ Archivo encontrado (Status: ${response.status})`
+                        };
+                    }
+                },
+                {
+                    nombre: "2. Prueba de creación (datos vacíos)",
+                    test: async () => {
+                        const formData = new FormData();
+                        formData.append('titulo', '');
+                        formData.append('descripcion', '');
+                        formData.append('modulos', '[]');
+                        formData.append('evaluaciones', '[]');
+                        
+                        const response = await fetch('../backend/crear_curso.php', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        const text = await response.text();
+                        let data;
+                        
+                        try {
+                            data = JSON.parse(text);
+                            return {
+                                success: true,
+                                message: data.success 
+                                    ? "⚠️ Debería dar error pero el PHP responde"
+                                    : `✅ PHP responde correctamente: ${data.message}`
+                            };
+                        } catch (e) {
+                            return {
+                                success: false,
+                                message: `❌ El PHP no devuelve JSON válido. Respuesta: ${text.substring(0, 200)}`
+                            };
+                        }
+                    }
+                },
+                {
+                    nombre: "3. Prueba con datos completos",
+                    test: async () => {
+                        const formData = new FormData();
+                        formData.append('titulo', 'Curso de Prueba');
+                        formData.append('descripcion', 'Esta es una descripción de prueba');
+                        formData.append('modulos', JSON.stringify([{
+                            titulo: "Módulo Test",
+                            descripcion: "Descripción test",
+                            tipo_contenido: "pdf"
+                        }]));
+                        formData.append('evaluaciones', JSON.stringify([{
+                            tipo: "abierta",
+                            pregunta: "¿Pregunta de prueba?"
+                        }]));
+                        
+                        const response = await fetch('../backend/crear_curso.php', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            return {
+                                success: true,
+                                message: `✅ ¡CURSO CREADO EXITOSAMENTE! ID: ${data.curso_id}`,
+                                extra: "Tu sistema está funcionando perfectamente. Puedes usar crear-curso.html con confianza."
+                            };
+                        } else {
+                            return {
+                                success: false,
+                                message: `⚠️ Error al crear: ${data.message}`,
+                                extra: data.debug ? `Debug info: ${JSON.stringify(data.debug)}` : ""
+                            };
+                        }
+                    }
+                }
+            ];
+            
+            for (const check of checks) {
+                const checkDiv = document.createElement('div');
+                checkDiv.className = 'check-item';
+                checkDiv.innerHTML = `<strong>${check.nombre}</strong><br>Verificando...`;
+                resultadosDiv.appendChild(checkDiv);
+                
+                try {
+                    const resultado = await check.test();
+                    checkDiv.className = `check-item ${resultado.success ? 'success' : 'error'}`;
+                    checkDiv.innerHTML = `
+                        <strong>${check.nombre}</strong><br>
+                        ${resultado.message}
+                        ${resultado.extra ? `<br><small>${resultado.extra}</small>` : ''}
+                    `;
+                } catch (error) {
+                    checkDiv.className = 'check-item error';
+                    checkDiv.innerHTML = `
+                        <strong>${check.nombre}</strong><br>
+                        ❌ Error: ${error.message}
+                    `;
+                }
+                
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            
+            document.getElementById('loadingSpinner').style.display = 'none';
+            
+            // Mensaje final
+            const finalDiv = document.createElement('div');
+            finalDiv.className = 'check-item warning';
+            finalDiv.innerHTML = `
+                <h3>📋 Próximos pasos:</h3>
+                <ul>
+                    <li>Si todas las verificaciones están ✅, tu sistema funciona correctamente</li>
+                    <li>Si hay errores de base de datos, verifica config/db.php</li>
+                    <li>Si hay errores de permisos, verifica la carpeta uploads/</li>
+                    <li>Revisa el archivo <code>backend/debug_log.txt</code> para más detalles</li>
+                </ul>
+            `;
+            resultadosDiv.appendChild(finalDiv);
+        }
+        
+        async function probarCrearCurso() {
+            if (!confirm('¿Quieres crear un curso de prueba completo en la base de datos?')) {
+                return;
+            }
+            
+            const resultadosDiv = document.getElementById('resultados');
+            resultadosDiv.innerHTML = '<div class="check-item">Creando curso de prueba...</div>';
+            
+            try {
+                const formData = new FormData();
+                formData.append('titulo', 'CURSO DE PRUEBA - ' + new Date().toLocaleString());
+                formData.append('descripcion', 'Este es un curso de prueba creado automáticamente para verificar el sistema.');
+                formData.append('modulos', JSON.stringify([
+                    {
+                        titulo: "Introducción",
+                        descripcion: "Módulo de introducción",
+                        tipo_contenido: "video"
+                    },
+                    {
+                        titulo: "Contenido Principal",
+                        descripcion: "Contenido del curso",
+                        tipo_contenido: "pdf"
+                    }
+                ]));
+                formData.append('evaluaciones', JSON.stringify([
+                    {
+                        tipo: "opcion",
+                        pregunta: "¿Cuál es la respuesta correcta?",
+                        opciones: ["Opción A", "Opción B", "Opción C", "Opción D"],
+                        correcta: "A"
+                    },
+                    {
+                        tipo: "abierta",
+                        pregunta: "Describe lo que aprendiste"
+                    }
+                ]));
+                
+                const response = await fetch('../backend/crear_curso.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultadosDiv.innerHTML = `
+                        <div class="check-item success">
+                            <h3>✅ ¡ÉXITO TOTAL!</h3>
+                            <p><strong>Curso creado con ID: ${data.curso_id}</strong></p>
+                            <p>El sistema está funcionando perfectamente. Ahora puedes:</p>
+                            <ul>
+                                <li>Usar crear-curso.html normalmente</li>
+                                <li>Ver el curso en tu base de datos</li>
+                                <li>Verificar que los archivos se suban correctamente</li>
+                            </ul>
+                            <button onclick="location.href='crear-curso.html'">Ir a Crear Curso</button>
+                            <button onclick="location.href='ver-cursos.html'">Ver Cursos</button>
+                        </div>
+                    `;
+                } else {
+                    resultadosDiv.innerHTML = `
+                        <div class="check-item error">
+                            <h3>❌ Error al crear curso</h3>
+                            <p><strong>Mensaje:</strong> ${data.message}</p>
+                            ${data.debug ? `<div class="code">${JSON.stringify(data.debug, null, 2)}</div>` : ''}
+                            <p><strong>Qué hacer:</strong></p>
+                            <ul>
+                                <li>Verifica el archivo backend/debug_log.txt</li>
+                                <li>Revisa la configuración de config/db.php</li>
+                                <li>Asegúrate de que la tabla 'cursos' existe</li>
+                            </ul>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultadosDiv.innerHTML = `
+                    <div class="check-item error">
+                        <h3>❌ Error de conexión</h3>
+                        <p>${error.message}</p>
+                        <p>Verifica que el servidor esté corriendo y la ruta sea correcta.</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
