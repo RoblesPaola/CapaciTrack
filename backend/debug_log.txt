@@ -1628,3 +1628,252 @@ Curso ID: 160
 Módulos insertados: 1
 Evaluaciones insertadas: 0
 ============================================================
+
+
+============================================================
+2026-02-19 15:46:14 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: MANEJO DEFENSIVO 2
+Descripción: Esta es una prueba para crear un nuevo curso.
+✅ Portada guardada: uploads/portadas/portada_1771512374_69972236209bf.jpeg
+Módulos recibidos: 2
+✅ Archivo módulo 0: uploads/modulos/modulo_1771512374_6997223624186_0.pptx
+✅ Archivo módulo 1: uploads/modulos/modulo_1771512374_6997223627df4_1.jpeg
+Evaluaciones recibidas: 1
+✅ Curso insertado - ID: 161
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: Introducción
+✅ Módulo 0 insertado - ID: 54
+Módulo 1: Tema 1
+✅ Módulo 1 insertado - ID: 55
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: ¿Qué es el manejo defensivo?
+✅ Evaluación 0 insertada - ID: 39
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 161
+Módulos insertados: 2
+Evaluaciones insertadas: 1
+============================================================
+
+
+============================================================
+2026-03-03 15:37:03 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: asa
+Descripción: ascf
+✅ Portada guardada: uploads/portadas/portada_1772548623_69a6f20f19465.jpeg
+Módulos recibidos: 1
+✅ Archivo módulo 0: uploads/modulos/modulo_1772548623_69a6f20f1caf9_0.jpeg
+Evaluaciones recibidas: 1
+✅ Curso insertado - ID: 161
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: aefa
+✅ Módulo 0 insertado - ID: 54
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+✅ Imagen pregunta 0 guardada: uploads/preguntas/pregunta_1772548623_69a6f20f20c0f_0.jpeg
+Evaluación 0: adafocksk
+✅ Evaluación 0 insertada - ID: 39
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 161
+Módulos insertados: 1
+Evaluaciones insertadas: 1
+============================================================
+
+
+============================================================
+2026-03-04 18:52:35 - INICIO CREAR CURSO
+============================================================
+
+❌❌❌ ERROR ❌❌❌
+No hay sesión activa.
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 41
+
+
+============================================================
+2026-03-04 18:53:16 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: k
+Descripción: bik
+✅ Portada guardada: uploads/portadas/portada_1772646796_69a8718c08088.jpeg
+Módulos recibidos: 0
+Evaluaciones recibidas: 0
+✅ Curso insertado - ID: 162
+
+============================================================
+✅ ✅ ✅ ÉXITO TOTAL ✅ ✅ ✅
+Curso ID: 162
+Módulos insertados: 0
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-03-04 18:58:09 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: 
+Descripción: 
+
+❌❌❌ ERROR ❌❌❌
+Título y descripción son obligatorios
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 62
+
+
+============================================================
+2026-03-04 18:58:12 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: 
+Descripción: 
+
+❌❌❌ ERROR ❌❌❌
+Título y descripción son obligatorios
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 62
+
+
+============================================================
+2026-03-04 18:58:13 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: 
+Descripción: 
+
+❌❌❌ ERROR ❌❌❌
+Título y descripción son obligatorios
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 62
+
+
+============================================================
+2026-03-04 18:59:37 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: 
+Descripción: 
+
+❌❌❌ ERROR ❌❌❌
+Título y descripción son obligatorios
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 62
+
+
+============================================================
+2026-03-04 19:08:27 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: 
+Descripción: 
+
+❌❌❌ ERROR ❌❌❌
+Título y descripción son obligatorios
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 62
+
+
+============================================================
+2026-03-04 19:08:28 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: 
+Descripción: 
+
+❌❌❌ ERROR ❌❌❌
+Título y descripción son obligatorios
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 62
+
+
+============================================================
+2026-03-04 19:08:29 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 42
+Título: 
+Descripción: 
+
+❌❌❌ ERROR ❌❌❌
+Título y descripción son obligatorios
+Archivo: D:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 62
+
+
+============================================================
+2026-03-05 17:37:45 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 51
+Título: 
+Descripción: 
+
+ERROR
+Título y descripción son obligatorios
+Archivo: C:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 53
+
+
+============================================================
+2026-03-05 17:37:51 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 51
+Título: 
+Descripción: 
+
+ERROR
+Título y descripción son obligatorios
+Archivo: C:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 53
+
+
+============================================================
+2026-03-05 22:27:01 - INICIO CREAR CURSO
+============================================================
+
+
+============================================================
+2026-03-05 23:41:20 - INICIO CREAR CURSO
+============================================================
+
+ERROR
+No hay sesión activa.
+Archivo: C:\xampp\htdocs\capacitrack\backend\crear_curso.php
+Línea: 35
+
+
+============================================================
+2026-03-05 23:42:45 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 51
+Título: ggg
+Descripción: ggg
+Portada guardada: uploads/portadas/portada_1772750566_69aa06e694087.png
+Módulos recibidos: 1
+Módulo 0 es video YouTube: https://www.youtube.com/watch?v=gG2bqgt_6po&list=RDgG2bqgt_6po&start_radio=1
+Evaluaciones recibidas: 1
+Curso insertado - ID: 1
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: sfaf
+Módulo 0 insertado
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: awfqge
+Evaluación 0 insertada
+
+============================================================
+EXITO TOTAL
+Curso ID: 1
+Módulos insertados: 1
+Evaluaciones insertadas: 1
+============================================================

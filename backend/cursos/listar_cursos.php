@@ -7,9 +7,6 @@ $result = $conn->query(
   "SELECT id, titulo, descripcion FROM cursos ORDER BY created_at DESC"
 );
 
-$cursos = [];
-while ($row = $result->fetch_assoc()) {
-  $cursos[] = $row;
-}
+$cursos = $result->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode($cursos);

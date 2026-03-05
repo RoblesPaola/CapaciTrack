@@ -5,53 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Curso | CapaciTrack</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="assets/css/global.css">
 
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f7fa;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  .topbar {
-    background-color: #e8f5e9;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #dcedc8;
-  }
-
-  .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .logo-container img { height: 55px; }
-
-  .logo-container a {
-    font-size: 1.7rem;
-    font-weight: 700;
-    color: #2e7d32;
-    text-decoration: none;
-  }
-
-  .topbar nav a {
-    margin-left: 25px;
-    color: #2e7d32;
-    text-decoration: none;
-    font-weight: 500;
-  }
-
   .main-content {
-    flex: 1;
-    padding: 20px;
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
@@ -585,14 +542,6 @@
     text-align: center;
   }
 
-  footer {
-    background: #e8f5e9;
-    padding: 15px;
-    text-align: center;
-    border-top: 1px solid #c8e6c9;
-    margin-top: auto;
-  }
-
   /* Modal para imágenes */
   .modal {
     display: none;
@@ -626,115 +575,64 @@
     cursor: pointer;
   }
 
-  /* Modal cerrar sesión */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
+
+/* =========================
+   RESPONSIVE GENERAL APP
+========================= */
+
+@media screen and (max-width: 992px) {
+
+  /* Header curso */
+  .curso-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .curso-portada-pequena {
     width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+    height: auto;
   }
 
-  .modal-box {
-    background: #fff;
-    padding: 30px;
-    width: 400px;
-    border-radius: 14px;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    animation: aparecer 0.25s ease;
+  /* Layout principal */
+  .curso-container {
+    grid-template-columns: 1fr;
   }
 
-  .modal-box h2 {
-    margin-bottom: 10px;
-    color: #2e7d32;
+  .sidebar-modulos {
+    position: relative;
+    top: 0;
+    max-height: none;
   }
 
-  .modal-box p {
-    color: #555;
-    margin-bottom: 25px;
+  .contenido-area {
+    padding: 20px;
   }
 
-  .modal-actions {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
+  .pregunta-item {
+    padding: 18px;
   }
 
-  .btn-cancelar {
-    background: #e5e5e5;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
+  .navegacion-botones {
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .btn-confirmar {
-    background: #2e7d32;
-    color: white;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 8px;
-    cursor: pointer;
+  .navegacion-botones .btn {
+    width: 100%;
   }
-
-  .btn-confirmar:hover {
-    background: #1b5e20;
-  }
-
-  @keyframes aparecer {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  /* Icono hamburguesa */
-.menu-toggle {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #2e7d32;
+}
+.modulo-imagen {
+  width: 100%;
+  max-width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+  margin: 12px auto;
 }
 
-/* Responsive: menú hamburguesa */
-@media screen and (max-width: 768px) {
-  .topbar nav {
-    display: none; /* Oculto por defecto */
-    flex-direction: column;
-    gap: 0;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    background-color: #e8f5e9;
-    width: 200px;
-    border-left: 1px solid #dcedc8;
-    padding: 10px 0;
-    z-index: 999;
-  }
-
-  .topbar nav a {
-    padding: 12px 20px;
-    border-top: 1px solid #dcedc8;
-    margin: 0;
-  }
-
-  .menu-toggle {
-    display: block; /* Mostrar hamburguesa en móvil */
-  }
-
-  /* Cuando el menú está abierto */
-  nav.show {
-    display: flex;
+@media screen and (max-width: 480px) {
+  .modulo-imagen {
+    max-height: 180px;
   }
 }
 </style>
@@ -744,30 +642,24 @@
 
 <header class="topbar">
   <div class="logo-container">
-    <img src="assets/logo.png" alt="Logo">
+    <img src="assets/logo.png" alt="CapaciTrack">
     <a href="panelusuarios.html">CapaciTrack</a>
   </div>
-  <div class="menu-toggle" id="menu-toggle">
-  <i class="fas fa-bars"></i> <!-- Icono hamburguesa -->
-</div>
-
- <div class="menu-toggle" id="menu-toggle">
-  <i class="fas fa-bars"></i> <!-- Icono hamburguesa -->
-</div>
-
-<nav id="nav-menu">
-  <a href="catalogo-curso.html">Catálogo de Cursos</a>
-  <a href="mis-cursos.html">Mis Cursos</a>
-  <a href="perfil.html">Perfil</a>
-  <a href="#" onclick="abrirModalCerrarSesion(event)">Cerrar Sesión</a>
-</nav>
+  <div id="bienvenida">Bienvenido</div>
+  <div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
+  <nav id="nav-menu">
+    <a href="catalogo-curso.html"><i class="fas fa-book"></i> Catálogo</a>
+    <a href="mis-cursos.html" class="active"><i class="fas fa-graduation-cap"></i> Mis Cursos</a>
+    <a href="perfil.html"><i class="fas fa-user-circle"></i> Perfil</a>
+    <a href="#" onclick="abrirModalCerrarSesion(event)" class="nav-logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+  </nav>
 </header>
 
 <main class="main-content">
-  <div class="breadcrumb">
-    <a href="panelusuarios.html">Inicio</a> / 
-    <a href="mis-cursos.html">Mis Cursos</a> / 
-    <span id="breadcrumbTitulo">Detalle</span>
+  <div class="breadcrumb" style="margin-bottom:20px;font-size:.85rem;color:var(--gray-500);">
+    <a href="panelusuarios.html" style="color:var(--primary);text-decoration:none;">Inicio</a> &rsaquo;
+    <a href="mis-cursos.html" style="color:var(--primary);text-decoration:none;">Mis Cursos</a> &rsaquo;
+    <span id="breadcrumbTitulo">Curso</span>
   </div>
 
   <div id="loading" class="loading">
@@ -789,7 +681,11 @@
   </div>
 </main>
 
-<footer>© 2026 CapaciTrack</footer>
+<footer>
+  <img src="assets/esr.png" class="footer-logo left" alt="ESR">
+  <p>&copy; 2026 CapaciTrack · Grupo Gusi. Todos los derechos reservados.</p>
+  <img src="assets/Grupo-Gusi.png" class="footer-logo right" alt="Grupo Gusi">
+</footer>
 
 <div id="imageModal" class="modal" onclick="closeModal()">
   <span class="modal-close">&times;</span>
@@ -799,16 +695,20 @@
 <!-- MODAL CERRAR SESIÓN -->
 <div id="modalCerrarSesion" class="modal-overlay">
   <div class="modal-box">
-    <h2>⚠️ Cerrar sesión</h2>
-    <p>¿Seguro que deseas cerrar la sesión?</p>
+    <h2>Cerrar sesión</h2>
+    <p>¿Seguro que deseas salir de la plataforma?</p>
     <div class="modal-actions">
       <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
-      <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
+      <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Salir</button>
     </div>
   </div>
 </div>
 
 <script>
+  fetch("/capacitrack/backend/auth/usuario_actual.php", { credentials: "include" })
+    .then(r => r.json())
+    .then(d => { if (d.success) document.getElementById("bienvenida").textContent = "Hola, " + d.nombre; });
+
 const urlParams = new URLSearchParams(window.location.search);
 const cursoId = urlParams.get('id');
 const backendURL = '/capacitrack/backend/';
@@ -1204,13 +1104,30 @@ function generarHTMLEvaluacion() {
       opcionesHTML += '</div>';
     }
     
-    preguntasHTML += `
-      <div class="pregunta-item">
-        <div class="pregunta-numero">Pregunta ${index + 1}</div>
-        <div class="pregunta-texto">${pregunta.pregunta}</div>
-        ${opcionesHTML}
-      </div>
-    `;
+    let imagenHTML = '';
+
+if (pregunta.imagen && pregunta.imagen !== '') {
+  const urlImagen = `${backendURL}${pregunta.imagen}`;
+  imagenHTML = `
+    <div style="margin:15px 0;">
+      <img src="${urlImagen}" 
+           class="modulo-imagen"
+           onclick="openModal('${urlImagen}')"
+           onerror="this.style.display='none'">
+    </div>
+  `;
+}
+
+preguntasHTML += `
+  <div class="pregunta-item">
+    <div class="pregunta-numero">Pregunta ${index + 1}</div>
+    <div class="pregunta-texto">${pregunta.pregunta}</div>
+    
+    ${imagenHTML}
+    
+    ${opcionesHTML}
+  </div>
+`;
   });
   
   // Resultado de la evaluación
@@ -1439,9 +1356,28 @@ function volverMisCursos() {
   window.location.href = 'mis-cursos.html';
 }
 
+function getYouTubeEmbedUrl(url) {
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/);
+  return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+}
+
 function generarVisualizadorArchivo(rutaArchivo, tipo, extension, titulo) {
+  // Detectar URL de YouTube
+  if (tipo === 'video' || /youtube\.com|youtu\.be/.test(rutaArchivo)) {
+    const embedUrl = getYouTubeEmbedUrl(rutaArchivo);
+    if (embedUrl) {
+      return `<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;">
+        <iframe src="${embedUrl}" title="${titulo}"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:8px;"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>`;
+    }
+    return `<div class="no-contenido"><i class="fab fa-youtube" style="font-size:2.5rem;color:#ff0000;margin-bottom:10px;display:block;"></i>URL de YouTube no válida o no disponible</div>`;
+  }
+
   const urlCompleta = `${backendURL}${rutaArchivo}`;
-  
+
   if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'].includes(extension) || tipo === 'imagen') {
     return `
       <img src="${urlCompleta}" 
@@ -1465,7 +1401,8 @@ function generarVisualizadorArchivo(rutaArchivo, tipo, extension, titulo) {
     `;
   }
   
-  if (['mp4', 'webm', 'ogg'].includes(extension) || tipo === 'video') {
+  // Video local (legacy — ahora los videos usan YouTube)
+  if (['mp4', 'webm'].includes(extension)) {
     return `
       <video controls class="modulo-video">
         <source src="${urlCompleta}" type="video/${extension}">

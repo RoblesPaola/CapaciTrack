@@ -3,20 +3,11 @@ session_start();
 header("Content-Type: application/json");
 require "config/db.php";
 
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-$conn->set_charset("utf8mb4");
-
-/* =========================
-   VALIDAR SESIÓN
-========================= */
 if (!isset($_SESSION["user_id"])) {
     echo json_encode(["success" => false, "message" => "No autorizado"]);
     exit;
 }
 
-/* =========================
-   FUNCIONES
-========================= */
 function subirArchivo($file, $carpeta) {
     $permitidos = [
         "image/jpeg", "image/png", "image/webp",
@@ -35,43 +26,32 @@ function subirArchivo($file, $carpeta) {
     }
 
     $nombre = time() . "_" . basename($file["name"]);
-    $ruta = "uploads/$carpeta/" . $nombre;
+    $ruta   = "uploads/$carpeta/" . $nombre;
 
     move_uploaded_file($file["tmp_name"], "../" . $ruta);
     return $ruta;
 }
 
-/* =========================
-   DATOS
-========================= */
-$titulo = $_POST["titulo"] ?? "";
+$titulo      = $_POST["titulo"] ?? "";
 $descripcion = $_POST["descripcion"] ?? "";
-
-$modulos = json_decode($_POST["modulos"] ?? "[]", true);
+$modulos     = json_decode($_POST["modulos"] ?? "[]", true);
 $evaluaciones = json_decode($_POST["evaluaciones"] ?? "[]", true);
 
-/* =========================
-   PORTADA
-========================= */
 $portada = "";
 if (!empty($_FILES["portada"]["name"])) {
     $portada = subirArchivo($_FILES["portada"], "portadas");
 }
 
-/* =========================
-   CURSO
-========================= */
+// CURSO
 $stmt = $conn->prepare(
     "INSERT INTO cursos (titulo, descripcion, portada, creado_por)
-     VALUES (?, ?, ?, ?)"
+     VALUES (?, ?, ?, ?)
+     RETURNING id"
 );
-$stmt->bind_param("sssi", $titulo, $descripcion, $portada, $_SESSION["user_id"]);
-$stmt->execute();
-$curso_id = $conn->insert_id;
+$stmt->execute([$titulo, $descripcion, $portada, $_SESSION["user_id"]]);
+$curso_id = $stmt->fetchColumn();
 
-/* =========================
-   MÓDULOS CON ARCHIVOS
-========================= */
+// MÓDULOS CON ARCHIVOS
 $stmtMod = $conn->prepare(
     "INSERT INTO modulos
     (curso_id, titulo, descripcion, tipo_contenido, archivo)
@@ -79,7 +59,6 @@ $stmtMod = $conn->prepare(
 );
 
 foreach ($modulos as $i => $m) {
-
     $archivo = "";
     if (isset($_FILES["mod_archivo_$i"])) {
         $archivo = subirArchivo($_FILES["mod_archivo_$i"], "modulos");
@@ -87,20 +66,16 @@ foreach ($modulos as $i => $m) {
 
     $tipo = $archivo ? "archivo" : "texto";
 
-    $stmtMod->bind_param(
-        "issss",
+    $stmtMod->execute([
         $curso_id,
         $m["titulo"],
         $m["descripcion"],
         $tipo,
         $archivo
-    );
-    $stmtMod->execute();
+    ]);
 }
 
-/* =========================
-   EVALUACIONES CON ARCHIVOS
-========================= */
+// EVALUACIONES CON ARCHIVOS
 $stmtEval = $conn->prepare(
     "INSERT INTO evaluaciones
     (curso_id, tipo, pregunta, opciones, respuesta_correcta, archivo)
@@ -108,8 +83,7 @@ $stmtEval = $conn->prepare(
 );
 
 foreach ($evaluaciones as $i => $e) {
-
-    $tipo = $e["tipo"];
+    $tipo     = $e["tipo"];
     $pregunta = $e["pregunta"];
 
     if ($tipo === "abierta") {
@@ -125,21 +99,9 @@ foreach ($evaluaciones as $i => $e) {
         $archivo = subirArchivo($_FILES["eval_archivo_$i"], "evaluaciones");
     }
 
-    $stmtEval->bind_param(
-        "isssss",
-        $curso_id,
-        $tipo,
-        $pregunta,
-        $opciones,
-        $correcta,
-        $archivo
-    );
-    $stmtEval->execute();
+    $stmtEval->execute([$curso_id, $tipo, $pregunta, $opciones, $correcta, $archivo]);
 }
 
-/* =========================
-   RESPUESTA
-========================= */
 echo json_encode([
     "success" => true,
     "message" => "Curso, módulos, evaluaciones y archivos guardados correctamente"

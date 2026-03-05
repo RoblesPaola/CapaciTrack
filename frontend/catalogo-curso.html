@@ -4,806 +4,307 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catálogo de Cursos | CapaciTrack</title>
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <link rel="stylesheet" href="assets/css/global.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f5f7fa;
-      color: #333;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ===== TOPBAR ===== */
-    .topbar {
-      background-color: #e8f5e9;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #dcedc8;
-    }
-
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-container img {
-      height: 42px;
-    }
-
-    .logo-container a {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #2e7d32;
-      text-decoration: none;
-    }
-
-    .topbar nav a {
-      margin-left: 25px;
-      color: #2e7d32;
-      text-decoration: none;
-      font-weight: 500;
-      transition: 0.2s;
-    }
-
-    .topbar nav a:hover {
-      color: #1b5e20;
-    }
-
-    #bienvenida {
-      font-weight: 600;
-      color: #2e7d32;
-      margin-left: 30px;
-    }
-
-    /* ===== CONTENIDO ===== */
-    .dashboard-container {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-    }
-
-    .main-content {
-      flex: 1;
-      padding: 30px;
-      background-color: #fff;
-      overflow-y: auto;
-    }
-
-    .main-content h2 {
-      color: #2e7d32;
-      margin-bottom: 20px;
-      font-size: 2rem;
-    }
-
-    /* ===== CURSOS ===== */
-    #listaCursos {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 25px;
-      margin-top: 20px;
-    }
-
-    .curso-card {
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      background: #f9f9f9;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: transform 0.2s, box-shadow 0.2s;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .curso-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-    }
-
-    .curso-card-image {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 3rem;
-    }
-
-    .curso-card-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .curso-card-content {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .curso-card h3 {
-      color: #2e7d32;
-      margin-bottom: 10px;
-      font-size: 1.3rem;
-    }
-
-    .curso-card p {
-      color: #666;
-      margin-bottom: 15px;
-      line-height: 1.5;
-      flex-grow: 1;
-    }
-
-    .curso-info {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
-    }
-
-    .curso-info-item {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      color: #2e7d32;
-      font-size: 0.9rem;
-    }
-
-    .curso-card .curso-actions {
-      display: flex;
-      gap: 10px;
-      flex-direction: column;
-    }
-
-    .curso-card button {
-      padding: 12px 16px;
-      background: #2e7d32;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .curso-card button:hover {
-      background: #1b5e20;
-    }
-
-    .curso-card button:disabled {
-      background: #9e9e9e;
-      cursor: not-allowed;
-    }
-
-    .curso-card .btn-ver-modulos {
-      background: #4caf50;
-    }
-
-    .curso-card .btn-ver-modulos:hover {
-      background: #388e3c;
-    }
-
-    /* Mensaje cuando no hay cursos */
-    .no-cursos {
-      text-align: center;
-      padding: 40px;
-      color: #666;
-      font-size: 1.1rem;
-    }
-
-    /* Loading */
-    .loading {
-      text-align: center;
-      padding: 40px;
-      color: #2e7d32;
-      font-size: 1.1rem;
-    }
-
-    /* Modal para ver módulos */
-    .modal {
+    /* Modal módulos (page-specific) */
+    .modal-modulos-overlay {
+      position: fixed; inset: 0;
+      background: rgba(15,23,42,.55);
+      backdrop-filter: blur(4px);
       display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 16px;
+    }
+    .modal-modulos-content {
+      background: var(--white);
+      margin: 0 auto;
+      padding: 0;
+      border-radius: var(--radius-xl);
       width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      overflow: auto;
+      max-width: 700px;
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      animation: aparecer .3s cubic-bezier(.34,1.56,.64,1);
     }
-
-    .modal-content {
-      background-color: #fff;
-      margin: 5% auto;
-      padding: 30px;
-      border-radius: 12px;
-      width: 80%;
-      max-width: 800px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-
-    .modal-header {
+    .modal-modulos-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 2px solid #e0e0e0;
+      padding: 22px 28px;
+      border-bottom: 1px solid var(--gray-200);
+      background: var(--gray-50);
     }
-
-    .modal-header h2 {
-      color: #2e7d32;
-      margin: 0;
+    .modal-modulos-header h2 { margin: 0; font-size: 1.1rem; color: var(--gray-800); }
+    .modal-modulos-body { padding: 24px 28px; max-height: 60vh; overflow-y: auto; }
+    .close-btn {
+      width: 32px; height: 32px; border: none; background: var(--gray-100);
+      border-radius: 50%; cursor: pointer; font-size: 1rem; color: var(--gray-500);
+      display: flex; align-items: center; justify-content: center; transition: var(--ease);
     }
-
-    .close {
-      color: #aaa;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .close:hover {
-      color: #000;
-    }
-
+    .close-btn:hover { background: var(--gray-200); color: var(--gray-800); }
     .modulo-item {
-      background: #f5f5f5;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border-left: 4px solid #2e7d32;
-    }
-
-    .modulo-item h4 {
-      color: #2e7d32;
-      margin-bottom: 8px;
-    }
-
-    .modulo-item p {
-      color: #666;
+      background: var(--gray-50);
+      padding: 14px 16px;
       margin-bottom: 10px;
+      border-radius: var(--radius);
+      border-left: 3px solid var(--primary);
     }
-
-    .modulo-item .tipo-badge {
-      display: inline-block;
-      padding: 4px 12px;
-      background: #2e7d32;
-      color: white;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      margin-top: 8px;
+    .modulo-item h4 { color: var(--primary-dark); margin-bottom: 5px; font-size: .9rem; }
+    .modulo-item p { color: var(--gray-500); font-size: .85rem; margin-bottom: 6px; }
+    .tipo-badge {
+      display: inline-block; padding: 3px 10px;
+      background: var(--primary-100); color: var(--primary-dark);
+      border-radius: var(--radius-full); font-size: .75rem; font-weight: 600;
     }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background-color: #e8f5e9;
-      padding: 15px;
-      text-align: center;
-      color: #2e7d32;
-      border-top: 1px solid #dcedc8;
-      position: relative;
-    }
-
-    .footer-logo {
-      position: absolute;
-      bottom: 5px;
-    }
-
-    .footer-logo.left {
-      left: 20px;
-      width: 100px;
-    }
-
-    .footer-logo.right {
-      right: 20px;
-      width: 110px;
-    }
-    /*cerrar sesion*/
-    .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.modal-box {
-  background: #fff;
-  padding: 30px;
-  width: 400px;
-  border-radius: 14px;
-  text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  animation: aparecer 0.25s ease;
-}
-
-.modal-box h2 {
-  margin-bottom: 10px;
-  color: #19aa1e;
-}
-
-.modal-box p {
-  color: #555;
-  margin-bottom: 25px;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.btn-cancelar {
-  background: #e5e5e5;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-confirmar {
-  background: #19aa1e;
-  color: white;
-  border: none;
-  padding: 10px 22px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-confirmar:hover {
-  background: #19aa1e;
-}
-
-@keyframes aparecer {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
- /* Icono hamburguesa */
-.menu-toggle {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #2e7d32;
-}
-
-/* Responsive: menú hamburguesa */
-@media screen and (max-width: 768px) {
-  .topbar nav {
-    display: none; /* Oculto por defecto */
-    flex-direction: column;
-    gap: 0;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    background-color: #e8f5e9;
-    width: 200px;
-    border-left: 1px solid #dcedc8;
-    padding: 10px 0;
-    z-index: 999;
-  }
-
-  .topbar nav a {
-    padding: 12px 20px;
-    border-top: 1px solid #dcedc8;
-    margin: 0;
-  }
-
-  .menu-toggle {
-    display: block; /* Mostrar hamburguesa en móvil */
-  }
-
-  /* Cuando el menú está abierto */
-  nav.show {
-    display: flex;
-  }
-}
   </style>
 </head>
-
 <body>
 
-<!-- ===== TOPBAR ===== -->
-<header class="topbar">
-  <div class="logo-container">
-    <img src="assets/logo.png" alt="CapaciTrack">
-    <a href="panelusuarios.html">CapaciTrack</a>
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="CapaciTrack">
+      <a href="panelusuarios.html">CapaciTrack</a>
+    </div>
+    <div id="bienvenida">Bienvenido</div>
+    <div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
+    <nav id="nav-menu">
+      <a href="catalogo-curso.html" class="active"><i class="fas fa-book"></i> Catálogo</a>
+      <a href="mis-cursos.html"><i class="fas fa-graduation-cap"></i> Mis Cursos</a>
+      <a href="perfil.html"><i class="fas fa-user-circle"></i> Perfil</a>
+      <a href="#" onclick="abrirModalCerrarSesion(event)"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+    </nav>
+  </header>
+
+  <!-- MAIN -->
+  <div class="dashboard-container">
+    <main class="main-content">
+      <div style="background:linear-gradient(135deg,var(--primary-darker) 0%,var(--primary) 60%,#22c55e 100%);border-radius:var(--radius-xl);padding:26px 32px;color:#fff;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;overflow:hidden;">
+        <div style="position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.07);pointer-events:none;"></div>
+        <div style="position:relative;z-index:1;">
+          <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);padding:4px 12px;border-radius:50px;font-size:.78rem;font-weight:600;color:#fff;margin-bottom:8px;"><i class="fas fa-book"></i> Formación Profesional</div>
+          <h1 style="font-size:1.4rem;font-weight:800;color:#fff;-webkit-text-fill-color:#fff;background:none;margin:0 0 4px;">Catálogo de Cursos</h1>
+          <p style="color:rgba(255,255,255,.75);font-size:.88rem;margin:0;">Explora los cursos disponibles e inscríbete para obtener tu certificado</p>
+        </div>
+        <div style="width:52px;height:52px;border-radius:var(--radius-md);background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;flex-shrink:0;z-index:1;"><i class="fas fa-graduation-cap"></i></div>
+      </div>
+      <div id="listaCursos">
+        <div class="loading">
+          <i class="fas fa-spinner fa-spin"></i>
+          <p>Cargando cursos...</p>
+        </div>
+      </div>
+    </main>
   </div>
 
-  <div id="bienvenida">Bienvenido</div>
+  <!-- MODAL MÓDULOS -->
+  <div id="modulosModal" class="modal-modulos-overlay">
+    <div class="modal-modulos-content">
+      <div class="modal-modulos-header">
+        <h2 id="modalTitulo"></h2>
+        <button class="close-btn" onclick="cerrarModalModulos()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-modulos-body" id="modalModulos"></div>
+    </div>
+  </div>
 
- <div class="menu-toggle" id="menu-toggle">
-  <i class="fas fa-bars"></i> <!-- Icono hamburguesa -->
-</div>
-
-<nav id="nav-menu">
-  <a href="catalogo-curso.html">Catálogo de Cursos</a>
-  <a href="mis-cursos.html">Mis Cursos</a>
-  <a href="perfil.html">Perfil</a>
-  <a href="#" onclick="abrirModalCerrarSesion(event)">Cerrar Sesión</a>
-</nav>
-</header>
-
-<!-- ===== CONTENEDOR ===== -->
-<div class="dashboard-container">
-  <main class="main-content">
-    <h2><i class="fas fa-book"></i> Catálogo de Cursos</h2>
-    
-    <div id="listaCursos">
-      <div class="loading">
-        <i class="fas fa-spinner fa-spin"></i> Cargando cursos...
+  <!-- MODAL CONFIRMAR INSCRIPCIÓN -->
+  <div id="modalConfirmarInscripcion" class="modal-overlay">
+    <div class="modal-box">
+      <h2>📘 Inscribirse</h2>
+      <p>¿Deseas inscribirte en este curso?</p>
+      <div class="modal-actions">
+        <button class="btn-cancelar" onclick="cerrarModalInscripcion()">Cancelar</button>
+        <button class="btn-confirmar" onclick="confirmarInscripcion()">Inscribirme</button>
       </div>
     </div>
-  </main>
-</div>
-
-<!-- MODAL MODULOS -->
-<div id="modulosModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2 id="modalTitulo"></h2>
-      <span class="close" onclick="cerrarModalModulos()">&times;</span>
-    </div>
-    <div id="modalModulos"></div>
   </div>
-</div>
-<!-- MODAL CONFIRMAR INSCRIPCIÓN -->
-<div id="modalConfirmarInscripcion" class="modal-overlay">
-  <div class="modal-box">
-    <h2>📘 Inscribirse</h2>
-    <p>¿Deseas inscribirte en este curso?</p>
-    <div class="modal-actions">
-      <button class="btn-cancelar" onclick="cerrarModalInscripcion()">Cancelar</button>
-      <button class="btn-confirmar" onclick="confirmarInscripcion()">Inscribirme</button>
+
+  <!-- MODAL RESULTADO INSCRIPCIÓN -->
+  <div id="modalResultadoInscripcion" class="modal-overlay">
+    <div class="modal-box">
+      <h2 id="tituloResultado">Resultado</h2>
+      <p id="mensajeResultado"></p>
+      <div class="modal-actions">
+        <button class="btn-confirmar" onclick="cerrarModalResultado()">Aceptar</button>
+      </div>
     </div>
   </div>
-</div>
-<!-- MODAL RESULTADO INSCRIPCIÓN -->
-<div id="modalResultadoInscripcion" class="modal-overlay">
-  <div class="modal-box">
-    <h2 id="tituloResultado">Resultado</h2>
-    <p id="mensajeResultado"></p>
 
-    <div class="modal-actions">
-      <button class="btn-confirmar" onclick="cerrarModalResultado()">Aceptar</button>
+  <!-- MODAL CERRAR SESIÓN -->
+  <div id="modalCerrarSesion" class="modal-overlay">
+    <div class="modal-box">
+      <h2>🚪 Cerrar sesión</h2>
+      <p>¿Seguro que deseas cerrar la sesión?</p>
+      <div class="modal-actions">
+        <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
+      </div>
     </div>
   </div>
-</div>
-<!-- ===== FOOTER ===== -->
-<footer>
-  <img src="assets/esr.png" class="footer-logo left" alt="ESR">
-  <p>&copy; 2026 CapaciTrack. Todos los derechos reservados.</p>
-  <img src="assets/Grupo-Gusi.png" class="footer-logo right" alt="Grupo Gusi">
-</footer>
 
-<!-- ===== JS BIENVENIDA ===== -->
-<script>
-let usuarioId = null;
+  <!-- FOOTER -->
+  <footer>
+    <img src="assets/esr.png" class="footer-logo left" alt="ESR">
+    <p>&copy; 2026 CapaciTrack. Todos los derechos reservados.</p>
+    <img src="assets/Grupo-Gusi.png" class="footer-logo right" alt="Grupo Gusi">
+  </footer>
 
-// Obtener usuario actual
-fetch("/capacitrack/backend/auth/usuario_actual.php", {
-  credentials: "include"
-})
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      document.getElementById("bienvenida").textContent = "Bienvenido, " + data.nombre;
-      usuarioId = data.id;
-      cargarCursos();
-    }
-  })
-  .catch(err => {
-    console.error("Error al obtener usuario:", err);
-    cargarCursos(); // Intentar cargar cursos de todas formas
-  });
+  <script>
+    let usuarioId = null;
+    let cursoSeleccionado = null;
+    let botonActual = null;
 
-function cargarCursos() {
-  fetch("http://localhost/capacitrack/backend/cursos.php")
-    .then(res => res.json())
-    .then(cursos => {
-      const contenedor = document.getElementById("listaCursos");
-      
-      
-      if (!cursos || cursos.length === 0) {
-        contenedor.innerHTML = '<div class="no-cursos"><i class="fas fa-inbox"></i><br><br>No hay cursos disponibles en este momento.</div>';
-        return;
-      }
+    fetch("/capacitrack/backend/auth/usuario_actual.php", { credentials: "include" })
+      .then(r => r.json())
+      .then(d => {
+        if (d.success) {
+          document.getElementById("bienvenida").textContent = "Hola, " + d.nombre;
+          usuarioId = d.id;
+          cargarCursos();
+        }
+      })
+      .catch(() => cargarCursos());
 
-      contenedor.innerHTML = '';
-      
-      cursos.forEach(curso => {
-        const cursoCard = document.createElement('div');
-        cursoCard.className = 'curso-card';
-        
-        // Contar módulos
-        const numModulos = curso.modulos ? curso.modulos.length : 0;
-        const tieneEvaluacion = curso.evaluaciones && curso.evaluaciones.length > 0;
-        
-        cursoCard.innerHTML = `
-          <div class="curso-card-image">
-            ${curso.portada ? 
-              `<img src="http://localhost/capacitrack/backend/${curso.portada}" alt="${curso.nombre}">` : 
-              '<i class="fas fa-graduation-cap"></i>'
-            }
-          </div>
-          <div class="curso-card-content">
-            <h3>${curso.nombre || curso.titulo}</h3>
-            <p>${curso.descripcion || 'Sin descripción disponible'}</p>
-            
-            <div class="curso-info">
-              <div class="curso-info-item">
-                <i class="fas fa-list"></i>
-                <span>${numModulos} módulo${numModulos !== 1 ? 's' : ''}</span>
+    function cargarCursos() {
+      fetch("http://localhost/capacitrack/backend/cursos.php")
+        .then(r => r.json())
+        .then(cursos => {
+          const contenedor = document.getElementById("listaCursos");
+          if (!cursos || cursos.length === 0) {
+            contenedor.innerHTML = `<div class="empty-state"><i class="fas fa-inbox"></i><h3>Sin cursos disponibles</h3><p>No hay cursos en este momento.</p></div>`;
+            return;
+          }
+          contenedor.innerHTML = '';
+          cursos.forEach(curso => {
+            const numModulos = curso.modulos ? curso.modulos.length : 0;
+            const tieneEvaluacion = curso.evaluaciones && curso.evaluaciones.length > 0;
+            const card = document.createElement('div');
+            card.className = 'curso-card';
+            card.innerHTML = `
+              <div class="curso-card-image">
+                ${curso.portada
+                  ? `<img src="http://localhost/capacitrack/backend/${curso.portada}" alt="${curso.nombre}">`
+                  : `<div class="portada-placeholder"><i class="fas fa-graduation-cap"></i></div>`}
               </div>
-              ${tieneEvaluacion ? `
-                <div class="curso-info-item">
-                  <i class="fas fa-clipboard-check"></i>
-                  <span>Con evaluación</span>
+              <div class="curso-card-content">
+                <h3>${curso.nombre || curso.titulo}</h3>
+                <p>${curso.descripcion || 'Sin descripción disponible'}</p>
+                <div class="curso-info">
+                  <div class="curso-info-item">
+                    <i class="fas fa-list"></i>
+                    <span>${numModulos} módulo${numModulos !== 1 ? 's' : ''}</span>
+                  </div>
+                  ${tieneEvaluacion ? `<div class="curso-info-item"><i class="fas fa-clipboard-check"></i><span>Con evaluación</span></div>` : ''}
                 </div>
-              ` : ''}
-            </div>
-            
-            <div class="curso-actions">
-              ${numModulos > 0 ? `
-                <button class="btn-ver-modulos" onclick="verModulos(${curso.id})">
-                  <i class="fas fa-eye"></i> Ver Módulos
-                </button>
-              ` : ''}
-              ${curso.estado === "no_inscrito" ? `
-  <button onclick="inscribirse(${curso.id}, event)">
-    <i class="fas fa-user-plus"></i> Inscribirme
-  </button>
-` : curso.estado === "en_progreso" ? `
-  <button disabled>
-    <i class="fas fa-clock"></i> En progreso
-  </button>
-` : curso.estado === "completado" ? `
-  <button onclick="reinscribirse(${curso.id})">
-    <i class="fas fa-rotate-right"></i> Reinscribirse
-  </button>
-` : ``}
-
-            </div>
-          </div>
-        `;
-        
-        contenedor.appendChild(cursoCard);
-      });
-      
-      // Guardar cursos en variable global para acceso rápido
-      window.cursosData = cursos;
-    })
-    .catch(err => {
-      console.error("Error al cargar cursos:", err);
-      document.getElementById("listaCursos").innerHTML = 
-        '<div class="no-cursos"><i class="fas fa-exclamation-triangle"></i><br><br>Error al cargar los cursos. Por favor, intenta más tarde.</div>';
-    });
-}
-
-function verModulos(cursoId) {
-  const curso = window.cursosData.find(c => c.id === cursoId);
-  if (!curso) return;
-  
-  document.getElementById("modalTitulo").textContent = `Módulos: ${curso.nombre || curso.titulo}`;
-  
-  const contenedor = document.getElementById("modalModulos");
-  
-  if (!curso.modulos || curso.modulos.length === 0) {
-    contenedor.innerHTML = '<p>Este curso aún no tiene módulos configurados.</p>';
-  } else {
-    contenedor.innerHTML = '';
-    curso.modulos.forEach((modulo, index) => {
-      const moduloDiv = document.createElement('div');
-      moduloDiv.className = 'modulo-item';
-      moduloDiv.innerHTML = `
-        <h4><i class="fas fa-book-open"></i> ${index + 1}. ${modulo.titulo}</h4>
-        <p>${modulo.descripcion || 'Sin descripción'}</p>
-        ${modulo.tipo_contenido ? `<span class="tipo-badge">${modulo.tipo_contenido}</span>` : ''}
-      `;
-      contenedor.appendChild(moduloDiv);
-    });
-  }
-  
-  document.getElementById("modulosModal").style.display = "block";
-}
-
-function cerrarModalModulos() {
-  document.getElementById("modulosModal").style.display = "none";
-}
-
-// Cerrar modal al hacer clic fuera
-window.onclick = function(event) {
-  const modal = document.getElementById("modulosModal");
-  if (event.target === modal) {
-    cerrarModal();
-  }
-}
-
-function inscribirse(id, e){
-  cursoSeleccionado = id;
-  botonActual = e.target.closest("button");
-  document.getElementById("modalConfirmarInscripcion").style.display="flex";
-}
-
-function cerrarModalInscripcion(){
-  document.getElementById("modalConfirmarInscripcion").style.display="none";
-}
-
-function confirmarInscripcion(){
-  cerrarModalInscripcion();
-
-  botonActual.disabled = true;
-  botonActual.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Inscribiendo...';
-
-  fetch("http://localhost/capacitrack/backend/inscripciones.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: new URLSearchParams({
-      curso_id: cursoSeleccionado,
-      usuario_id: usuarioId
-    })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      botonActual.innerHTML = '<i class="fas fa-check"></i> Inscrito';
-      botonActual.style.background = "#4caf50";
-
-      mostrarResultado(
-        "🎉 Inscripción exitosa",
-        "Ya formas parte del curso."
-      );
-    } else {
-      botonActual.disabled = false;
-      botonActual.innerHTML = '<i class="fas fa-user-plus"></i> Inscribirme';
-
-      mostrarResultado(
-        "❌ No se pudo inscribir",
-        data.message || "Ocurrió un error"
-      );
+                <div class="curso-actions">
+                  ${numModulos > 0 ? `<button class="btn-ver-modulos" onclick="verModulos(${curso.id})"><i class="fas fa-eye"></i> Ver Módulos</button>` : ''}
+                  ${curso.estado === "no_inscrito"  ? `<button onclick="inscribirse(${curso.id}, event)"><i class="fas fa-user-plus"></i> Inscribirme</button>` :
+                    curso.estado === "en_progreso"  ? `<button disabled><i class="fas fa-clock"></i> En progreso</button>` :
+                    curso.estado === "completado"   ? `<button onclick="reinscribirse(${curso.id})"><i class="fas fa-rotate-right"></i> Reinscribirse</button>` : ''}
+                </div>
+              </div>`;
+            contenedor.appendChild(card);
+          });
+          window.cursosData = cursos;
+        })
+        .catch(() => {
+          document.getElementById("listaCursos").innerHTML =
+            `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><h3>Error al cargar</h3><p>Por favor intenta más tarde.</p></div>`;
+        });
     }
-  })
-  .catch(() => {
-    botonActual.disabled = false;
-    botonActual.innerHTML = '<i class="fas fa-user-plus"></i> Inscribirme';
 
-    mostrarResultado(
-      "❌ Error",
-      "No se pudo conectar con el servidor"
-    );
-  });
-}
-
-function reinscribirse(cursoId) {
-  console.log("Curso ID enviado:", cursoId);
-
- fetch("../backend/reinscribirse.php", {
-  method: "POST",
-  credentials: "include", 
-  headers: {
-    "Content-Type": "application/x-www-form-urlencoded"
-  },
-  body: new URLSearchParams({
-    curso_id: cursoId
-  })
-})
-  .then(res => res.json())
-  .then(data => {
-    console.log("Respuesta backend:", data);
-
-    if (data.success) {
-
-      mostrarResultado(
-        "Reinscripción exitosa",
-        "Te has reinscrito correctamente al curso."
-      );
-
-      setTimeout(() => {
-        window.location.href = "mis-cursos.html";
-      }, 1200);
-
-    } else {
-      mostrarResultado(
-        "Error",
-        data.message || "No se pudo reinscribir al curso"
-      );
+    function verModulos(cursoId) {
+      const curso = window.cursosData.find(c => c.id === cursoId);
+      if (!curso) return;
+      document.getElementById("modalTitulo").textContent = `Módulos: ${curso.nombre || curso.titulo}`;
+      const contenedor = document.getElementById("modalModulos");
+      if (!curso.modulos || curso.modulos.length === 0) {
+        contenedor.innerHTML = '<p style="color:var(--gray-500);">Este curso aún no tiene módulos configurados.</p>';
+      } else {
+        contenedor.innerHTML = curso.modulos.map((m, i) => `
+          <div class="modulo-item">
+            <h4><i class="fas fa-book-open"></i> ${i + 1}. ${m.titulo}</h4>
+            <p>${m.descripcion || 'Sin descripción'}</p>
+            ${m.tipo_contenido ? `<span class="tipo-badge">${m.tipo_contenido}</span>` : ''}
+          </div>`).join('');
+      }
+      document.getElementById("modulosModal").style.display = "flex";
     }
-  })
-  .catch(error => {
-    console.error("Error:", error);
-    mostrarResultado(
-      "Error",
-      "No se pudo conectar con el servidor"
-    );
-  });
-}
 
+    function cerrarModalModulos() { document.getElementById("modulosModal").style.display = "none"; }
 
+    function inscribirse(id, e) {
+      cursoSeleccionado = id;
+      botonActual = e.target.closest("button");
+      document.getElementById("modalConfirmarInscripcion").style.display = "flex";
+    }
 
+    function cerrarModalInscripcion() { document.getElementById("modalConfirmarInscripcion").style.display = "none"; }
 
+    function confirmarInscripcion() {
+      cerrarModalInscripcion();
+      botonActual.disabled = true;
+      botonActual.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Inscribiendo...';
+      fetch("http://localhost/capacitrack/backend/inscripciones.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({ curso_id: cursoSeleccionado, usuario_id: usuarioId })
+      })
+        .then(r => r.json())
+        .then(d => {
+          if (d.success) {
+            botonActual.innerHTML = '<i class="fas fa-check"></i> Inscrito';
+            mostrarResultado("🎉 Inscripción exitosa", "Ya formas parte del curso.");
+          } else {
+            botonActual.disabled = false;
+            botonActual.innerHTML = '<i class="fas fa-user-plus"></i> Inscribirme';
+            mostrarResultado("No se pudo inscribir", d.message || "Ocurrió un error");
+          }
+        })
+        .catch(() => {
+          botonActual.disabled = false;
+          botonActual.innerHTML = '<i class="fas fa-user-plus"></i> Inscribirme';
+          mostrarResultado("Error", "No se pudo conectar con el servidor");
+        });
+    }
 
+    function reinscribirse(cursoId) {
+      fetch("../backend/reinscribirse.php", {
+        method: "POST", credentials: "include",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({ curso_id: cursoId })
+      })
+        .then(r => r.json())
+        .then(d => {
+          if (d.success) {
+            mostrarResultado("Reinscripción exitosa", "Te has reinscrito correctamente al curso.");
+            setTimeout(() => window.location.href = "mis-cursos.html", 1200);
+          } else {
+            mostrarResultado("Error", d.message || "No se pudo reinscribir al curso");
+          }
+        })
+        .catch(() => mostrarResultado("Error", "No se pudo conectar con el servidor"));
+    }
 
+    function mostrarResultado(t, m) {
+      document.getElementById("tituloResultado").textContent = t;
+      document.getElementById("mensajeResultado").textContent = m;
+      document.getElementById("modalResultadoInscripcion").style.display = "flex";
+    }
+    function cerrarModalResultado() { document.getElementById("modalResultadoInscripcion").style.display = "none"; }
 
-function mostrarResultado(t,m){
-  document.getElementById("tituloResultado").innerText=t;
-  document.getElementById("mensajeResultado").innerText=m;
-  document.getElementById("modalResultadoInscripcion").style.display="flex";
-}
-function cerrarModalResultado(){
-  document.getElementById("modalResultadoInscripcion").style.display = "none";
-}
+    function abrirModalCerrarSesion(e) { e.preventDefault(); document.getElementById("modalCerrarSesion").style.display = "flex"; }
+    function cerrarModal() { document.getElementById("modalCerrarSesion").style.display = "none"; }
+    function confirmarCerrarSesion() { window.location.href = "index.html"; }
 
-
-
-
-
-</script>
-
-<!-- MODAL CERRAR SESIÓN -->
-<div id="modalCerrarSesion" class="modal-overlay">
-  <div class="modal-box">
-    <h2>⚠️ Cerrar sesión</h2>
-    <p>¿Seguro que deseas cerrar la sesión?</p>
-
-    <div class="modal-actions">
-      <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
-      <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
-    </div>
-  </div>
-</div>
-<script>
-function abrirModalCerrarSesion(e) {
-  e.preventDefault();
-  document.getElementById("modalCerrarSesion").style.display = "flex";
-}
-
-function cerrarModal() {
-  document.getElementById("modalCerrarSesion").style.display = "none";
-}
-
-function confirmarCerrarSesion() {
-
-
-  window.location.href = "index.html";
-}
-const menuToggle = document.getElementById('menu-toggle');
-const navMenu = document.getElementById('nav-menu');
-
-menuToggle.addEventListener('click', () => {
-  navMenu.classList.toggle('show'); // Agrega/quita clase para mostrar menú
-});
-
-</script>
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      document.getElementById('nav-menu').classList.toggle('show');
+    });
+  </script>
 
 </body>
 </html>

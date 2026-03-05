@@ -9,55 +9,35 @@ if (!isset($_GET["id"])) {
 
 $id = intval($_GET["id"]);
 
-/* ===== CURSO ===== */
-$sqlCurso = "SELECT * FROM cursos WHERE id = $id";
-$resCurso = $conn->query($sqlCurso);
+try {
 
-if (!$resCurso) {
-  echo json_encode([
-    "success" => false,
-    "error" => "Error en curso",
-    "mysql" => $conn->error
-  ]);
-  exit;
+    // CURSO
+    $stmtCurso = $conn->prepare("SELECT * FROM cursos WHERE id = ?");
+    $stmtCurso->execute([$id]);
+    $curso = $stmtCurso->fetch(PDO::FETCH_ASSOC);
+
+    if (!$curso) {
+        echo json_encode(["success" => false, "error" => "Curso no encontrado"]);
+        exit;
+    }
+
+    // MODULOS
+    $stmtModulos = $conn->prepare("SELECT * FROM modulos WHERE curso_id = ?");
+    $stmtModulos->execute([$id]);
+    $modulos = $stmtModulos->fetchAll(PDO::FETCH_ASSOC);
+
+    // EVALUACIONES
+    $stmtEval = $conn->prepare("SELECT * FROM evaluaciones WHERE curso_id = ?");
+    $stmtEval->execute([$id]);
+    $evaluaciones = $stmtEval->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode([
+        "success"      => true,
+        "curso"        => $curso,
+        "modulos"      => $modulos,
+        "evaluaciones" => $evaluaciones
+    ]);
+
+} catch (PDOException $e) {
+    echo json_encode(["success" => false, "error" => $e->getMessage()]);
 }
-
-$curso = $resCurso->fetch_assoc();
-
-/* ===== MODULOS ===== */
-$sqlModulos = "SELECT * FROM modulos WHERE curso_id = $id";
-$resModulos = $conn->query($sqlModulos);
-
-if (!$resModulos) {
-  echo json_encode([
-    "success" => false,
-    "error" => "Error en módulos",
-    "mysql" => $conn->error
-  ]);
-  exit;
-}
-
-$modulos = $resModulos->fetch_all(MYSQLI_ASSOC);
-
-/* ===== EVALUACIONES ===== */
-$sqlEval = "SELECT * FROM evaluaciones WHERE curso_id = $id";
-$resEval = $conn->query($sqlEval);
-
-if (!$resEval) {
-  echo json_encode([
-    "success" => false,
-    "error" => "Error en evaluaciones",
-    "mysql" => $conn->error
-  ]);
-  exit;
-}
-
-$evaluaciones = $resEval->fetch_all(MYSQLI_ASSOC);
-
-/* ===== RESPUESTA ===== */
-echo json_encode([
-  "success" => true,
-  "curso" => $curso,
-  "modulos" => $modulos,
-  "evaluaciones" => $evaluaciones
-]);

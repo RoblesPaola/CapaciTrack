@@ -5,1103 +5,442 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfil | CapaciTrack</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <link rel="stylesheet" href="assets/css/global.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f5f7fa;
-      color: #333;
-    }
-
-     /* ===== TOPBAR ===== */
-    .topbar {
-      background-color: #e8f5e9;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #dcedc8;
-    }
-
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-container img {
-      height: 42px;
-    }
-
-    .logo-container a {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #2e7d32;
-      text-decoration: none;
-    }
-
-    .topbar nav a {
-      margin-left: 25px;
-      color: #2e7d32;
-      text-decoration: none;
-      font-weight: 500;
-      transition: 0.2s;
-    }
-
-    .topbar nav a:hover {
-      color: #1b5e20;
-    }
-
-    #bienvenida {
-      font-weight: 600;
-      color: #2e7d32;
-      margin-left: 30px;
-    }
-
-    /* ===== PERFIL ===== */
     .perfil-container {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 20px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 24px;
     }
+    @media (max-width: 900px) { .perfil-container { grid-template-columns: 1fr; } }
 
-    .card {
-      background: #fff;
-      border-radius: 15px;
-      padding: 25px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-    }
-
-    h2, h3 {
-      color: #2e7d32;
-      margin-bottom: 15px;
-    }
-
-    /* ===== PERFIL IZQUIERDO ===== */
-    .perfil-img {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
+    /* Avatar */
+    .perfil-img { text-align: center; margin-bottom: 20px; }
     .perfil-img img {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      object-fit: cover;
-      background: #ccc;
-      border: 3px solid #2e7d32;
+      width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+      border: 3px solid var(--primary-100);
+      box-shadow: 0 4px 16px rgba(22,163,74,.2);
     }
+    .perfil-img h3 { margin-top: 12px; font-size: 1.1rem; color: var(--gray-800); }
 
-    .btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 18px;
-      background: #2e7d32;
-      color: #fff;
-      border-radius: 20px;
-      font-size: 14px;
-      cursor: pointer;
-      border: none;
-      transition: 0.2s;
+    .btn-foto {
+      display: inline-flex; align-items: center; gap: 7px;
+      margin-top: 10px; padding: 7px 16px;
+      background: var(--primary-50); color: var(--primary-dark);
+      border: 1.5px solid var(--primary-100); border-radius: var(--radius-full);
+      font-size: .82rem; font-weight: 600; cursor: pointer; transition: var(--ease);
     }
+    .btn-foto:hover { background: var(--primary-100); }
+    .btn-foto input { display: none; }
 
-    .btn:hover {
-      background: #1b5e20;
-    }
-
-    .campo {
-      margin-top: 15px;
-    }
-
-    .campo label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .campo input,
-    .campo select {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    /* ===== DOCUMENTOS ===== */
+    /* Docs */
     .doc {
-      background: #f5f5f5;
-      padding: 14px 16px;
-      border-radius: 12px;
-      margin-top: 10px;
-      border: 2px solid #e0e0e0;
+      background: var(--gray-50); padding: 14px 16px;
+      border-radius: var(--radius); border: 1.5px solid var(--gray-200);
+      margin-top: 10px; transition: var(--ease);
     }
-
-    .doc-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-
-    .doc-estado {
-      font-size: 14px;
-    }
-
-    .doc-estado.subido {
-      color: #2e7d32;
-    }
-
-    .doc-estado.pendiente {
-      color: #f57c00;
-    }
-
-    .doc-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
+    .doc:hover { border-color: var(--primary-100); }
+    .doc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .doc-header strong { font-size: .875rem; color: var(--gray-700); }
+    .doc-estado { font-size: .8rem; font-weight: 600; padding: 3px 10px; border-radius: var(--radius-full); }
+    .doc-estado.subido  { background: #dcfce7; color: #15803d; }
+    .doc-estado.pendiente { background: #fef3c7; color: #92400e; }
+    .doc-actions { display: flex; gap: 8px; margin-top: 8px; }
     .btn-small {
-      padding: 5px 12px;
-      font-size: 12px;
-      background: #43a047;
-      color: white;
-      border: none;
-      border-radius: 15px;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
+      padding: 5px 12px; font-size: .78rem; font-weight: 600;
+      background: var(--primary-50); color: var(--primary-dark);
+      border: none; border-radius: var(--radius-full); cursor: pointer;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: var(--ease);
     }
+    .btn-small:hover { background: var(--primary-100); }
 
-    .btn-small:hover {
-      background: #2e7d32;
+    /* Progreso */
+    .progreso-widget {
+      background: linear-gradient(135deg, var(--primary) 0%, #22c55e 100%);
+      border-radius: var(--radius-lg); padding: 22px; display: flex; gap: 20px; align-items: center;
+      box-shadow: 0 6px 20px rgba(22,163,74,.2);
     }
-
-    /* ===== PROGRESO ===== */
-    .progreso {
-      background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
-      color: #fff;
-      border-radius: 20px;
-      padding: 25px;
-      display: flex;
-      gap: 25px;
-      align-items: center;
-    }
-
     .circulo {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: conic-gradient(#1b5e20 0deg, #a5d6a7 0deg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      font-weight: bold;
-      position: relative;
+      width: 100px; height: 100px; border-radius: 50%;
+      background: conic-gradient(rgba(255,255,255,.9) 0deg, rgba(255,255,255,.25) 0deg);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-
     .circulo-inner {
-      width: 90px;
-      height: 90px;
-      background: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #2e7d32;
-      flex-direction: column;
+      width: 76px; height: 76px; background: var(--white); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
     }
+    .porcentaje { font-size: 1.3rem; font-weight: 800; color: var(--primary-dark); line-height: 1; }
+    .progreso-detalle { color: var(--white); }
+    .progreso-detalle h2 { color: var(--white); font-size: 1rem; margin-bottom: 4px; }
+    .progreso-detalle p { font-size: .85rem; opacity: .9; margin: 0; }
 
-    .porcentaje {
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .progreso-detalle h2 {
-      color: white;
-      margin-bottom: 10px;
-    }
-
-    .progreso-detalle p {
-      font-size: 14px;
-      opacity: 0.9;
-    }
-
-    /* ===== CURSOS PROGRESO ===== */
+    /* Curso item */
     .curso-item {
-      background: #f5f5f5;
-      padding: 12px 15px;
-      border-radius: 10px;
-      margin-top: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      background: var(--gray-50); padding: 12px 14px; border-radius: var(--radius);
+      margin-top: 8px; display: flex; justify-content: space-between; align-items: center;
+      border: 1px solid var(--gray-100);
     }
+    .curso-nombre { font-weight: 600; color: var(--gray-700); font-size: .9rem; }
+    .curso-progreso { font-size: .82rem; color: var(--gray-400); margin-top: 2px; }
 
-    .curso-nombre {
-      font-weight: 600;
-      color: #2e7d32;
-    }
-
-    .curso-progreso {
-      font-size: 14px;
-      color: #666;
-    }
-
-    /* ===== CERTIFICADOS ===== */
+    /* Certificados */
     .certificado-item {
-      background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
-      padding: 18px 20px;
-      border-radius: 12px;
-      margin-top: 12px;
-      border: 2px solid #e0e0e0;
-      transition: all 0.3s;
-      cursor: pointer;
+      background: var(--white); padding: 16px; border-radius: var(--radius);
+      margin-top: 10px; border: 1.5px solid var(--gray-100);
+      transition: var(--ease); cursor: pointer;
     }
-
-    .certificado-item:hover {
-      border-color: #2e7d32;
-      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.15);
-      transform: translateY(-2px);
-    }
-
-    .certificado-header {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 10px;
-    }
-
+    .certificado-item:hover { border-color: var(--primary-100); box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+    .certificado-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
     .certificado-icono {
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, #2e7d32, #43a047);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.3rem;
-      flex-shrink: 0;
+      width: 44px; height: 44px; background: linear-gradient(135deg, var(--primary), #22c55e);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      color: var(--white); font-size: 1.1rem; flex-shrink: 0;
     }
-
-    .certificado-info {
-      flex: 1;
-    }
-
-    .certificado-titulo {
-      font-weight: 700;
-      color: #2e7d32;
-      font-size: 1.05rem;
-      margin-bottom: 5px;
-    }
-
-    .certificado-fecha {
-      font-size: 0.85rem;
-      color: #666;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .certificado-acciones {
-      display: flex;
-      gap: 10px;
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid #e0e0e0;
-    }
-
+    .certificado-titulo { font-weight: 700; color: var(--gray-800); font-size: .95rem; margin-bottom: 3px; }
+    .certificado-fecha { font-size: .8rem; color: var(--gray-400); display: flex; align-items: center; gap: 4px; }
+    .certificado-acciones { display: flex; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--gray-100); }
     .btn-certificado {
-      flex: 1;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: all 0.2s;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      flex: 1; padding: 8px 14px; border: none; border-radius: var(--radius);
+      cursor: pointer; font-size: .82rem; font-weight: 600; font-family: inherit;
+      transition: var(--ease); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
     }
+    .btn-descargar-cert { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--white); }
+    .btn-descargar-cert:hover { background: linear-gradient(135deg, var(--primary-dark), var(--primary-darker)); transform: translateY(-1px); }
+    .btn-compartir-cert { background: var(--gray-100); color: var(--gray-600); }
+    .btn-compartir-cert:hover { background: var(--gray-200); }
 
-    .btn-descargar-cert {
-      background: linear-gradient(135deg, #2e7d32, #43a047);
-      color: white;
+    .no-certificados { text-align: center; padding: 28px 16px; color: var(--gray-400); }
+    .no-certificados i { font-size: 2rem; margin-bottom: 10px; display: block; color: var(--gray-300); }
+
+    /* Toast */
+    .toast { position: fixed; bottom: 28px; right: 28px; min-width: 260px; max-width: 360px;
+      background: var(--gray-900); color: var(--white); padding: 14px 18px;
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); font-weight: 500; font-size: .875rem;
+      display: flex; align-items: center; gap: 10px; z-index: 10000;
+      opacity: 0; transform: translateY(14px) scale(.95);
+      transition: opacity .3s ease, transform .3s ease; pointer-events: none;
+      border-left: 4px solid var(--primary);
     }
-
-    .btn-descargar-cert:hover {
-      background: linear-gradient(135deg, #1b5e20, #2e7d32);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
-    }
-
-    .btn-compartir-cert {
-      background: #f5f5f5;
-      color: #2e7d32;
-      border: 2px solid #e0e0e0;
-    }
-
-    .btn-compartir-cert:hover {
-      background: #e8f5e9;
-      border-color: #2e7d32;
-    }
-
-    .no-certificados {
-      text-align: center;
-      padding: 30px 20px;
-      color: #999;
-    }
-
-    .no-certificados i {
-      font-size: 3rem;
-      margin-bottom: 15px;
-      color: #ddd;
-    }
-
-    footer {
-      background-color: #e8f5e9;
-      padding: 15px;
-      text-align: center;
-      margin-top: 40px;
-      color: #2e7d32;
-    }
-
-    /*cerrar sesion*/
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.4);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    .modal-box {
-      background: #fff;
-      padding: 30px;
-      width: 400px;
-      border-radius: 14px;
-      text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      animation: aparecer 0.25s ease;
-    }
-
-    .modal-box h2 {
-      margin-bottom: 10px;
-      color: #19aa1e;
-    }
-
-    .modal-box p {
-      color: #555;
-      margin-bottom: 25px;
-    }
-
-    .modal-actions {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-    }
-
-    .btn-cancelar {
-      background: #e5e5e5;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .btn-confirmar {
-      background: #19aa1e;
-      color: white;
-      border: none;
-      padding: 10px 22px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .btn-confirmar:hover {
-      background: #19aa1e;
-    }
-
-    @keyframes aparecer {
-      from {
-        opacity: 0;
-        transform: scale(0.9);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-  /* ===== TOAST MEJORADO ===== */
-.toast {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  min-width: 260px;
-  max-width: 350px;
-  background: linear-gradient(135deg, #66bb6a, #2e7d32);
-  color: white;
-  padding: 15px 20px;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  z-index: 10000;
-  opacity: 0;
-  transform: translateY(50px) scale(0.9);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  pointer-events: none;
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  pointer-events: auto;
-}
-
-.toast i {
-  font-size: 1.2rem;
-}
-/* MODAL FOTO PERFIL */
-#modalFotoPerfil.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.35);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 10000;
-}
-
-#modalFotoPerfil .modal-box {
-  background: white;
-  padding: 25px 35px;
-  border-radius: 14px;
-  text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  animation: aparecer 0.3s ease;
-}
-
-#modalFotoPerfil h2 {
-  margin: 15px 0;
-  color: #2e7d32;
-}
-
-#modalFotoPerfil p {
-  color: #555;
-  margin-bottom: 20px;
-}
-
-#modalFotoPerfil .btn-confirmar {
-  background: #2e7d32;
-  color: white;
-  border: none;
-  padding: 10px 22px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-#modalFotoPerfil .btn-confirmar:hover {
-  background: #1b5e20;
-}
-
-@keyframes aparecer {
-  from { opacity: 0; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-/* Icono hamburguesa */
-.menu-toggle {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #2e7d32;
-}
-
-/* Responsive: menú hamburguesa */
-@media screen and (max-width: 768px) {
-  .topbar nav {
-    display: none; /* Oculto por defecto */
-    flex-direction: column;
-    gap: 0;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    background-color: #e8f5e9;
-    width: 200px;
-    border-left: 1px solid #dcedc8;
-    padding: 10px 0;
-    z-index: 999;
-  }
-
-  .topbar nav a {
-    padding: 12px 20px;
-    border-top: 1px solid #dcedc8;
-    margin: 0;
-  }
-
-  .menu-toggle {
-    display: block; /* Mostrar hamburguesa en móvil */
-  }
-
-  /* Cuando el menú está abierto */
-  nav.show {
-    display: flex;
-  }
-}
-
+    .toast.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .toast.error { border-left-color: var(--error); }
   </style>
 </head>
-
 <body>
 
-<!-- ===== TOPBAR ===== -->
-<header class="topbar">
-  <div class="logo-container">
-    <img src="assets/logo.png" alt="CapaciTrack">
-    <a href="panelusuarios.html">CapaciTrack</a>
-  </div>
-  <div id="bienvenida">Bienvenido</div>
-
- <div class="menu-toggle" id="menu-toggle">
-  <i class="fas fa-bars"></i> <!-- Icono hamburguesa -->
-</div>
-
-<nav id="nav-menu">
-  <a href="catalogo-curso.html">Catálogo de Cursos</a>
-  <a href="mis-cursos.html">Mis Cursos</a>
-  <a href="perfil.html">Perfil</a>
-  <a href="#" onclick="abrirModalCerrarSesion(event)">Cerrar Sesión</a>
-</nav>
-</header>
-
-<!-- ===== PERFIL ===== -->
-<main class="perfil-container">
-
-  <!-- ===== IZQUIERDA ===== -->
-  <div class="card">
-    <div class="perfil-img">
-      <img id="avatar"
-           src="https://ui-avatars.com/api/?name=Usuario&background=2e7d32&color=fff&size=256"
-           alt="Foto de perfil">
-
-      <label class="btn">
-        <i class="fas fa-camera"></i> Cambiar foto
-        <input type="file" id="fotoPerfil" accept="image/*" hidden onchange="subirFotoPerfil()">
-      </label>
-      <h3 id="nombreUsuario">Usuario</h3>
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="CapaciTrack">
+      <a href="panelusuarios.html">CapaciTrack</a>
     </div>
+    <div id="bienvenida">Bienvenido</div>
+    <div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
+    <nav id="nav-menu">
+      <a href="catalogo-curso.html"><i class="fas fa-book"></i> Catálogo</a>
+      <a href="mis-cursos.html"><i class="fas fa-graduation-cap"></i> Mis Cursos</a>
+      <a href="perfil.html" class="active"><i class="fas fa-user-circle"></i> Perfil</a>
+      <a href="#" onclick="abrirModalCerrarSesion(event)"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+    </nav>
+  </header>
 
-    <div class="campo">
-      <label>Número de teléfono</label>
-      <input type="text" id="telefono" placeholder="Ej. 55 1234 5678">
-    </div>
-
-    <div class="campo">
-      <label>Razón social</label>
-      <select id="razon_social">
-        <option value="">Selecciona la razón</option>
-        <option value="Grupo Gusi SPR DE RL DE CV">Grupo Gusi SPR DE RL DE CV</option>
-        <option value="Productores Ganaderos Gusi">Productores Ganaderos Gusi</option>
-        <option value="Transportes Gusi">Transportes Gusi</option>
-        <option value="GS Talentos Innovadores">GS Talentos Innovadores</option>
-      </select>
-    </div>
-
-    <button class="btn" onclick="guardarPerfil()">
-      <i class="fas fa-save"></i> Guardar cambios
-    </button>
-
-    <h3 style="margin-top: 25px;">Documentos</h3>
-
-    <!-- Licencia de conducir -->
-    <div class="doc">
-      <div class="doc-header">
-        <strong><i class="fas fa-id-card"></i> Licencia de conducir</strong>
-        <span id="estado_licencia" class="doc-estado pendiente">❌ No subida</span>
+  <!-- CONTENIDO PERFIL -->
+  <div class="main-content" style="max-width:1100px;margin:0 auto;padding:28px 20px 0;">
+    <div style="background:linear-gradient(135deg,var(--primary-darker) 0%,var(--primary) 60%,#4ade80 100%);border-radius:var(--radius-xl);padding:26px 32px;color:#fff;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.07);pointer-events:none;"></div>
+      <div style="position:relative;z-index:1;">
+        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);padding:4px 12px;border-radius:50px;font-size:.78rem;font-weight:600;color:#fff;margin-bottom:8px;"><i class="fas fa-user-circle"></i> Mi Cuenta</div>
+        <h1 style="font-size:1.4rem;font-weight:800;color:#fff;-webkit-text-fill-color:#fff;background:none;margin:0 0 4px;">Mi Perfil</h1>
+        <p style="color:rgba(255,255,255,.75);font-size:.88rem;margin:0;">Gestiona tu información, documentos y revisa tu progreso en Grupo Gusi</p>
       </div>
-      <div class="doc-actions">
-        <label class="btn-small">
-          <i class="fas fa-upload"></i> Subir
-          <input type="file" id="licencia" accept=".pdf,.jpg,.jpeg,.png" hidden 
-                 onchange="subirDocumento('licencia_conducir', this)">
-        </label>
-        <a id="ver_licencia" href="#" target="_blank" class="btn-small" style="display:none;">
-          <i class="fas fa-eye"></i> Ver
-        </a>
-      </div>
-    </div>
-
-    <!-- Acta médica -->
-    <div class="doc">
-      <div class="doc-header">
-        <strong><i class="fas fa-file-medical"></i> Apto médico</strong>
-        <span id="estado_acta" class="doc-estado pendiente">❌ No subida</span>
-      </div>
-      <div class="doc-actions">
-        <label class="btn-small">
-          <i class="fas fa-upload"></i> Subir
-          <input type="file" id="acta_medica" accept=".pdf,.jpg,.jpeg,.png" hidden 
-                 onchange="subirDocumento('acta_medica', this)">
-        </label>
-        <a id="ver_acta" href="#" target="_blank" class="btn-small" style="display:none;">
-          <i class="fas fa-eye"></i> Ver
-        </a>
-      </div>
+      <div style="width:52px;height:52px;border-radius:var(--radius-md);background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;flex-shrink:0;z-index:1;"><i class="fas fa-id-badge"></i></div>
     </div>
   </div>
 
-  <!-- ===== DERECHA ===== -->
-  <div class="card">
-    <h3><i class="fas fa-chart-line"></i> Tu progreso general</h3>
-    <div class="progreso">
-      <div class="circulo" id="circuloProgreso">
-        <div class="circulo-inner">
-          <div class="porcentaje" id="porcentaje">0%</div>
-          <div style="font-size: 12px;" id="progresoTexto">0/0</div>
+  <main class="perfil-container">
+
+    <!-- IZQUIERDA -->
+    <div class="card">
+      <div class="perfil-img">
+        <img id="avatar" src="https://ui-avatars.com/api/?name=U&background=16a34a&color=fff&size=256" alt="Foto de perfil">
+        <label class="btn-foto">
+          <i class="fas fa-camera"></i> Cambiar foto
+          <input type="file" id="fotoPerfil" accept="image/*" onchange="subirFotoPerfil()">
+        </label>
+        <h3 id="nombreUsuario">Usuario</h3>
+      </div>
+
+      <div class="campo">
+        <label>Número de teléfono</label>
+        <input type="text" id="telefono" placeholder="Ej. 55 1234 5678">
+      </div>
+
+      <div class="campo">
+        <label>Razón social</label>
+        <select id="razon_social">
+          <option value="">Selecciona la razón</option>
+          <option value="Grupo Gusi SPR DE RL DE CV">Grupo Gusi SPR DE RL DE CV</option>
+          <option value="Productores Ganaderos Gusi">Productores Ganaderos Gusi</option>
+          <option value="Transportes Gusi">Transportes Gusi</option>
+          <option value="GS Talentos Innovadores">GS Talentos Innovadores</option>
+        </select>
+      </div>
+
+      <button class="btn-submit" onclick="guardarPerfil()">
+        <i class="fas fa-save"></i> Guardar cambios
+      </button>
+
+      <h3 style="margin-top:24px;font-size:.95rem;color:var(--gray-600);text-transform:uppercase;letter-spacing:.05em;">Documentos</h3>
+
+      <!-- Licencia -->
+      <div class="doc">
+        <div class="doc-header">
+          <strong><i class="fas fa-id-card" style="color:var(--primary);margin-right:6px;"></i>Licencia de conducir</strong>
+          <span id="estado_licencia" class="doc-estado pendiente">Pendiente</span>
+        </div>
+        <div class="doc-actions">
+          <label class="btn-small">
+            <i class="fas fa-upload"></i> Subir
+            <input type="file" id="licencia" accept=".pdf,.jpg,.jpeg,.png" hidden onchange="subirDocumento('licencia_conducir', this)">
+          </label>
+          <a id="ver_licencia" href="#" target="_blank" class="btn-small" style="display:none;">
+            <i class="fas fa-eye"></i> Ver
+          </a>
         </div>
       </div>
-      <div class="progreso-detalle">
-        <h2>Cursos en progreso</h2>
-        <p id="progresoDetalle">Completa los módulos de tus cursos para ver tu progreso</p>
+
+      <!-- Acta médica -->
+      <div class="doc">
+        <div class="doc-header">
+          <strong><i class="fas fa-file-medical" style="color:var(--primary);margin-right:6px;"></i>Apto médico</strong>
+          <span id="estado_acta" class="doc-estado pendiente">Pendiente</span>
+        </div>
+        <div class="doc-actions">
+          <label class="btn-small">
+            <i class="fas fa-upload"></i> Subir
+            <input type="file" id="acta_medica" accept=".pdf,.jpg,.jpeg,.png" hidden onchange="subirDocumento('acta_medica', this)">
+          </label>
+          <a id="ver_acta" href="#" target="_blank" class="btn-small" style="display:none;">
+            <i class="fas fa-eye"></i> Ver
+          </a>
+        </div>
       </div>
     </div>
 
-    <h3 style="margin-top: 25px;"><i class="fas fa-graduation-cap"></i> Mis cursos activos</h3>
-    <div id="listaCursos">
-      <p style="color: #999; font-size: 14px;">Cargando...</p>
-    </div>
+    <!-- DERECHA -->
+    <div class="card">
+      <h3><i class="fas fa-chart-line" style="color:var(--primary);margin-right:8px;"></i>Tu progreso general</h3>
 
-    <h3 style="margin-top: 25px;"><i class="fas fa-certificate"></i> Certificaciones obtenidas</h3>
-    <div id="listaCertificados">
-      <p style="color: #999; font-size: 14px;">Cargando certificados...</p>
-    </div>
-  </div>
-
-</main>
-
-<footer>
-  © 2026 CapaciTrack. Todos los derechos reservados.
-</footer>
-
-<!-- MODAL CERRAR SESIÓN -->
-<div id="modalCerrarSesion" class="modal-overlay">
-  <div class="modal-box">
-    <h2>⚠️ Cerrar sesión</h2>
-    <p>¿Seguro que deseas cerrar la sesión?</p>
-    <div class="modal-actions">
-      <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
-      <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
-    </div>
-  </div>
-</div>
-<!-- MODAL FOTO DE PERFIL -->
-<div id="modalFotoPerfil" class="modal-overlay">
-  <div class="modal-box">
-    <i class="fas fa-check-circle" style="font-size: 2rem; color: #2e7d32;"></i>
-    <h2>¡Foto de perfil actualizada!</h2>
-    <p>Tu foto se ha guardado correctamente.</p>
-    <button class="btn-confirmar" onclick="cerrarModalFoto()">Aceptar</button>
-  </div>
-</div>
-
-
-<!-- ===== JAVASCRIPT ===== -->
-<script>
-// ===== CARGAR USUARIO Y PERFIL AL INICIO =====
-fetch("/capacitrack/backend/auth/usuario_actual.php", {
-  credentials: "include"
-})
-.then(res => res.json())
-.then(data => {
-  if (data.success) {
-    document.getElementById("bienvenida").textContent = "Bienvenido, " + data.nombre;
-    document.getElementById("nombreUsuario").textContent = data.nombre;
-    
-    // Actualizar avatar con iniciales
-    const avatar = document.getElementById("avatar");
-    const iniciales = data.nombre.split(' ').map(n => n[0]).join('').substring(0, 2);
-    avatar.src = `https://ui-avatars.com/api/?name=${iniciales}&background=2e7d32&color=fff&size=256`;
-    
-    cargarPerfil();
-    cargarProgreso();
-    cargarCertificados();
-  }
-})
-.catch(err => {
-  console.error("Error al cargar usuario:", err);
-});
-
-// ===== CARGAR PERFIL =====
-function cargarPerfil() {
-  fetch("/capacitrack/backend/usuarios/obtener_perfil.php", {
-    credentials: "include"
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (!data.success) return;
-
-    // Teléfono y razón social
-    document.getElementById("telefono").value = data.telefono ?? "";
-    document.getElementById("razon_social").value = data.razon_social ?? "";
-
-    // ===== IMAGEN DE PERFIL =====
-    if (data.perfil) {
-      document.getElementById("avatar").src = "/capacitrack/" + data.perfil + "?t=" + Date.now();
-    }
-
-    // ===== DOCUMENTOS =====
-    let docs = data.documentos;
-
-    // Si vienen como string JSON, parsear
-    if (typeof docs === "string") {
-      try {
-        docs = JSON.parse(docs);
-      } catch (e) {
-        docs = {};
-      }
-    }
-
-    // Licencia de conducir
-    if (docs?.licencia_conducir) {
-      document.getElementById("estado_licencia").textContent = "✔ Subida";
-      document.getElementById("estado_licencia").classList.remove("pendiente");
-      document.getElementById("estado_licencia").classList.add("subido");
-      document.getElementById("ver_licencia").href = "/capacitrack/" + docs.licencia_conducir;
-      document.getElementById("ver_licencia").style.display = "inline-block";
-    }
-
-    // Acta médica
-    if (docs?.acta_medica) {
-      document.getElementById("estado_acta").textContent = "✔ Subida";
-      document.getElementById("estado_acta").classList.remove("pendiente");
-      document.getElementById("estado_acta").classList.add("subido");
-      document.getElementById("ver_acta").href = "/capacitrack/" + docs.acta_medica;
-      document.getElementById("ver_acta").style.display = "inline-block";
-    }
-  })
-  .catch(err => {
-    console.error("Error al cargar perfil:", err);
-  });
-}
-
-// ===== GUARDAR PERFIL =====
-function guardarPerfil() {
-  fetch("/capacitrack/backend/usuarios/actualizar_perfil.php", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify({
-      telefono: document.getElementById("telefono").value,
-      razon_social: document.getElementById("razon_social").value
-    })
-  })
-  .then(res => res.json())
-  .then(data => {
-   if (data.success) {
-  mostrarToast("Perfil actualizado correctamente ✅");
-} else {
-  mostrarToast("Error: " + (data.message || "No se pudo actualizar"), "error");
-}
-  })
-  .catch(err => {
-    alert("❌ Error al guardar perfil");
-    console.error(err);
-  });
-}
-
-// ===== SUBIR FOTO DE PERFIL =====
-function subirFotoPerfil() {
-  const input = document.getElementById("fotoPerfil");
-  const file = input.files[0];
-  
-  if (!file) return;
-  
-  const formData = new FormData();
-  formData.append("foto", file);
-  
-  fetch("/capacitrack/backend/usuarios/subir_avatar.php", {
-    method: "POST",
-    credentials: "include",
-    body: formData
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      document.getElementById("avatar").src = "/capacitrack/" + data.ruta + "?t=" + Date.now();
-     mostrarModalFotoPerfil();
-    } else {
-      alert("❌ Error: " + (data.message || "No se pudo subir la imagen"));
-    }
-  })
-  .catch(err => {
-    alert("❌ Error al subir la imagen");
-    console.error(err);
-  });
-}
-
-// ===== SUBIR DOCUMENTO =====
-function subirDocumento(tipoDocumento, inputElement) {
-  const file = inputElement.files[0];
-  
-  if (!file) return;
-  
-  const formData = new FormData();
-  formData.append("documento", file);
-  formData.append("tipo_documento", tipoDocumento);
-  
-  fetch("/capacitrack/backend/usuarios/subir_documentos.php", {
-    method: "POST",
-    credentials: "include",
-    body: formData
-  })
-  .then(res => res.json())
-  .then(data => {
-   if (data.success) {
-            mostrarToast("Documento subido correctamente ✅"); // <- aquí
-        } else {
-            mostrarToast("Error al subir el documento ❌", "error"); // <- aquí
-        }
-  })
-  .catch(err => {
-    alert("❌ Error al subir el documento");
-    console.error(err);
-  });
-}
-
-// ===== CARGAR PROGRESO =====
-function cargarProgreso() {
-  fetch("/capacitrack/backend/usuarios/obtener_progreso.php", {
-    credentials: "include"
-  })
-  .then(res => res.json())
-  .then(data => {
-
-    const listaCursos = document.getElementById("listaCursos");
-
-    if (!data.success || !data.cursos || data.cursos.length === 0) {
-
-      // Reset progreso general
-      actualizarProgresoGeneral(0, 0, 0);
-
-      listaCursos.innerHTML =
-        '<p style="color: #999; font-size: 14px;">No tienes cursos activos</p>';
-      return;
-    }
-
-    // ==============================
-    // 🔥 CALCULAR PROGRESO GENERAL
-    // ==============================
-    let sumaPorcentajes = 0;
-    let cursosCompletados = 0;
-
-    data.cursos.forEach(curso => {
-      sumaPorcentajes += parseInt(curso.porcentaje);
-      if (curso.completado == 1) {
-        cursosCompletados++;
-      }
-    });
-
-    const promedio = Math.round(sumaPorcentajes / data.cursos.length);
-
-    actualizarProgresoGeneral(
-      promedio,
-      cursosCompletados,
-      data.cursos.length
-    );
-
-    // ==============================
-    // 📚 MOSTRAR CURSOS
-    // ==============================
-    listaCursos.innerHTML = data.cursos.map(curso => {
-      return `
-        <div class="curso-item">
-          <div>
-            <div class="curso-nombre">${curso.curso_nombre}</div>
-            <div class="curso-progreso">
-              ${curso.completado == 1 ? "Curso completado ✅" : "En progreso"}
-            </div>
-          </div>
-          <div style="font-weight: bold; color: #2e7d32;">
-            ${curso.porcentaje}%
+      <div class="progreso-widget">
+        <div class="circulo" id="circuloProgreso">
+          <div class="circulo-inner">
+            <div class="porcentaje" id="porcentaje">0%</div>
+            <div style="font-size:.7rem;color:var(--gray-400);" id="progresoTexto">0/0</div>
           </div>
         </div>
-      `;
-    }).join('');
-  })
-  .catch(err => {
-    console.error("Error al cargar progreso:", err);
-  });
-}
-
-function actualizarProgresoGeneral(porcentaje, completados, total) {
-
-  document.getElementById("porcentaje").textContent = porcentaje + "%";
-  document.getElementById("progresoTexto").textContent = completados + "/" + total;
-
-  const grados = (porcentaje / 100) * 360;
-
-  document.getElementById("circuloProgreso").style.background =
-    `conic-gradient(#1b5e20 ${grados}deg, #a5d6a7 0deg)`;
-
-  document.getElementById("progresoDetalle").textContent =
-    `Has completado ${completados} de ${total} cursos`;
-}
-
-
-
-// ===== CARGAR CERTIFICADOS =====
-function cargarCertificados() {
-  fetch("/capacitrack/backend/obtener_certificados.php", {
-    credentials: "include"
-  })
-  .then(res => res.json())
-  .then(data => {
-    const contenedor = document.getElementById("listaCertificados");
-    
-    if (!data.success || data.certificados.length === 0) {
-      contenedor.innerHTML = `
-        <div class="no-certificados">
-          <i class="fas fa-award"></i>
-          <p>Aún no tienes certificados</p>
-          <p style="font-size: 0.9rem;">Completa tus cursos para obtener certificaciones</p>
+        <div class="progreso-detalle">
+          <h2>Cursos en progreso</h2>
+          <p id="progresoDetalle">Completa los módulos para ver tu avance</p>
         </div>
-      `;
-      return;
-    }
+      </div>
 
-    contenedor.innerHTML = data.certificados.map(cert => {
-      const fecha = new Date(cert.fecha_emision);
-      const fechaFormateada = fecha.toLocaleDateString('es-MX', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
+      <h3 style="margin-top:22px;"><i class="fas fa-graduation-cap" style="color:var(--primary);margin-right:8px;"></i>Mis cursos activos</h3>
+      <div id="listaCursos"><p style="color:var(--gray-400);font-size:.875rem;">Cargando...</p></div>
+
+      <h3 style="margin-top:22px;"><i class="fas fa-certificate" style="color:var(--primary);margin-right:8px;"></i>Certificaciones obtenidas</h3>
+      <div id="listaCertificados"><p style="color:var(--gray-400);font-size:.875rem;">Cargando certificados...</p></div>
+    </div>
+
+  </main>
+
+  <footer>
+    <img src="assets/esr.png" class="footer-logo left" alt="ESR">
+    <p>&copy; 2026 CapaciTrack · Grupo Gusi. Todos los derechos reservados.</p>
+    <img src="assets/Grupo-Gusi.png" class="footer-logo right" alt="Grupo Gusi">
+  </footer>
+
+  <!-- MODAL CERRAR SESIÓN -->
+  <div id="modalCerrarSesion" class="modal-overlay">
+    <div class="modal-box">
+      <h2>🚪 Cerrar sesión</h2>
+      <p>¿Seguro que deseas cerrar la sesión?</p>
+      <div class="modal-actions">
+        <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL FOTO PERFIL -->
+  <div id="modalFotoPerfil" class="modal-overlay">
+    <div class="modal-box">
+      <i class="fas fa-check-circle" style="font-size:2.5rem;color:var(--primary);margin-bottom:12px;display:block;"></i>
+      <h2>¡Foto actualizada!</h2>
+      <p>Tu foto de perfil se guardó correctamente.</p>
+      <div class="modal-actions">
+        <button class="btn-confirmar" onclick="cerrarModalFoto()">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    fetch("/capacitrack/backend/auth/usuario_actual.php", { credentials: "include" })
+      .then(r => r.json())
+      .then(d => {
+        if (!d.success) return;
+        document.getElementById("bienvenida").textContent = "Hola, " + d.nombre;
+        document.getElementById("nombreUsuario").textContent = d.nombre;
+        const iniciales = d.nombre.split(' ').map(n => n[0]).join('').substring(0, 2);
+        document.getElementById("avatar").src = `https://ui-avatars.com/api/?name=${iniciales}&background=16a34a&color=fff&size=256`;
+        cargarPerfil(); cargarProgreso(); cargarCertificados();
       });
 
-      return `
-        <div class="certificado-item">
-          <div class="certificado-header">
-            <div class="certificado-icono">
-              <i class="fas fa-certificate"></i>
-            </div>
-            <div class="certificado-info">
-              <div class="certificado-titulo">${cert.curso_titulo}</div>
-              <div class="certificado-fecha">
-                <i class="fas fa-calendar-check"></i>
-                Obtenido el ${fechaFormateada}
+    function cargarPerfil() {
+      fetch("/capacitrack/backend/usuarios/obtener_perfil.php", { credentials: "include" })
+        .then(r => r.json())
+        .then(d => {
+          if (!d.success) return;
+          document.getElementById("telefono").value = d.telefono ?? "";
+          document.getElementById("razon_social").value = d.razon_social ?? "";
+          if (d.perfil) document.getElementById("avatar").src = "/capacitrack/" + d.perfil + "?t=" + Date.now();
+          let docs = d.documentos;
+          if (typeof docs === "string") { try { docs = JSON.parse(docs); } catch(e) { docs = {}; } }
+          if (docs?.licencia_conducir) {
+            document.getElementById("estado_licencia").textContent = "✔ Subida";
+            document.getElementById("estado_licencia").classList.replace("pendiente","subido");
+            document.getElementById("ver_licencia").href = "/capacitrack/" + docs.licencia_conducir;
+            document.getElementById("ver_licencia").style.display = "inline-flex";
+          }
+          if (docs?.acta_medica) {
+            document.getElementById("estado_acta").textContent = "✔ Subida";
+            document.getElementById("estado_acta").classList.replace("pendiente","subido");
+            document.getElementById("ver_acta").href = "/capacitrack/" + docs.acta_medica;
+            document.getElementById("ver_acta").style.display = "inline-flex";
+          }
+        });
+    }
+
+    function guardarPerfil() {
+      fetch("/capacitrack/backend/usuarios/actualizar_perfil.php", {
+        method: "POST", headers: { "Content-Type": "application/json" }, credentials: "include",
+        body: JSON.stringify({ telefono: document.getElementById("telefono").value, razon_social: document.getElementById("razon_social").value })
+      })
+        .then(r => r.json())
+        .then(d => mostrarToast(d.success ? "Perfil actualizado ✅" : "Error: " + (d.message || "No se pudo actualizar"), d.success ? "exito" : "error"));
+    }
+
+    function subirFotoPerfil() {
+      const file = document.getElementById("fotoPerfil").files[0];
+      if (!file) return;
+      const fd = new FormData(); fd.append("foto", file);
+      fetch("/capacitrack/backend/usuarios/subir_avatar.php", { method: "POST", credentials: "include", body: fd })
+        .then(r => r.json())
+        .then(d => {
+          if (d.success) { document.getElementById("avatar").src = "/capacitrack/" + d.ruta + "?t=" + Date.now(); mostrarModalFotoPerfil(); }
+          else alert("❌ Error: " + (d.message || "No se pudo subir la imagen"));
+        });
+    }
+
+    function subirDocumento(tipo, el) {
+      const file = el.files[0]; if (!file) return;
+      const fd = new FormData(); fd.append("documento", file); fd.append("tipo_documento", tipo);
+      fetch("/capacitrack/backend/usuarios/subir_documentos.php", { method: "POST", credentials: "include", body: fd })
+        .then(r => r.json())
+        .then(d => mostrarToast(d.success ? "Documento subido ✅" : "Error al subir el documento ❌", d.success ? "exito" : "error"));
+    }
+
+    function cargarProgreso() {
+      fetch("/capacitrack/backend/usuarios/obtener_progreso.php", { credentials: "include" })
+        .then(r => r.json())
+        .then(d => {
+          const lista = document.getElementById("listaCursos");
+          if (!d.success || !d.cursos || d.cursos.length === 0) {
+            actualizarProgresoGeneral(0, 0, 0);
+            lista.innerHTML = '<p style="color:var(--gray-400);font-size:.875rem;">No tienes cursos activos</p>';
+            return;
+          }
+          let suma = 0, completados = 0;
+          d.cursos.forEach(c => { suma += parseInt(c.porcentaje); if (c.completado == 1) completados++; });
+          actualizarProgresoGeneral(Math.round(suma / d.cursos.length), completados, d.cursos.length);
+          lista.innerHTML = d.cursos.map(c => `
+            <div class="curso-item">
+              <div>
+                <div class="curso-nombre">${c.curso_nombre}</div>
+                <div class="curso-progreso">${c.completado == 1 ? "✅ Completado" : "En progreso"}</div>
               </div>
-            </div>
-          </div>
-          <div class="certificado-acciones">
-            <a href="/capacitrack/backend/generar_certificado.php?usuario_id=${cert.usuario_id || ''}&curso_id=${cert.curso_id}" 
-               class="btn-certificado btn-descargar-cert" 
-               target="_blank">
-              <i class="fas fa-download"></i>
-              Descargar Certificado
-            </a>
-            <button class="btn-certificado btn-compartir-cert" onclick="compartirCertificado('${cert.codigo_verificacion}')">
-              <i class="fas fa-share-alt"></i>
-              Compartir
-            </button>
-          </div>
-        </div>
-      `;
-    }).join('');
-  })
-  .catch(err => {
-    console.error("Error al cargar certificados:", err);
-    document.getElementById("listaCertificados").innerHTML = 
-      '<p style="color: #f44336; font-size: 14px;">Error al cargar certificados</p>';
-  });
-}
+              <strong style="color:var(--primary);">${c.porcentaje}%</strong>
+            </div>`).join('');
+        });
+    }
 
-// ===== COMPARTIR CERTIFICADO =====
-function compartirCertificado(codigo) {
-  const mensaje = `¡He completado un curso en CapaciTrack! 🎓\nCódigo de verificación: ${codigo}`;
-  
-  if (navigator.share) {
-    navigator.share({
-      title: 'Mi Certificado - CapaciTrack',
-      text: mensaje
-    }).catch(err => console.log('Error al compartir:', err));
-  } else {
-    // Fallback: copiar al portapapeles
-    navigator.clipboard.writeText(mensaje).then(() => {
-      alert('✅ Código de certificado copiado al portapapeles');
-    });
-  }
-}
+    function actualizarProgresoGeneral(pct, completados, total) {
+      document.getElementById("porcentaje").textContent = pct + "%";
+      document.getElementById("progresoTexto").textContent = completados + "/" + total;
+      document.getElementById("circuloProgreso").style.background = `conic-gradient(rgba(255,255,255,.95) ${pct * 3.6}deg, rgba(255,255,255,.25) 0deg)`;
+      document.getElementById("progresoDetalle").textContent = `Has completado ${completados} de ${total} cursos`;
+    }
 
+    function cargarCertificados() {
+      fetch("/capacitrack/backend/obtener_certificados.php", { credentials: "include" })
+        .then(r => r.json())
+        .then(d => {
+          const c = document.getElementById("listaCertificados");
+          if (!d.success || d.certificados.length === 0) {
+            c.innerHTML = `<div class="no-certificados"><i class="fas fa-award"></i><p>Aún no tienes certificados</p><p style="font-size:.82rem;">Completa tus cursos para obtener certificaciones</p></div>`;
+            return;
+          }
+          c.innerHTML = d.certificados.map(cert => {
+            const fecha = new Date(cert.fecha_emision).toLocaleDateString('es-MX', { year:'numeric', month:'long', day:'numeric' });
+            return `
+              <div class="certificado-item">
+                <div class="certificado-header">
+                  <div class="certificado-icono"><i class="fas fa-certificate"></i></div>
+                  <div>
+                    <div class="certificado-titulo">${cert.curso_titulo}</div>
+                    <div class="certificado-fecha"><i class="fas fa-calendar-check"></i> Obtenido el ${fecha}</div>
+                  </div>
+                </div>
+                <div class="certificado-acciones">
+                  <a href="/capacitrack/backend/generar_certificado.php?usuario_id=${cert.usuario_id||''}&curso_id=${cert.curso_id}"
+                     class="btn-certificado btn-descargar-cert" target="_blank">
+                    <i class="fas fa-download"></i> Descargar
+                  </a>
+                  <button class="btn-certificado btn-compartir-cert" onclick="compartirCertificado('${cert.codigo_verificacion}')">
+                    <i class="fas fa-share-alt"></i> Compartir
+                  </button>
+                </div>
+              </div>`;
+          }).join('');
+        });
+    }
 
-// ===== MODALES =====
-function abrirModalCerrarSesion(e) {
-  e.preventDefault();
-  document.getElementById("modalCerrarSesion").style.display = "flex";
-}
+    function compartirCertificado(codigo) {
+      const msg = `¡He completado un curso en CapaciTrack! 🎓\nCódigo: ${codigo}`;
+      if (navigator.share) { navigator.share({ title: 'Mi Certificado - CapaciTrack', text: msg }); }
+      else { navigator.clipboard.writeText(msg).then(() => mostrarToast('Código copiado al portapapeles ✅')); }
+    }
 
-function cerrarModal() {
-  document.getElementById("modalCerrarSesion").style.display = "none";
-}
+    function mostrarToast(msg, tipo = "exito") {
+      const t = document.getElementById("toast");
+      t.innerHTML = `<i class="fas ${tipo === "error" ? "fa-exclamation-circle" : "fa-check-circle"}"></i> <span>${msg}</span>`;
+      t.className = "toast" + (tipo === "error" ? " error" : "") + " show";
+      if (tipo === "error") t.style.borderLeftColor = "var(--error)";
+      else t.style.borderLeftColor = "var(--primary)";
+      setTimeout(() => t.classList.remove("show"), 3200);
+    }
 
-function confirmarCerrarSesion() {
-  window.location.href = "index.html";
-}
+    function abrirModalCerrarSesion(e) { e.preventDefault(); document.getElementById("modalCerrarSesion").style.display = "flex"; }
+    function cerrarModal() { document.getElementById("modalCerrarSesion").style.display = "none"; }
+    function confirmarCerrarSesion() { window.location.href = "index.html"; }
+    function mostrarModalFotoPerfil() { document.getElementById("modalFotoPerfil").style.display = "flex"; }
+    function cerrarModalFoto() { document.getElementById("modalFotoPerfil").style.display = "none"; }
 
-function mostrarToast(mensaje, tipo = "exito") {
-  const toast = document.getElementById("toast");
-  // Elegir icono
-  let icono = tipo === "error" ? "❌" : "✅";
-  toast.innerHTML = `<i>${icono}</i> <span>${mensaje}</span>`;
-  // Colores según tipo
-  if(tipo === "error") {
-    toast.style.background = "linear-gradient(135deg, #f44336, #d32f2f)";
-  } else {
-    toast.style.background = "linear-gradient(135deg, #66bb6a, #2e7d32)";
-  }
-  toast.classList.add("show");
-  // Ocultar después de 3 segundos
-  setTimeout(() => {
-    toast.classList.remove("show");
-  }, 3000);
-}
-function mostrarModalFotoPerfil() {
-  document.getElementById("modalFotoPerfil").style.display = "flex";
-}
-
-function cerrarModalFoto() {
-  document.getElementById("modalFotoPerfil").style.display = "none";
-}
-
-const menuToggle = document.getElementById('menu-toggle');
-const navMenu = document.getElementById('nav-menu');
-
-menuToggle.addEventListener('click', () => {
-  navMenu.classList.toggle('show'); // Agrega/quita clase para mostrar menú
-});
-</script>
-<!-- TOAST NOTIFICACIÓN -->
-<div id="toast" class="toast"></div>
+    document.getElementById('menu-toggle').addEventListener('click', () => document.getElementById('nav-menu').classList.toggle('show'));
+  </script>
 
 </body>
 </html>

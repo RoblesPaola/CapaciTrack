@@ -12,26 +12,21 @@ if (empty($data["email"]) || empty($data["password"])) {
   exit;
 }
 
-$email = $data["email"];
+$email    = $data["email"];
 $password = $data["password"];
 
 $stmt = $conn->prepare(
   "SELECT id, nombre, password, rol FROM usuarios WHERE email = ?"
 );
-$stmt->bind_param("s", $email);
-$stmt->execute();
+$stmt->execute([$email]);
 
-$result = $stmt->get_result();
-
-if ($result->num_rows === 0) {
+if ($stmt->rowCount() === 0) {
   echo json_encode(["success" => false, "message" => "Credenciales incorrectas"]);
   exit;
 }
 
-$user = $result->fetch_assoc();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
-// 🔐 VERIFICAR CONTRASEÑA
 if (!password_verify($password, $user["password"])) {
   echo json_encode([
     "success" => false,
@@ -40,13 +35,11 @@ if (!password_verify($password, $user["password"])) {
   exit;
 }
 
-
-// ✅ CREAR SESIÓN SOLO SI ES CORRECTA
 $_SESSION["user_id"] = $user["id"];
-$_SESSION["rol"] = $user["rol"];
-$_SESSION["nombre"] = $user["nombre"];
+$_SESSION["rol"]     = $user["rol"];
+$_SESSION["nombre"]  = $user["nombre"];
 
 echo json_encode([
   "success" => true,
-  "rol" => $user["rol"]
+  "rol"     => $user["rol"]
 ]);

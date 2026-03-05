@@ -4,7 +4,6 @@ require "config/db.php";
 
 header("Content-Type: application/json");
 
-// 🔹 Verificar sesión
 if (!isset($_SESSION['user_id'])) {
     echo json_encode([
         "success" => false,
@@ -26,29 +25,18 @@ if ($curso_id <= 0) {
 
 try {
 
-    // 🔹 Insertar o aumentar intento automáticamente
     $stmt = $conn->prepare("
-        INSERT INTO progreso 
+        INSERT INTO progreso
         (usuario_id, curso_id, porcentaje, completado, intento, fecha_actualizacion)
         VALUES (?, ?, 0, 0, 1, NOW())
-        ON DUPLICATE KEY UPDATE
-            intento = intento + 1,
-            porcentaje = 0,
-            completado = 0,
+        ON CONFLICT (usuario_id, curso_id) DO UPDATE SET
+            intento           = progreso.intento + 1,
+            porcentaje        = 0,
+            completado        = 0,
             fecha_actualizacion = NOW()
     ");
 
-    if (!$stmt) {
-        throw new Exception("Error prepare: " . $conn->error);
-    }
-
-    $stmt->bind_param("ii", $usuario_id, $curso_id);
-
-    if (!$stmt->execute()) {
-        throw new Exception("Error ejecutando: " . $stmt->error);
-    }
-
-    $stmt->close();
+    $stmt->execute([$usuario_id, $curso_id]);
 
     echo json_encode([
         "success" => true,

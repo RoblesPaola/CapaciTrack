@@ -3,450 +3,380 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Usuarios | CapaciTrack</title>
-
+  <title>Mi Portal | CapaciTrack</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <link rel="stylesheet" href="assets/css/global.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f5f7fa;
-      color: #333;
-      height: 100vh;
+    .hero-usuario {
+      background: linear-gradient(135deg, var(--primary-darker) 0%, var(--primary) 60%, #22c55e 100%);
+      border-radius: var(--radius-xl);
+      padding: 36px 40px;
+      color: #fff;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
-    }
-
-    /* ===== TOPBAR ===== */
-    .topbar {
-      background-color: #e8f5e9;
-      padding: 15px 30px;
-      display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #dcedc8;
+      gap: 24px;
     }
-
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-container img {
-      height: 42px;
-    }
-
-    .logo-container span {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #2e7d32;
-    }
-
-    .topbar nav a {
-      margin-left: 25px;
-      color: #2e7d32;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    #bienvenida {
-      font-weight: 600;
-      color: #2e7d32;
-      margin-left: 30px;
-    }
-    .sidebar-item {
-      padding: 14px 25px;
-      color: #2e7d32;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: 0.2s;
-    }
-    /* ===== CONTENIDO ===== */
-    .dashboard-container {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-    }
-
-    .main-content {
-      flex: 1;
-      padding: 30px;
-      background-color: #fff;
-      overflow-y: auto;
-    }
-
-    /* ===== CARRUSEL (NO TOCADO) ===== */
-    .carousel-container {
-      width: 100%;
-      max-width: 2000px;
-      margin: 0 auto;
-      display: flex;
-      overflow: hidden;
-      scroll-snap-type: x mandatory;
-    }
-
-    .carousel-slide {
-      min-width: 100%;
-      position: relative;
-      scroll-snap-align: center;
-    }
-
-    .carousel-slide img {
-      width: 100%;
-      height: 600px;
-      object-fit: contain;
-      background-color: #ffffff;
-      border-radius: 10px;
-    }
-
-    .caption {
+    .hero-usuario::before {
+      content: '';
       position: absolute;
-      bottom: 20px;
-      left: 20px;
-      background: rgba(0,0,0,0.6);
-      color: #fff;
-      padding: 10px 15px;
-      border-radius: 6px;
+      right: -40px; top: -40px;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.07);
+      pointer-events: none;
+    }
+    .hero-usuario::after {
+      content: '';
+      position: absolute;
+      right: 120px; bottom: -80px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.05);
+      pointer-events: none;
+    }
+    .hero-usuario h1 {
+      font-size: 1.7rem; font-weight: 800;
+      color: #fff; -webkit-text-fill-color: #fff; background: none;
+      margin-bottom: 6px;
+    }
+    .hero-usuario p { color: rgba(255,255,255,.8); font-size: .95rem; }
+    .hero-icon {
+      width: 80px; height: 80px;
+      background: rgba(255,255,255,.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem; color: #fff; flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,.25);
+      position: relative; z-index: 1;
     }
 
-    /* ===== CURSOS ===== */
-    #listaCursos {
+    .stats-row {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 28px;
     }
-
-    .curso-card {
-      border: 1px solid #ccc;
-      padding: 15px;
-      border-radius: 10px;
-      background: #f9f9f9;
-    }
-
-    .curso-card h3 {
-      color: #2e7d32;
-      margin-bottom: 10px;
-    }
-
-    .curso-card button {
-      padding: 8px 12px;
-      background: #2e7d32;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background-color: #e8f5e9;
-      padding: 15px;
+    .stat-pill {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 18px 16px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(0,0,0,.05);
       text-align: center;
-      color: #2e7d32;
-      border-top: 1px solid #dcedc8;
-      position: relative;
+      transition: var(--ease);
+    }
+    .stat-pill:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
+    .stat-pill i { font-size: 1.3rem; margin-bottom: 8px; display: block; }
+    .stat-pill.green i { color: var(--primary); }
+    .stat-pill.blue  i { color: #3b82f6; }
+    .stat-pill.amber i { color: #f59e0b; }
+    .stat-pill.purple i { color: #8b5cf6; }
+    .stat-pill strong { display: block; font-size: 1.4rem; font-weight: 800; color: var(--gray-900); }
+    .stat-pill span { font-size: .78rem; color: var(--gray-500); font-weight: 500; }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 20px;
+      margin-bottom: 28px;
     }
 
-    .footer-logo {
-      position: absolute;
-      bottom: 5px;
+    .section-title {
+      font-size: .75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; color: var(--gray-500);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
     }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: var(--gray-200); }
 
-    .footer-logo.left {
-      left: 20px;
-      width: 100px;
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
-
-    .footer-logo.right {
-      right: 20px;
-      width: 110px;
+    .cta-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 22px 18px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(0,0,0,.05);
+      text-decoration: none;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: var(--ease);
     }
+    .cta-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card-hover); border-color: var(--primary-200); }
+    .cta-card .cta-icon {
+      width: 44px; height: 44px; border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; color: #fff;
+    }
+    .cta-icon.green  { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); box-shadow: var(--shadow-green); }
+    .cta-icon.blue   { background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,.3); }
+    .cta-card h4 { font-size: .9rem; font-weight: 700; color: var(--gray-800); margin: 0; }
+    .cta-card p  { font-size: .78rem; color: var(--gray-500); margin: 0; }
 
-    /*cerrar sesion*/
-    .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
+    .values-panel {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(0,0,0,.05);
+    }
+    .value-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid var(--gray-100);
+    }
+    .value-item:last-child { border-bottom: none; }
+    .value-item .vi-icon {
+      width: 34px; height: 34px; border-radius: var(--radius-sm);
+      background: var(--primary-50); color: var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; flex-shrink: 0;
+    }
+    .value-item strong { display: block; font-size: .85rem; font-weight: 600; color: var(--gray-700); }
+    .value-item span   { font-size: .78rem; color: var(--gray-500); line-height: 1.4; }
 
-.modal-box {
-  background: #fff;
-  padding: 30px;
-  width: 400px;
-  border-radius: 14px;
-  text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  animation: aparecer 0.25s ease;
-}
+    .company-banner {
+      background: linear-gradient(135deg, var(--gray-900), #0d1f12);
+      border-radius: var(--radius-xl);
+      padding: 32px 36px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(22,163,74,.15);
+    }
+    .company-banner h3 { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .company-banner p  { font-size: .88rem; color: rgba(255,255,255,.55); max-width: 440px; }
+    .company-banner a {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff; padding: 11px 24px; border-radius: 50px;
+      text-decoration: none; font-weight: 700; font-size: .88rem;
+      white-space: nowrap; box-shadow: var(--shadow-green); flex-shrink: 0;
+      transition: var(--ease);
+    }
+    .company-banner a:hover { transform: translateY(-2px); box-shadow: var(--shadow-green-hover); }
 
-.modal-box h2 {
-  margin-bottom: 10px;
-  color: #19aa1e;
-}
-
-.modal-box p {
-  color: #555;
-  margin-bottom: 25px;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.btn-cancelar {
-  background: #e5e5e5;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-confirmar {
-  background: #19aa1e;
-  color: white;
-  border: none;
-  padding: 10px 22px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-confirmar:hover {
-  background: #19aa1e;
-}
-
-@keyframes aparecer {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-/* Icono hamburguesa */
-.menu-toggle {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #2e7d32;
-}
-
-/* Responsive: menú hamburguesa */
-@media screen and (max-width: 768px) {
-  .topbar nav {
-    display: none; /* Oculto por defecto */
-    flex-direction: column;
-    gap: 0;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    background-color: #e8f5e9;
-    width: 200px;
-    border-left: 1px solid #dcedc8;
-    padding: 10px 0;
-    z-index: 999;
-  }
-
-  .topbar nav a {
-    padding: 12px 20px;
-    border-top: 1px solid #dcedc8;
-    margin: 0;
-  }
-
-  .menu-toggle {
-    display: block; /* Mostrar hamburguesa en móvil */
-  }
-
-  /* Cuando el menú está abierto */
-  nav.show {
-    display: flex;
-  }
-}
-
+    @media (max-width: 900px) {
+      .stats-row { grid-template-columns: repeat(2,1fr); }
+      .content-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .cta-grid { grid-template-columns: 1fr; }
+      .hero-usuario { flex-direction: column; text-align: center; padding: 28px 24px; }
+      .company-banner { flex-direction: column; text-align: center; }
+    }
   </style>
 </head>
-
 <body>
 
-<!-- ===== TOPBAR ===== -->
-<header class="topbar">
-  <div class="logo-container">
-    <img src="assets/logo.png" alt="CapaciTrack">
-    <span>CapaciTrack</span>
-  </div>
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="CapaciTrack">
+      <a href="panelusuarios.html">CapaciTrack</a>
+    </div>
+    <div id="bienvenida">Bienvenido</div>
+    <div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
+    <nav id="nav-menu">
+      <a href="catalogo-curso.html"><i class="fas fa-book"></i> Catálogo</a>
+      <a href="mis-cursos.html"><i class="fas fa-graduation-cap"></i> Mis Cursos</a>
+      <a href="perfil.html"><i class="fas fa-user-circle"></i> Perfil</a>
+      <a href="#" onclick="abrirModalCerrarSesion(event)" class="nav-logout"><i class="fas fa-sign-out-alt"></i> Salir</a>
+    </nav>
+  </header>
 
-  <div id="bienvenida">Bienvenido</div>
+  <!-- MAIN -->
+  <main class="main-content">
 
-  
+    <!-- Hero -->
+    <div class="hero-usuario">
+      <div style="position:relative;z-index:1;">
+        <h1 id="hero-nombre">¡Bienvenido a CapaciTrack!</h1>
+        <p>Tu plataforma de capacitación profesional de Grupo Gusi</p>
+      </div>
+      <div class="hero-icon"><i class="fas fa-graduation-cap"></i></div>
+    </div>
 
- <div class="menu-toggle" id="menu-toggle">
-  <i class="fas fa-bars"></i> <!-- Icono hamburguesa -->
-</div>
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-pill green">
+        <i class="fas fa-book-open"></i>
+        <strong id="stat-inscritos">—</strong>
+        <span>Cursos Inscritos</span>
+      </div>
+      <div class="stat-pill blue">
+        <i class="fas fa-check-circle"></i>
+        <strong id="stat-completados">—</strong>
+        <span>Completados</span>
+      </div>
+      <div class="stat-pill amber">
+        <i class="fas fa-certificate"></i>
+        <strong id="stat-certificados">—</strong>
+        <span>Certificados</span>
+      </div>
+      <div class="stat-pill purple">
+        <i class="fas fa-chart-line"></i>
+        <strong id="stat-progreso">—%</strong>
+        <span>Promedio Progreso</span>
+      </div>
+    </div>
 
-<nav id="nav-menu">
-  <a href="catalogo-curso.html">Catálogo de Cursos</a>
-  <a href="mis-cursos.html">Mis Cursos</a>
-  <a href="perfil.html">Perfil</a>
-  <a href="#" onclick="abrirModalCerrarSesion(event)">Cerrar Sesión</a>
-</nav>
-
-
-</header>
-
-<!-- ===== CONTENEDOR ===== -->
- <main class="main-content">
-      <div class="carousel-container" id="carousel">
-
-    <!-- ===== CARRUSEL ===== -->
-  <div class="carousel-slide">
-          <img src="assets/imagen1.jpeg" alt="Curso 1">
-          <div class="caption">Curso de Seguridad</div>
+    <!-- Carousel + Valores -->
+    <div class="content-grid">
+      <div>
+        <div class="section-title"><i class="fas fa-images"></i> Comunicados y Noticias</div>
+        <div class="carousel-wrapper">
+          <div class="carousel-container" id="carousel">
+            <div class="carousel-slide"><img src="assets/imagen1.jpeg" alt=""><div class="caption">Seguridad en el Trabajo</div></div>
+            <div class="carousel-slide"><img src="assets/imagen10.jpeg" alt=""><div class="caption">Vacantes Disponibles</div></div>
+            <div class="carousel-slide"><img src="assets/imagen11.jpeg" alt=""><div class="caption">Vacantes Disponibles</div></div>
+            <div class="carousel-slide"><img src="assets/imagen12.jpeg" alt=""><div class="caption">Nuestros Equipos</div></div>
+            <div class="carousel-slide"><img src="assets/imagen8.jpeg" alt=""><div class="caption">Capacitación Continua</div></div>
+            <div class="carousel-slide"><img src="assets/imagen9.jpeg" alt=""><div class="caption">Nuestros Equipos</div></div>
+            <div class="carousel-slide"><img src="assets/imagen13.jpeg" alt=""><div class="caption">Instalaciones</div></div>
+            <div class="carousel-slide"><img src="assets/imagen14.jpeg" alt=""><div class="caption">Instalaciones</div></div>
+            <div class="carousel-slide"><img src="assets/imagen15.jpeg" alt=""><div class="caption">Equipo de Trabajo</div></div>
+            <div class="carousel-slide"><img src="assets/imagen16.jpeg" alt=""><div class="caption">Equipo de Trabajo</div></div>
+          </div>
+          <div class="carousel-dots" id="dots"></div>
         </div>
+      </div>
 
-        <div class="carousel-slide">
-          <img src="assets/imagen10.jpeg" alt="Curso 3">
-          <div class="caption">Vacantes Disponibles</div>
+      <!-- Valores Grupo Gusi -->
+      <div>
+        <div class="section-title"><i class="fas fa-star"></i> Nuestros Valores</div>
+        <div class="values-panel">
+          <div class="value-item">
+            <div class="vi-icon"><i class="fas fa-handshake"></i></div>
+            <div><strong>Compromiso</strong><span>Damos lo mejor de nosotros en cada proceso de la cadena de valor.</span></div>
+          </div>
+          <div class="value-item">
+            <div class="vi-icon"><i class="fas fa-shield-alt"></i></div>
+            <div><strong>Calidad</strong><span>Productos cárnicos con los más altos estándares de inocuidad.</span></div>
+          </div>
+          <div class="value-item">
+            <div class="vi-icon"><i class="fas fa-users"></i></div>
+            <div><strong>Equipo</strong><span>Colaboradores comprometidos con el crecimiento de la empresa.</span></div>
+          </div>
+          <div class="value-item">
+            <div class="vi-icon"><i class="fas fa-leaf"></i></div>
+            <div><strong>Sustentabilidad</strong><span>Operamos con respeto al medio ambiente y a la comunidad.</span></div>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <div class="carousel-slide">
-          <img src="assets/imagen11.jpeg" alt="Curso 4">
-          <div class="caption">Vacantes Disponibles</div>
-        </div>
+    <!-- CTA Banner -->
+    <div class="company-banner">
+      <div>
+        <h3><i class="fas fa-graduation-cap" style="color:#4ade80;margin-right:8px;"></i>Continúa tu Capacitación</h3>
+        <p>Explora el catálogo de cursos disponibles, completa tus módulos y obtén tu certificado digital de Grupo Gusi.</p>
+      </div>
+      <a href="catalogo-curso.html"><i class="fas fa-arrow-right" style="margin-right:6px;"></i> Ver Catálogo</a>
+    </div>
 
-        <div class="carousel-slide">
-          <img src="assets/imagen12.jpeg" alt="Curso 4">
-          <div class="caption">Nuestros equipos</div>
-        </div>
-
-      <div class="carousel-slide">
-          <img src="assets/imagen8.jpeg" alt="Curso 4">
-          <div class="caption">Vacantes Disponibles</div>
-        </div>
-
-        <div class="carousel-slide">
-          <img src="assets/imagen9.jpeg" alt="Curso 4">
-          <div class="caption">Nuestros equipos</div>
-        </div>
-
-        <div class="carousel-slide">
-          <img src="assets/imagen13.jpeg" alt="Curso 4">
-          <div class="caption">Nuestros equipos</div>
-        </div>
-
-        <div class="carousel-slide">
-          <img src="assets/imagen14.jpeg" alt="Curso 4">
-          <div class="caption">Nuestros equipos</div>
-        </div>
-        <div class="carousel-slide">
-          <img src="assets/imagen15.jpeg" alt="Curso 4">
-          <div class="caption">Nuestros equipos</div>
-        </div>
-        <div class="carousel-slide">
-          <img src="assets/imagen16.jpeg" alt="Curso 4">
-          <div class="caption">Nuestros equipos</div>
-        </div>
-        
-    <!-- ===== CURSOS ===== -->
-    <h2 style="margin-top:30px;">Catálogo de Cursos</h2>
-    <div id="listaCursos"></div>
+    <!-- Acciones rápidas -->
+    <div class="section-title"><i class="fas fa-th"></i> Accesos Rápidos</div>
+    <div class="cta-grid">
+      <a href="catalogo-curso.html" class="cta-card">
+        <div class="cta-icon green"><i class="fas fa-book"></i></div>
+        <h4>Catálogo de Cursos</h4>
+        <p>Explora todos los cursos disponibles e inscríbete</p>
+      </a>
+      <a href="mis-cursos.html" class="cta-card">
+        <div class="cta-icon blue"><i class="fas fa-play-circle"></i></div>
+        <h4>Mis Cursos</h4>
+        <p>Continúa donde lo dejaste</p>
+      </a>
+      <a href="perfil.html" class="cta-card">
+        <div class="cta-icon green"><i class="fas fa-user-circle"></i></div>
+        <h4>Mi Perfil</h4>
+        <p>Actualiza tus datos, documentos y avatar</p>
+      </a>
+      <a href="perfil.html#certificados" class="cta-card">
+        <div class="cta-icon blue"><i class="fas fa-certificate"></i></div>
+        <h4>Mis Certificados</h4>
+        <p>Descarga tus constancias de capacitación</p>
+      </a>
+    </div>
 
   </main>
-</div>
 
-<!-- ===== FOOTER ===== -->
-<footer>
-  <img src="assets/esr.png" class="footer-logo left">
-  <p>&copy; 2026 CapaciTrack. Todos los derechos reservados.</p>
-  <img src="assets/Grupo-Gusi.png" class="footer-logo right">
-</footer>
+  <footer>
+    <img src="assets/esr.png" class="footer-logo left" alt="ESR">
+    <p>&copy; 2026 CapaciTrack · Grupo Gusi. Todos los derechos reservados.</p>
+    <img src="assets/Grupo-Gusi.png" class="footer-logo right" alt="Grupo Gusi">
+  </footer>
 
-<!-- ===== JS CARRUSEL ===== -->
-<script>
-  const carousel = document.getElementById('carousel');
-  let index = 0;
-
-  setInterval(() => {
-    index = (index + 1) % carousel.children.length;
-    carousel.scrollTo({
-      left: carousel.clientWidth * index,
-      behavior: 'smooth'
-    });
-  }, 2000);
-</script>
-
-
-
-<!-- ===== BIENVENIDA ===== -->
-<script>
-fetch("/capacitrack/backend/auth/usuario_actual.php", {
-  credentials: "include"
-})
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      document.getElementById("bienvenida").textContent =
-        "Bienvenido, " + data.nombre;
-    } else {
-      console.warn("Usuario no autenticado");
-    }
-  })
-  .catch(err => console.error("Error:", err));
-
-</script>
-
-<!-- MODAL CERRAR SESIÓN -->
-<div id="modalCerrarSesion" class="modal-overlay">
-  <div class="modal-box">
-    <h2>⚠️ Cerrar sesión</h2>
-    <p>¿Seguro que deseas cerrar la sesión?</p>
-
-    <div class="modal-actions">
-      <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
-      <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
+  <!-- Modal cerrar sesión -->
+  <div id="modalCerrarSesion" class="modal-overlay">
+    <div class="modal-box">
+      <h2>Cerrar sesión</h2>
+      <p>¿Seguro que deseas salir de la plataforma?</p>
+      <div class="modal-actions">
+        <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Salir</button>
+      </div>
     </div>
   </div>
-</div>
-<script>
-function abrirModalCerrarSesion(e) {
-  e.preventDefault();
-  document.getElementById("modalCerrarSesion").style.display = "flex";
-}
 
-function cerrarModal() {
-  document.getElementById("modalCerrarSesion").style.display = "none";
-}
+  <script>
+    fetch("/capacitrack/backend/auth/usuario_actual.php", { credentials: "include" })
+      .then(r => r.json())
+      .then(d => {
+        if (d.success) {
+          document.getElementById("bienvenida").textContent = "Hola, " + d.nombre;
+          document.getElementById("hero-nombre").textContent = "¡Hola, " + d.nombre + "!";
+        }
+      });
 
-function confirmarCerrarSesion() {
-  // Si usas sesiones o tokens, aquí los limpias
-  // localStorage.clear();
-  // sessionStorage.clear();
+    // Stats de progreso del usuario
+    fetch("/capacitrack/backend/usuarios/obtener_progreso.php", { credentials: "include" })
+      .then(r => r.json())
+      .then(d => {
+        if (d.inscritos    !== undefined) document.getElementById("stat-inscritos").textContent    = d.inscritos;
+        if (d.completados  !== undefined) document.getElementById("stat-completados").textContent  = d.completados;
+        if (d.certificados !== undefined) document.getElementById("stat-certificados").textContent = d.certificados;
+        if (d.promedio     !== undefined) document.getElementById("stat-progreso").textContent     = d.promedio + "%";
+      }).catch(() => {
+        ["stat-inscritos","stat-completados","stat-certificados"].forEach(id => {
+          document.getElementById(id).textContent = "0";
+        });
+        document.getElementById("stat-progreso").textContent = "0%";
+      });
 
-  window.location.href = "index.html";
-}
+    // Carrusel con dots
+    const carousel = document.getElementById('carousel');
+    const dotsContainer = document.getElementById('dots');
+    const slides = carousel.children.length;
+    let idx = 0;
 
-const menuToggle = document.getElementById('menu-toggle');
-const navMenu = document.getElementById('nav-menu');
+    for (let i = 0; i < slides; i++) {
+      const d = document.createElement('button');
+      d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      d.onclick = () => goTo(i);
+      dotsContainer.appendChild(d);
+    }
 
-menuToggle.addEventListener('click', () => {
-  navMenu.classList.toggle('show'); // Agrega/quita clase para mostrar menú
-});
-</script>
+    function goTo(n) {
+      idx = n;
+      carousel.scrollTo({ left: carousel.clientWidth * idx, behavior: 'smooth' });
+      document.querySelectorAll('.carousel-dot').forEach((d,i) => d.classList.toggle('active', i === idx));
+    }
+
+    setInterval(() => goTo((idx + 1) % slides), 3500);
+
+    function abrirModalCerrarSesion(e) { e.preventDefault(); document.getElementById("modalCerrarSesion").style.display = "flex"; }
+    function cerrarModal() { document.getElementById("modalCerrarSesion").style.display = "none"; }
+    function confirmarCerrarSesion() { window.location.href = "index.html"; }
+
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      document.getElementById('nav-menu').classList.toggle('show');
+    });
+  </script>
 
 </body>
 </html>

@@ -1,862 +1,404 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Detalle del Curso | CapaciTrack</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f7fa;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  .topbar {
-    background-color: #e8f5e9;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #dcedc8;
-  }
-
-  .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .logo-container img { height: 55px; }
-
-  .logo-container a {
-    font-size: 1.7rem;
-    font-weight: 700;
-    color: #2e7d32;
-    text-decoration: none;
-  }
-
-  .topbar nav a {
-    margin-left: 25px;
-    color: #2e7d32;
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .main-content {
-    flex: 1;
-    padding: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  .breadcrumb {
-    margin-bottom: 20px;
-    color: #666;
-  }
-
-  .breadcrumb a {
-    color: #2e7d32;
-    text-decoration: none;
-  }
-
-  .curso-header {
-    background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    margin-bottom: 30px;
-  }
-
-  .curso-portada-grande {
-    width: 100%;
-    max-height: 400px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 20px;
-  }
-
-  .curso-titulo {
-    font-size: 2rem;
-    color: #2e7d32;
-    margin-bottom: 15px;
-  }
-
-  .curso-meta {
-    display: flex;
-    gap: 20px;
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-
-  .curso-descripcion {
-    line-height: 1.6;
-    color: #555;
-  }
-
-  .section {
-    background: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    margin-bottom: 25px;
-  }
-
-  .section-title {
-    font-size: 1.5rem;
-    color: #2e7d32;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .modulo-item {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    border-left: 4px solid #2e7d32;
-  }
-
-  .modulo-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    margin-bottom: 15px;
-  }
-
-  .modulo-titulo {
-    font-weight: 600;
-    font-size: 1.2rem;
-    color: #333;
-    margin-bottom: 8px;
-  }
-
-  .modulo-tipo {
-    display: inline-block;
-    padding: 4px 12px;
-    background: #e8f5e9;
-    color: #2e7d32;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    margin-bottom: 10px;
-  }
-
-  .modulo-descripcion {
-    color: #666;
-    line-height: 1.5;
-    margin-bottom: 15px;
-  }
-
-  /* Estilos para contenido de módulos */
-  .modulo-contenido {
-    margin-top: 20px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-  }
-
-  .modulo-imagen {
-    width: 100%;
-    max-width: 800px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-
-  .modulo-imagen:hover {
-    transform: scale(1.02);
-  }
-
-  .modulo-pdf {
-    width: 100%;
-    height: 600px;
-    border: none;
-    border-radius: 8px;
-  }
-
-  .modulo-video {
-    width: 100%;
-    max-width: 800px;
-    height: 450px;
-    border-radius: 8px;
-  }
-
-  .archivo-descarga {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-    background: #e8f5e9;
-    border-radius: 8px;
-    border-left: 4px solid #2e7d32;
-  }
-
-  .archivo-icono {
-    font-size: 2.5rem;
-    color: #2e7d32;
-  }
-
-  .archivo-info {
-    flex: 1;
-  }
-
-  .archivo-nombre {
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 5px;
-  }
-
-  .archivo-detalles {
-    font-size: 0.85rem;
-    color: #666;
-  }
-
-  .btn-descargar {
-    padding: 10px 20px;
-    background: #2e7d32;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: background 0.2s;
-  }
-
-  .btn-descargar:hover {
-    background: #1b5e20;
-  }
-
-  .pregunta-item {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-  }
-
-  .pregunta-numero {
-    font-weight: 600;
-    color: #2e7d32;
-    margin-bottom: 10px;
-  }
-
-  .pregunta-texto {
-    font-size: 1.05rem;
-    margin-bottom: 15px;
-    color: #333;
-  }
-
-  .opciones-lista {
-    margin-left: 20px;
-  }
-
-  .opcion {
-    padding: 8px 0;
-    color: #555;
-  }
-
-  .opcion.correcta {
-    color: #2e7d32;
-    font-weight: 600;
-  }
-
-  .opcion.correcta:before {
-    content: "✓ ";
-    color: #2e7d32;
-  }
-
-  .btn {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  .btn-primary {
-    background: #2e7d32;
-    color: #fff;
-  }
-
-  .btn-secondary {
-    background: #757575;
-    color: #fff;
-  }
-
-  .loading {
-    text-align: center;
-    padding: 60px;
-    color: #2e7d32;
-  }
-
-  .loading i {
-    font-size: 3rem;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  .error-message {
-    background: #ffebee;
-    color: #c62828;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-  }
-
-  footer {
-    background: #e8f5e9;
-    padding: 15px;
-    text-align: center;
-    border-top: 1px solid #c8e6c9;
-    margin-top: auto;
-  }
-
-  /* Modal para ver imágenes en grande */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.9);
-    align-items: center;
-    justify-content: center;
-  }
-
-  .modal.active {
-    display: flex;
-  }
-
-  .modal-content {
-    max-width: 90%;
-    max-height: 90%;
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 20px;
-    right: 40px;
-    color: #fff;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
-  .no-contenido {
-    padding: 20px;
-    text-align: center;
-    color: #999;
-    font-style: italic;
-  }
-
-  /*cerrar sesion*/
-    .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.modal-box {
-  background: #fff;
-  padding: 30px;
-  width: 400px;
-  border-radius: 14px;
-  text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  animation: aparecer 0.25s ease;
-}
-
-.modal-box h2 {
-  margin-bottom: 10px;
-  color: #19aa1e;
-}
-
-.modal-box p {
-  color: #555;
-  margin-bottom: 25px;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.btn-cancelar {
-  background: #e5e5e5;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-confirmar {
-  background: #19aa1e;
-  color: white;
-  border: none;
-  padding: 10px 22px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-confirmar:hover {
-  background: #19aa1e;
-}
-
-@keyframes aparecer {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-/* Icono hamburguesa */
-.menu-toggle {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #2e7d32;
-}
-
-/* Responsive: menú hamburguesa */
-@media screen and (max-width: 768px) {
-  .topbar nav {
-    display: none; /* Oculto por defecto */
-    flex-direction: column;
-    gap: 0;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    background-color: #e8f5e9;
-    width: 200px;
-    border-left: 1px solid #dcedc8;
-    padding: 10px 0;
-    z-index: 999;
-  }
-
-  .topbar nav a {
-    padding: 12px 20px;
-    border-top: 1px solid #dcedc8;
-    margin: 0;
-  }
-
-  .menu-toggle {
-    display: block; /* Mostrar hamburguesa en móvil */
-  }
-
-  /* Cuando el menú está abierto */
-  nav.show {
-    display: flex;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle del Curso | CapaciTrack</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/global.css">
+  <style>
+    .main-content { max-width: 1200px; margin: 0 auto; width: 100%; }
+
+    .breadcrumb { margin-bottom: 20px; font-size: .85rem; color: var(--gray-500); }
+    .breadcrumb a { color: var(--primary); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .curso-header {
+      background: var(--white); padding: 28px 32px;
+      border-radius: var(--radius-xl); box-shadow: var(--shadow-card);
+      border: 1px solid rgba(0,0,0,.05); margin-bottom: 24px;
+    }
+    .curso-portada-grande {
+      width: 100%; max-height: 380px; object-fit: cover;
+      border-radius: var(--radius-lg); margin-bottom: 20px;
+    }
+    .curso-titulo { font-size: 1.8rem; font-weight: 800; color: var(--gray-900); margin-bottom: 12px; }
+    .curso-meta {
+      display: flex; gap: 20px; flex-wrap: wrap;
+      color: var(--gray-500); font-size: .875rem; margin-bottom: 16px;
+    }
+    .curso-meta span { display: flex; align-items: center; gap: 6px; }
+    .curso-meta i { color: var(--primary); }
+    .curso-descripcion { line-height: 1.7; color: var(--gray-600); }
+
+    .section {
+      background: var(--white); padding: 28px 32px;
+      border-radius: var(--radius-xl); box-shadow: var(--shadow-card);
+      border: 1px solid rgba(0,0,0,.05); margin-bottom: 24px;
+    }
+    .section-title {
+      font-size: 1.1rem; font-weight: 700; color: var(--gray-800);
+      margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+    }
+    .section-title i { color: var(--primary); }
+
+    .modulo-item {
+      background: var(--gray-50); padding: 20px;
+      border-radius: var(--radius); border-left: 4px solid var(--primary);
+      margin-bottom: 16px;
+    }
+    .modulo-titulo { font-weight: 700; font-size: 1rem; color: var(--gray-800); margin-bottom: 6px; }
+    .modulo-tipo {
+      display: inline-block; padding: 3px 10px;
+      background: var(--primary-100); color: var(--primary-dark);
+      border-radius: var(--radius-full); font-size: .75rem; font-weight: 600; margin-bottom: 8px;
+    }
+    .modulo-descripcion { color: var(--gray-500); line-height: 1.5; margin-bottom: 14px; }
+    .modulo-contenido {
+      margin-top: 16px; background: var(--white); padding: 16px;
+      border-radius: var(--radius); border: 1px solid var(--gray-200);
+    }
+
+    .modulo-imagen {
+      width: 100%; max-width: 800px; height: auto;
+      border-radius: var(--radius); box-shadow: var(--shadow-sm);
+      cursor: pointer; transition: transform .2s;
+    }
+    .modulo-imagen:hover { transform: scale(1.02); }
+    .modulo-pdf { width: 100%; height: 580px; border: none; border-radius: var(--radius); }
+    .modulo-video { width: 100%; max-width: 800px; height: 450px; border-radius: var(--radius); }
+
+    .archivo-descarga {
+      display: flex; align-items: center; gap: 14px; padding: 16px;
+      background: var(--primary-50); border-radius: var(--radius);
+      border-left: 4px solid var(--primary);
+    }
+    .archivo-icono { font-size: 2.2rem; color: var(--primary); }
+    .archivo-info { flex: 1; }
+    .archivo-nombre { font-weight: 600; color: var(--gray-800); margin-bottom: 4px; }
+    .archivo-detalles { font-size: .82rem; color: var(--gray-500); }
+    .btn-descargar {
+      padding: 9px 18px; background: var(--primary); color: var(--white);
+      border: none; border-radius: var(--radius-full); cursor: pointer;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 7px;
+      font-size: .85rem; font-weight: 600; transition: var(--ease);
+    }
+    .btn-descargar:hover { background: var(--primary-dark); }
+
+    .pregunta-item {
+      background: var(--gray-50); padding: 20px;
+      border-radius: var(--radius); margin-bottom: 14px;
+      border: 1px solid var(--gray-200);
+    }
+    .pregunta-numero { font-weight: 700; color: var(--primary); margin-bottom: 8px; font-size: .85rem; }
+    .pregunta-texto { font-size: 1rem; color: var(--gray-800); margin-bottom: 14px; }
+    .opciones-lista { margin-left: 4px; }
+    .opcion { padding: 8px 0; color: var(--gray-600); font-size: .9rem; }
+    .opcion.correcta { color: var(--primary-dark); font-weight: 700; }
+    .opcion.correcta:before { content: "✓ "; color: var(--primary); }
+
+    .loading { text-align: center; padding: 60px; color: var(--primary-dark); }
+    .loading i { font-size: 2.5rem; animation: spin 1s linear infinite; display: block; margin-bottom: 12px; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .error-message {
+      background: #fff5f5; color: #c62828; padding: 24px;
+      border-radius: var(--radius-lg); text-align: center;
+      border: 1px solid #fecaca;
+    }
+    .no-contenido { padding: 16px; text-align: center; color: var(--gray-400); font-style: italic; }
+
+    .detalle-acciones {
+      display: flex; gap: 12px; justify-content: center; margin-top: 8px;
+    }
+    .btn-volver {
+      padding: 11px 24px; background: var(--gray-100); color: var(--gray-600);
+      border: none; border-radius: var(--radius-full); font-size: .9rem;
+      font-weight: 600; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px; transition: var(--ease);
+    }
+    .btn-volver:hover { background: var(--gray-200); }
+    .btn-editar {
+      padding: 11px 24px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--white); border: none; border-radius: var(--radius-full); font-size: .9rem;
+      font-weight: 700; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: var(--shadow-green); transition: var(--ease);
+    }
+    .btn-editar:hover { transform: translateY(-2px); box-shadow: var(--shadow-green-hover); }
+
+    /* Image lightbox */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 10000;
+      background: rgba(0,0,0,.92); align-items: center; justify-content: center;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox-img { max-width: 90%; max-height: 90%; border-radius: var(--radius-lg); }
+    .lightbox-close {
+      position: absolute; top: 20px; right: 36px;
+      color: #fff; font-size: 2.5rem; cursor: pointer; line-height: 1;
+    }
+  </style>
 </head>
-
 <body>
 
-<header class="topbar">
-  <div class="logo-container">
-    <img src="assets/logo.png" alt="Logo">
-    <a href="paneladmin.html">CapaciTrack</a>
-  </div>
-<div class="menu-toggle" id="menu-toggle">
-  <i class="fas fa-bars"></i> <!-- Icono hamburguesa -->
-</div>
+  <header class="topbar">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="CapaciTrack">
+      <a href="paneladmin.html">CapaciTrack</a>
+    </div>
+    <div id="bienvenida">Bienvenido</div>
+    <div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
     <nav id="nav-menu">
-      <a href="registrousuarios.html">Registro de Usuarios</a>
-      <a href="registrodocs.html">Registro de Documentos</a>
-      <a href="perfil-admin.html">Perfil</a>
-         <a href="#" onclick="abrirModalCerrarSesion(event)">Cerrar Sesión</a>
+      <a href="registrousuarios.html"><i class="fas fa-users"></i> Usuarios</a>
+      <a href="registrodocs.html"><i class="fas fa-file-alt"></i> Documentos</a>
+      <a href="perfil-admin.html"><i class="fas fa-user-circle"></i> Perfil</a>
+      <a href="#" onclick="abrirModalCerrarSesion(event)" class="nav-logout"><i class="fas fa-sign-out-alt"></i> Salir</a>
     </nav>
-</header>
+  </header>
 
-<main class="main-content">
-  <div class="breadcrumb">
-    <a href="paneladmin.html">Inicio</a> / 
-    <a href="ver-cursos.html">Cursos</a> / 
-    <span id="breadcrumbTitulo">Detalle</span>
+  <div class="dashboard-container">
+    <div class="sidebar-toggle" id="sidebar-toggle"><i class="fas fa-chevron-right"></i></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-section">Principal</div>
+      <a href="paneladmin.html" class="sidebar-item"><i class="fas fa-home"></i> Inicio</a>
+      <a href="reportes.html" class="sidebar-item"><i class="fas fa-chart-bar"></i> Reportes</a>
+      <div class="sidebar-section">Gestión</div>
+      <a href="crear-curso.html" class="sidebar-item"><i class="fas fa-plus-circle"></i> Crear Curso</a>
+      <a href="ver-cursos.html" class="sidebar-item active"><i class="fas fa-play-circle"></i> Ver Cursos</a>
+      <a href="agregar-usuario.html" class="sidebar-item"><i class="fas fa-user-plus"></i> Agregar Usuario</a>
+      <div class="sidebar-section">Registros</div>
+      <a href="registrousuarios.html" class="sidebar-item"><i class="fas fa-users"></i> Registro Usuarios</a>
+      <a href="registrodocs.html" class="sidebar-item"><i class="fas fa-file-alt"></i> Documentos</a>
+    </aside>
+
+    <main class="main-content">
+      <!-- PAGE HEADER -->
+      <div style="background:linear-gradient(135deg,var(--primary-darker) 0%,var(--primary) 60%,#4ade80 100%);border-radius:var(--radius-xl);padding:26px 32px;color:#fff;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;overflow:hidden;">
+        <div style="position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.07);pointer-events:none;"></div>
+        <div style="position:relative;z-index:1;">
+          <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);padding:4px 12px;border-radius:50px;font-size:.78rem;font-weight:600;color:#fff;margin-bottom:8px;"><i class="fas fa-play-circle"></i> Gestión de Cursos</div>
+          <h1 style="font-size:1.4rem;font-weight:800;color:#fff;-webkit-text-fill-color:#fff;background:none;margin:0 0 4px;">Detalle del Curso</h1>
+          <p style="color:rgba(255,255,255,.75);font-size:.88rem;margin:0;">Revisa módulos, contenido y evaluación del curso seleccionado</p>
+        </div>
+        <div style="width:52px;height:52px;border-radius:var(--radius-md);background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;flex-shrink:0;z-index:1;"><i class="fas fa-book"></i></div>
+      </div>
+
+      <div class="breadcrumb">
+        <a href="paneladmin.html">Inicio</a> &rsaquo;
+        <a href="ver-cursos.html">Cursos</a> &rsaquo;
+        <span id="breadcrumbTitulo">Detalle</span>
+      </div>
+
+      <div id="loading" class="loading">
+        <i class="fas fa-spinner"></i>
+        <p>Cargando curso...</p>
+      </div>
+
+      <div id="errorContainer" style="display:none;">
+        <div class="error-message">
+          <i class="fas fa-exclamation-circle" style="font-size:2rem;margin-bottom:10px;display:block;"></i>
+          <h3>Error al cargar el curso</h3>
+          <p id="errorMessage"></p>
+          <br>
+          <a href="ver-cursos.html" class="btn-editar">Volver a Cursos</a>
+        </div>
+      </div>
+
+      <div id="cursoContainer" style="display:none;"></div>
+    </main>
   </div>
 
-  <div id="loading" class="loading">
-    <i class="fas fa-spinner"></i>
-    <p>Cargando curso...</p>
+  <footer>
+    <img src="assets/esr.png" class="footer-logo left" alt="ESR">
+    <p>&copy; 2026 CapaciTrack · Grupo Gusi. Todos los derechos reservados.</p>
+    <img src="assets/Grupo-Gusi.png" class="footer-logo right" alt="Grupo Gusi">
+  </footer>
+
+  <!-- Lightbox imagen -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-img" id="lightboxImg">
   </div>
 
-  <div id="errorContainer" style="display:none;">
-    <div class="error-message">
-      <i class="fas fa-exclamation-circle" style="font-size:2rem;"></i>
-      <h3>Error al cargar el curso</h3>
-      <p id="errorMessage"></p>
-      <br>
-      <a href="ver-cursos.html" class="btn btn-primary">Volver a Cursos</a>
+  <!-- MODAL CERRAR SESIÓN -->
+  <div id="modalCerrarSesion" class="modal-overlay">
+    <div class="modal-box">
+      <h2>Cerrar sesión</h2>
+      <p>¿Seguro que deseas salir de la plataforma?</p>
+      <div class="modal-actions">
+        <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Salir</button>
+      </div>
     </div>
   </div>
 
-  <div id="cursoContainer" style="display:none;">
-    <!-- El contenido se cargará dinámicamente -->
-  </div>
-</main>
+  <script>
+    fetch("/capacitrack/backend/auth/usuario_actual.php", { credentials: "include" })
+      .then(r => r.json())
+      .then(d => { if (d.success) document.getElementById("bienvenida").textContent = "Hola, " + d.nombre; });
 
-<footer>© 2026 CapaciTrack</footer>
+    const urlParams = new URLSearchParams(window.location.search);
+    const cursoId = urlParams.get('id');
+    const backendURL = 'http://localhost/capacitrack/backend/';
 
-<!-- Modal para ver imágenes -->
-<div id="imageModal" class="modal" onclick="closeModal()">
-  <span class="modal-close">&times;</span>
-  <img class="modal-content" id="modalImage">
-</div>
+    if (!cursoId) mostrarError('No se especificó un ID de curso');
+    else cargarCursoDetalle(cursoId);
 
-<script>
-const urlParams = new URLSearchParams(window.location.search);
-const cursoId = urlParams.get('id');
-const backendURL = 'http://localhost/capacitrack/backend/';
-
-if (!cursoId) {
-  mostrarError('No se especificó un ID de curso');
-} else {
-  cargarCursoDetalle(cursoId);
-}
-
-async function cargarCursoDetalle(id) {
-  try {
-    const res = await fetch(`${backendURL}obtener_curso_detalle.php?id=${id}`);
-    const data = await res.json();
-    
-    document.getElementById('loading').style.display = 'none';
-    
-    if (data.success) {
-      mostrarCurso(data.curso);
-    } else {
-      mostrarError(data.message || 'Error al cargar el curso');
+    async function cargarCursoDetalle(id) {
+      try {
+        const res = await fetch(`${backendURL}obtener_curso_detalle.php?id=${id}`);
+        const data = await res.json();
+        document.getElementById('loading').style.display = 'none';
+        if (data.success) mostrarCurso(data.curso);
+        else mostrarError(data.message || 'Error al cargar el curso');
+      } catch (error) { mostrarError('Error de conexión al servidor'); }
     }
-  } catch (error) {
-    console.error('Error:', error);
-    mostrarError('Error de conexión al servidor');
-  }
-}
 
-function mostrarCurso(curso) {
-  document.getElementById('breadcrumbTitulo').textContent = curso.titulo;
-  document.getElementById('cursoContainer').style.display = 'block';
-  
-  let portadaHTML = '';
-  if (curso.portada && curso.portada !== '') {
-    portadaHTML = `<img src="${backendURL}${curso.portada}" 
-                       alt="${curso.titulo}" 
-                       class="curso-portada-grande">`;
-  }
-  
-  let modulosHTML = '';
-  if (curso.modulos && curso.modulos.length > 0) {
-    modulosHTML = curso.modulos.map((mod, index) => {
-      let contenidoHTML = '';
-      
-      if (mod.archivo && mod.archivo !== '') {
-        const extension = obtenerExtension(mod.archivo);
-        const tipoArchivo = mod.tipo_contenido || detectarTipoArchivo(extension);
-        
-        contenidoHTML = generarVisualizadorArchivo(mod.archivo, tipoArchivo, extension, mod.titulo);
-      } else {
-        contenidoHTML = '<div class="no-contenido">Este módulo no tiene archivos adjuntos</div>';
-      }
-      
-      return `
-        <div class="modulo-item">
-          <div class="modulo-header">
-            <div>
-              <div class="modulo-titulo">Módulo ${index + 1}: ${mod.titulo}</div>
+    function mostrarCurso(curso) {
+      document.getElementById('breadcrumbTitulo').textContent = curso.titulo;
+      document.getElementById('cursoContainer').style.display = 'block';
+
+      let portadaHTML = curso.portada ? `<img src="${backendURL}${curso.portada}" alt="${curso.titulo}" class="curso-portada-grande">` : '';
+
+      let modulosHTML = '';
+      if (curso.modulos && curso.modulos.length > 0) {
+        modulosHTML = curso.modulos.map((mod, index) => {
+          let contenidoHTML = mod.archivo ? generarVisualizadorArchivo(mod.archivo, mod.tipo_contenido, obtenerExtension(mod.archivo), mod.titulo) : '<div class="no-contenido">Este módulo no tiene archivos adjuntos</div>';
+          return `
+            <div class="modulo-item">
+              <div class="modulo-titulo"><i class="fas fa-book-open" style="margin-right:6px;color:var(--primary);"></i>Módulo ${index + 1}: ${mod.titulo}</div>
               ${mod.tipo_contenido ? `<span class="modulo-tipo"><i class="fas fa-${obtenerIconoTipo(mod.tipo_contenido)}"></i> ${mod.tipo_contenido}</span>` : ''}
-            </div>
-          </div>
-          <div class="modulo-descripcion">${mod.descripcion || 'Sin descripción'}</div>
-          <div class="modulo-contenido">
-            ${contenidoHTML}
-          </div>
-        </div>
-      `;
-    }).join('');
-  } else {
-    modulosHTML = '<p style="color:#999;">No hay módulos en este curso</p>';
-  }
-  
-  let evaluacionesHTML = '';
-  if (curso.evaluaciones && curso.evaluaciones.length > 0) {
-    evaluacionesHTML = curso.evaluaciones.map((eval, index) => {
-      let opcionesHTML = '';
-      
-      if (eval.tipo === 'opcion' && eval.opciones) {
-        const opciones = JSON.parse(eval.opciones);
-        opcionesHTML = '<div class="opciones-lista">';
-        opciones.forEach((opcion, i) => {
-          const letra = String.fromCharCode(65 + i);
-          const esCorrecta = letra === eval.respuesta_correcta;
-          opcionesHTML += `<div class="opcion ${esCorrecta ? 'correcta' : ''}">${letra}) ${opcion}</div>`;
-        });
-        opcionesHTML += '</div>';
+              <div class="modulo-descripcion">${mod.descripcion || 'Sin descripción'}</div>
+              <div class="modulo-contenido">${contenidoHTML}</div>
+            </div>`;
+        }).join('');
+      } else {
+        modulosHTML = '<p style="color:var(--gray-400);">No hay módulos en este curso</p>';
       }
-      
-      return `
-        <div class="pregunta-item">
-          <div class="pregunta-numero">Pregunta ${index + 1} - ${eval.tipo === 'abierta' ? 'Abierta' : 'Opción Múltiple'}</div>
-          <div class="pregunta-texto">${eval.pregunta}</div>
-          ${opcionesHTML}
+
+      let evaluacionesHTML = '';
+      if (curso.evaluaciones && curso.evaluaciones.length > 0) {
+        evaluacionesHTML = curso.evaluaciones.map((ev, index) => {
+          let imagenHTML = '';
+          if (ev.imagen && ev.imagen !== '') {
+            const urlImagen = `${backendURL}${ev.imagen}`;
+            imagenHTML = `<div style="margin:12px 0;"><img src="${urlImagen}" class="modulo-imagen" onclick="openLightbox('${urlImagen}')" style="max-width:500px;" onerror="this.style.display='none'"></div>`;
+          }
+          let opcionesHTML = '';
+          if (ev.tipo === 'opcion' && ev.opciones) {
+            const opciones = JSON.parse(ev.opciones);
+            opcionesHTML = '<div class="opciones-lista">';
+            opciones.forEach((opcion, i) => {
+              const letra = String.fromCharCode(65 + i);
+              opcionesHTML += `<div class="opcion ${letra === ev.respuesta_correcta ? 'correcta' : ''}">${letra}) ${opcion}</div>`;
+            });
+            opcionesHTML += '</div>';
+          }
+          return `
+            <div class="pregunta-item">
+              <div class="pregunta-numero">Pregunta ${index + 1} &mdash; ${ev.tipo === 'abierta' ? 'Abierta' : 'Opción Múltiple'}</div>
+              <div class="pregunta-texto">${ev.pregunta}</div>
+              ${imagenHTML}${opcionesHTML}
+            </div>`;
+        }).join('');
+      } else {
+        evaluacionesHTML = '<p style="color:var(--gray-400);">No hay evaluaciones en este curso</p>';
+      }
+
+      document.getElementById('cursoContainer').innerHTML = `
+        <div class="curso-header">
+          ${portadaHTML}
+          <h1 class="curso-titulo">${curso.titulo}</h1>
+          <div class="curso-meta">
+            <span><i class="fas fa-user"></i> ${curso.creador_nombre || 'Desconocido'}</span>
+            <span><i class="fas fa-calendar"></i> ${formatearFecha(curso.creado_en)}</span>
+            <span><i class="fas fa-book"></i> ${curso.modulos.length} módulos</span>
+            <span><i class="fas fa-question-circle"></i> ${curso.evaluaciones.length} preguntas</span>
+          </div>
+          <div class="curso-descripcion">${curso.descripcion}</div>
         </div>
-      `;
-    }).join('');
-  } else {
-    evaluacionesHTML = '<p style="color:#999;">No hay evaluaciones en este curso</p>';
-  }
-  
-  const html = `
-    <div class="curso-header">
-      ${portadaHTML}
-      <h1 class="curso-titulo">${curso.titulo}</h1>
-      <div class="curso-meta">
-        <span><i class="fas fa-user"></i> ${curso.creador_nombre || 'Desconocido'}</span>
-        <span><i class="fas fa-calendar"></i> ${formatearFecha(curso.creado_en)}</span>
-        <span><i class="fas fa-book"></i> ${curso.modulos.length} módulos</span>
-        <span><i class="fas fa-question-circle"></i> ${curso.evaluaciones.length} preguntas</span>
-      </div>
-      <div class="curso-descripcion">${curso.descripcion}</div>
-    </div>
+        <div class="section">
+          <div class="section-title"><i class="fas fa-book-open"></i> Módulos del Curso</div>
+          ${modulosHTML}
+        </div>
+        <div class="section">
+          <div class="section-title"><i class="fas fa-clipboard-check"></i> Evaluación</div>
+          ${evaluacionesHTML}
+        </div>
+        <div class="detalle-acciones">
+          <a href="ver-cursos.html" class="btn-volver"><i class="fas fa-arrow-left"></i> Volver</a>
+          <a href="editar-curso.html?id=${curso.id}" class="btn-editar"><i class="fas fa-edit"></i> Editar Curso</a>
+        </div>`;
+    }
 
-    <div class="section">
-      <h2 class="section-title">
-        <i class="fas fa-book"></i>
-        Módulos del Curso
-      </h2>
-      ${modulosHTML}
-    </div>
+    function getYouTubeEmbedUrl(url) {
+      const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/);
+      return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+    }
 
-    <div class="section">
-      <h2 class="section-title">
-        <i class="fas fa-question-circle"></i>
-        Evaluación
-      </h2>
-      ${evaluacionesHTML}
-    </div>
+    function generarVisualizadorArchivo(rutaArchivo, tipo, extension, titulo) {
+      // Detectar URL de YouTube
+      if (tipo === 'video' || /youtube\.com|youtu\.be/.test(rutaArchivo)) {
+        const embedUrl = getYouTubeEmbedUrl(rutaArchivo);
+        if (embedUrl) {
+          return `<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius);">
+            <iframe src="${embedUrl}" title="${titulo}"
+              style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:var(--radius);"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>`;
+        }
+        return `<div class="no-contenido"><i class="fab fa-youtube" style="font-size:2rem;color:#ff0000;margin-bottom:8px;display:block;"></i>URL de YouTube no válida</div>`;
+      }
 
-    <div style="display:flex; gap:15px; justify-content:center; margin-top:30px;">
-      <a href="ver-cursos.html" class="btn btn-secondary">
-        <i class="fas fa-arrow-left"></i> Volver
-      </a>
-      <a href="editar-curso.html?id=${curso.id}" class="btn btn-primary">
-        <i class="fas fa-edit"></i> Editar Curso
-      </a>
-    </div>
-  `;
-  
-  document.getElementById('cursoContainer').innerHTML = html;
-}
+      const urlCompleta = `${backendURL}${rutaArchivo}`;
+      if (['jpg','jpeg','png','gif','webp'].includes(extension) || tipo === 'imagen')
+        return `<img src="${urlCompleta}" alt="${titulo}" class="modulo-imagen" onclick="openLightbox('${urlCompleta}')" onerror="this.parentElement.innerHTML='<div class=\\'no-contenido\\'>Error al cargar la imagen</div>'">`;
+      if (extension === 'pdf' || tipo === 'pdf')
+        return `<iframe src="${urlCompleta}" class="modulo-pdf" title="${titulo}"></iframe><div style="margin-top:10px;"><a href="${urlCompleta}" target="_blank" class="btn-descargar"><i class="fas fa-download"></i> Descargar PDF</a></div>`;
+      if (['mp4','webm'].includes(extension))
+        return `<video controls class="modulo-video"><source src="${urlCompleta}" type="video/${extension}">Tu navegador no soporta video.</video>`;
+      const iconos = { doc:'file-word', docx:'file-word', xls:'file-excel', xlsx:'file-excel', ppt:'file-powerpoint', pptx:'file-powerpoint', txt:'file-alt', zip:'file-archive' };
+      return `
+        <div class="archivo-descarga">
+          <div class="archivo-icono"><i class="fas fa-${iconos[extension]||'file'}"></i></div>
+          <div class="archivo-info">
+            <div class="archivo-nombre">${rutaArchivo.split('/').pop()}</div>
+            <div class="archivo-detalles">Tipo: ${extension.toUpperCase()} &bull; ${tipo || 'Documento'}</div>
+          </div>
+          <a href="${urlCompleta}" download class="btn-descargar"><i class="fas fa-download"></i> Descargar</a>
+        </div>`;
+    }
 
-function generarVisualizadorArchivo(rutaArchivo, tipo, extension, titulo) {
-  const urlCompleta = `${backendURL}${rutaArchivo}`;
-  
-  // Imágenes
-  if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'].includes(extension) || tipo === 'imagen') {
-    return `
-      <img src="${urlCompleta}" 
-           alt="${titulo}" 
-           class="modulo-imagen"
-           onclick="openModal('${urlCompleta}')"
-           onerror="this.parentElement.innerHTML='<div class=\\'no-contenido\\'>Error al cargar la imagen</div>'">
-    `;
-  }
-  
-  // PDFs
-  if (extension === 'pdf' || tipo === 'pdf') {
-    return `
-      <iframe src="${urlCompleta}" 
-              class="modulo-pdf"
-              title="${titulo}"></iframe>
-      <div style="margin-top:10px;">
-        <a href="${urlCompleta}" target="_blank" class="btn-descargar">
-          <i class="fas fa-download"></i> Descargar PDF
-        </a>
-      </div>
-    `;
-  }
-  
-  // Videos
-  if (['mp4', 'webm', 'ogg'].includes(extension) || tipo === 'video') {
-    return `
-      <video controls class="modulo-video">
-        <source src="${urlCompleta}" type="video/${extension}">
-        Tu navegador no soporta el elemento de video.
-      </video>
-    `;
-  }
-  
-  // Audio
-  if (['mp3', 'wav', 'ogg'].includes(extension)) {
-    return `
-      <audio controls style="width:100%;">
-        <source src="${urlCompleta}" type="audio/${extension}">
-        Tu navegador no soporta el elemento de audio.
-      </audio>
-      <div style="margin-top:10px;">
-        <a href="${urlCompleta}" download class="btn-descargar">
-          <i class="fas fa-download"></i> Descargar Audio
-        </a>
-      </div>
-    `;
-  }
-  
-  // Documentos y otros archivos
-  const iconos = {
-    'doc': 'file-word',
-    'docx': 'file-word',
-    'xls': 'file-excel',
-    'xlsx': 'file-excel',
-    'ppt': 'file-powerpoint',
-    'pptx': 'file-powerpoint',
-    'txt': 'file-alt',
-    'zip': 'file-archive',
-    'rar': 'file-archive'
-  };
-  
-  const icono = iconos[extension] || 'file';
-  const nombreArchivo = rutaArchivo.split('/').pop();
-  
-  return `
-    <div class="archivo-descarga">
-      <div class="archivo-icono">
-        <i class="fas fa-${icono}"></i>
-      </div>
-      <div class="archivo-info">
-        <div class="archivo-nombre">${nombreArchivo}</div>
-        <div class="archivo-detalles">Tipo: ${extension.toUpperCase()} • ${tipo || 'Documento'}</div>
-      </div>
-      <a href="${urlCompleta}" download class="btn-descargar">
-        <i class="fas fa-download"></i> Descargar
-      </a>
-    </div>
-  `;
-}
+    function obtenerExtension(ruta) { return ruta.split('.').pop().toLowerCase(); }
+    function obtenerIconoTipo(tipo) { return { video:'video', pdf:'file-pdf', imagen:'image', documento:'file-alt' }[tipo] || 'file'; }
+    function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightbox').classList.add('active'); }
+    function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+    function mostrarError(msg) { document.getElementById('loading').style.display='none'; document.getElementById('errorContainer').style.display='block'; document.getElementById('errorMessage').textContent=msg; }
+    function formatearFecha(fecha) { return new Date(fecha).toLocaleDateString('es-MX', { year:'numeric', month:'long', day:'numeric' }); }
 
-function obtenerExtension(rutaArchivo) {
-  return rutaArchivo.split('.').pop().toLowerCase();
-}
+    function abrirModalCerrarSesion(e) { e.preventDefault(); document.getElementById("modalCerrarSesion").style.display = "flex"; }
+    function cerrarModal() { document.getElementById("modalCerrarSesion").style.display = "none"; }
+    function confirmarCerrarSesion() { window.location.href = "index.html"; }
 
-function detectarTipoArchivo(extension) {
-  const tipos = {
-    'jpg': 'imagen', 'jpeg': 'imagen', 'png': 'imagen', 'gif': 'imagen', 'webp': 'imagen',
-    'pdf': 'pdf',
-    'mp4': 'video', 'webm': 'video', 'ogg': 'video',
-    'doc': 'documento', 'docx': 'documento', 'txt': 'documento',
-    'xls': 'documento', 'xlsx': 'documento',
-    'ppt': 'documento', 'pptx': 'documento'
-  };
-  return tipos[extension] || 'documento';
-}
-
-function obtenerIconoTipo(tipo) {
-  const iconos = {
-    'video': 'video',
-    'pdf': 'file-pdf',
-    'imagen': 'image',
-    'documento': 'file-alt'
-  };
-  return iconos[tipo] || 'file';
-}
-
-function openModal(imageSrc) {
-  const modal = document.getElementById('imageModal');
-  const modalImg = document.getElementById('modalImage');
-  modal.classList.add('active');
-  modalImg.src = imageSrc;
-}
-
-function closeModal() {
-  document.getElementById('imageModal').classList.remove('active');
-}
-
-function mostrarError(mensaje) {
-  document.getElementById('loading').style.display = 'none';
-  document.getElementById('errorContainer').style.display = 'block';
-  document.getElementById('errorMessage').textContent = mensaje;
-}
-
-function formatearFecha(fecha) {
-  const date = new Date(fecha);
-  return date.toLocaleDateString('es-MX', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
-  });
-}
-</script>
-
-<!-- MODAL CERRAR SESIÓN -->
-<div id="modalCerrarSesion" class="modal-overlay">
-  <div class="modal-box">
-    <h2>⚠️ Cerrar sesión</h2>
-    <p>¿Seguro que deseas cerrar la sesión?</p>
-
-    <div class="modal-actions">
-      <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
-      <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
-    </div>
-  </div>
-</div>
-<script>
-function abrirModalCerrarSesion(e) {
-  e.preventDefault();
-  document.getElementById("modalCerrarSesion").style.display = "flex";
-}
-
-function cerrarModal() {
-  document.getElementById("modalCerrarSesion").style.display = "none";
-}
-
-function confirmarCerrarSesion() {
-  // Si usas sesiones o tokens, aquí los limpias
-  // localStorage.clear();
-  // sessionStorage.clear();
-
-  window.location.href = "index.html";
-}
-
-const menuToggle = document.getElementById('menu-toggle');
-const navMenu = document.getElementById('nav-menu');
-
-menuToggle.addEventListener('click', () => {
-  navMenu.classList.toggle('show'); // Agrega/quita clase para mostrar menú
-});
-</script>
+    document.querySelectorAll('.modal-overlay').forEach(m => m.addEventListener('click', e => { if (e.target === m) m.style.display = 'none'; }));
+    document.getElementById('menu-toggle').addEventListener('click', () => document.getElementById('nav-menu').classList.toggle('show'));
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.createElement('div');
+    sidebarOverlay.className = 'sidebar-overlay';
+    document.body.appendChild(sidebarOverlay);
+    sidebarToggle.addEventListener('click', () => {
+      const open = sidebar.classList.toggle('show');
+      sidebarToggle.classList.toggle('rotate', open);
+      sidebarOverlay.classList.toggle('active', open);
+    });
+    sidebarOverlay.addEventListener('click', () => {
+      sidebar.classList.remove('show');
+      sidebarToggle.classList.remove('rotate');
+      sidebarOverlay.classList.remove('active');
+    });
+  </script>
 
 </body>
 </html>

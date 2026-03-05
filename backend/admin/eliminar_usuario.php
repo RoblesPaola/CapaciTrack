@@ -2,16 +2,21 @@
 header("Content-Type: application/json");
 require_once __DIR__ . "/../config/db.php";
 //NO MOVER//
+
 $data = json_decode(file_get_contents("php://input"), true);
-$id = $data["id"] ?? 0;
+$id   = $data["id"] ?? 0;
 
 if (!$id) {
   echo json_encode(["success" => false]);
   exit;
 }
 
-$conn->query("DELETE FROM progreso WHERE usuario_id = $id");
-$conn->query("DELETE FROM inscripciones WHERE usuario_id = $id");
-$conn->query("DELETE FROM usuarios WHERE id = $id");
+try {
+    $conn->prepare("DELETE FROM progreso WHERE usuario_id = ?")->execute([$id]);
+    $conn->prepare("DELETE FROM inscripciones WHERE usuario_id = ?")->execute([$id]);
+    $conn->prepare("DELETE FROM usuarios WHERE id = ?")->execute([$id]);
 
-echo json_encode(["success" => true]);
+    echo json_encode(["success" => true]);
+} catch (PDOException $e) {
+    echo json_encode(["success" => false, "message" => $e->getMessage()]);
+}

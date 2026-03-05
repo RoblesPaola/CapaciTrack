@@ -9,46 +9,38 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 
 $usuario_id = $_SESSION['usuario_id'];
-$curso_id = $_POST['curso_id'] ?? null;
+$curso_id   = $_POST['curso_id'] ?? null;
 
 if (!$curso_id) {
     echo json_encode(["success" => false, "error" => "Curso inválido"]);
     exit;
 }
 
-// 🔥 Verificar si ya existe certificado
-$sql = "SELECT id FROM certificados 
-        WHERE usuario_id = ? AND curso_id = ?";
+$stmt = $conn->prepare(
+    "SELECT id FROM certificados WHERE usuario_id = ? AND curso_id = ?"
+);
+$stmt->execute([$usuario_id, $curso_id]);
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("ii", $usuario_id, $curso_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
+if ($stmt->rowCount() > 0) {
     echo json_encode(["success" => true, "mensaje" => "Certificado ya existe"]);
     exit;
 }
 
-//  Generar código único
 $codigo = strtoupper(bin2hex(random_bytes(4)));
 
-//  Insertar certificado
-$sql = "INSERT INTO certificados 
-        (usuario_id, curso_id, codigo_verificacion) 
-        VALUES (?, ?, ?)";
+$stmt = $conn->prepare(
+    "INSERT INTO certificados (usuario_id, curso_id, codigo_verificacion) VALUES (?, ?, ?)"
+);
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("iis", $usuario_id, $curso_id, $codigo);
-
-if ($stmt->execute()) {
+try {
+    $stmt->execute([$usuario_id, $curso_id, $codigo]);
     echo json_encode([
         "success" => true,
-        "codigo" => $codigo
+        "codigo"  => $codigo
     ]);
-} else {
+} catch (PDOException $e) {
     echo json_encode([
         "success" => false,
-        "error" => "Error al guardar certificado"
+        "error"   => "Error al guardar certificado"
     ]);
 }

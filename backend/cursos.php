@@ -6,7 +6,6 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
-// Manejar preflight OPTIONS
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit(0);
 }
@@ -21,32 +20,27 @@ if (!isset($_SESSION["user_id"])) {
 $usuario_id = $_SESSION["user_id"];
 
 try {
-
     $stmt = $conn->prepare("
-        SELECT 
-            c.id, 
+        SELECT
+            c.id,
             c.titulo,
-            c.descripcion, 
+            c.descripcion,
             c.contenido,
             c.portada,
             c.creado_por,
             c.creado_en,
             p.completado
         FROM cursos c
-        LEFT JOIN progreso p 
-            ON c.id = p.curso_id 
+        LEFT JOIN progreso p
+            ON c.id = p.curso_id
             AND p.usuario_id = ?
         ORDER BY c.creado_en DESC
     ");
-
-    $stmt->bind_param("i", $usuario_id);
-    $stmt->execute();
-    $queryResult = $stmt->get_result();
+    $stmt->execute([$usuario_id]);
 
     $cursos = [];
 
-    while ($row = $queryResult->fetch_assoc()) {
-
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $contenido = json_decode($row['contenido'], true);
 
         if (is_null($row['completado'])) {
@@ -58,18 +52,18 @@ try {
         }
 
         $cursos[] = [
-            'id' => (int)$row['id'],
-            'nombre' => $row['titulo'],
-            'titulo' => $row['titulo'],
+            'id'          => (int)$row['id'],
+            'nombre'      => $row['titulo'],
+            'titulo'      => $row['titulo'],
             'descripcion' => $row['descripcion'] ?? 'Sin descripción',
-            'imagen' => $row['portada'],
-            'portada' => $row['portada'],
-            'archivo' => $row['portada'],
-            'modulos' => $contenido['modulos'] ?? [],
+            'imagen'      => $row['portada'],
+            'portada'     => $row['portada'],
+            'archivo'     => $row['portada'],
+            'modulos'     => $contenido['modulos'] ?? [],
             'evaluaciones' => $contenido['evaluaciones'] ?? [],
-            'estado' => $estado,
-            'creado_por' => (int)$row['creado_por'],
-            'creado_en' => $row['creado_en']
+            'estado'      => $estado,
+            'creado_por'  => (int)$row['creado_por'],
+            'creado_en'   => $row['creado_en']
         ];
     }
 
@@ -83,5 +77,5 @@ try {
     ], JSON_UNESCAPED_UNICODE);
 }
 
-$conn->close();
+$conn = null;
 ?>

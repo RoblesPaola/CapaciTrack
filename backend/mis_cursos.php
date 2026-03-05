@@ -14,24 +14,17 @@ $sql = "
 SELECT c.*
 FROM cursos c
 INNER JOIN inscripciones i ON c.id = i.curso_id
-LEFT JOIN progreso p 
-    ON p.curso_id = c.id 
+LEFT JOIN progreso p
+    ON p.curso_id = c.id
     AND p.usuario_id = i.usuario_id
 WHERE i.usuario_id = ?
 AND (p.completado IS NULL OR p.completado = 0)
 ORDER BY i.fecha_inscripcion DESC
 ";
 
-
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $usuario_id);
-$stmt->execute();
+$stmt->execute([$usuario_id]);
 
-$result = $stmt->get_result();
-$cursos = [];
-
-while ($row = $result->fetch_assoc()) {
-  $cursos[] = $row;
-}
+$cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode($cursos);

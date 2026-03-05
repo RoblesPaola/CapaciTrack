@@ -2,7 +2,7 @@
 session_start();
 header("Content-Type: application/json");
 //NO MOVER//
-// Verificar si hay sesión activa
+
 if (!isset($_SESSION["user_id"])) {
     echo json_encode([
         "success" => false,
@@ -11,19 +11,14 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
-// Conexión a la BD
 require_once __DIR__ . "/../config/db.php";
 
 $userId = $_SESSION["user_id"];
 
-// Obtener datos del usuario
-$sql = "SELECT id, nombre, email FROM usuarios WHERE id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $userId);
-$stmt->execute();
-$result = $stmt->get_result();
+$stmt = $conn->prepare("SELECT id, nombre, email FROM usuarios WHERE id = ?");
+$stmt->execute([$userId]);
 
-if ($result->num_rows === 0) {
+if ($stmt->rowCount() === 0) {
     echo json_encode([
         "success" => false,
         "message" => "Usuario no encontrado"
@@ -31,11 +26,11 @@ if ($result->num_rows === 0) {
     exit;
 }
 
-$usuario = $result->fetch_assoc();
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
 echo json_encode([
     "success" => true,
-    "id" => $usuario["id"],
-    "nombre" => $usuario["nombre"],
-    "email" => $usuario["email"]
+    "id"      => $usuario["id"],
+    "nombre"  => $usuario["nombre"],
+    "email"   => $usuario["email"]
 ]);

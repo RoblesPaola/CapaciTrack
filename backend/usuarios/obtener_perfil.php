@@ -10,32 +10,28 @@ if (!isset($_SESSION["user_id"])) {
 
 $user_id = $_SESSION["user_id"];
 
-$sql = "SELECT nombre, telefono, razon_social, documentos, perfil
-        FROM usuarios
-        WHERE id = ?";
+$stmt = $conn->prepare(
+  "SELECT nombre, telefono, razon_social, documentos, perfil
+   FROM usuarios
+   WHERE id = ?"
+);
+$stmt->execute([$user_id]);
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($row = $result->fetch_assoc()) {
-
-  // Convertir documentos JSON a array
+if ($row) {
   $documentos = [];
   if (!empty($row["documentos"])) {
     $documentos = json_decode($row["documentos"], true);
   }
 
   echo json_encode([
-    "success" => true,
-    "nombre" => $row["nombre"],
-    "telefono" => $row["telefono"],
+    "success"      => true,
+    "nombre"       => $row["nombre"],
+    "telefono"     => $row["telefono"],
     "razon_social" => $row["razon_social"],
-    "perfil" => $row["perfil"],
-    "documentos" => $documentos
+    "perfil"       => $row["perfil"],
+    "documentos"   => $documentos
   ]);
-
 } else {
   echo json_encode(["success" => false]);
 }

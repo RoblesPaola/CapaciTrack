@@ -18,46 +18,31 @@ if (!$curso_id) {
   exit;
 }
 
-/* ===== CURSO ===== */
+// CURSO
 $stmt = $conn->prepare("
   SELECT id, titulo, descripcion, portada
   FROM cursos
   WHERE id = ?
 ");
-
-if (!$stmt) {
-  echo json_encode(["success" => false, "message" => "Error en consulta curso"]);
-  exit;
-}
-
-$stmt->bind_param("i", $curso_id);
-$stmt->execute();
-$curso = $stmt->get_result()->fetch_assoc();
+$stmt->execute([$curso_id]);
+$curso = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$curso) {
   echo json_encode(["success" => false, "message" => "Curso no encontrado"]);
   exit;
 }
 
-/* ===== MODULOS ===== */
+// MODULOS
 $stmt = $conn->prepare("
   SELECT id, titulo
   FROM modulos
   WHERE curso_id = ?
 ");
+$stmt->execute([$curso_id]);
+$modulos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if (!$stmt) {
-  echo json_encode(["success" => false, "message" => "Error en consulta módulos"]);
-  exit;
-}
-
-$stmt->bind_param("i", $curso_id);
-$stmt->execute();
-$modulos = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-
-/* ===== RESPUESTA FINAL ===== */
 echo json_encode([
   "success" => true,
-  "curso" => $curso,
+  "curso"   => $curso,
   "modulos" => $modulos
 ]);

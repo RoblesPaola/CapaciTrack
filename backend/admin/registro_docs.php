@@ -5,12 +5,7 @@ require_once __DIR__ . "/../config/db.php";
 $sql = "SELECT id, nombre, email, rol, telefono, razon_social, documentos
 FROM usuarios";
 
-$result = $conn->query($sql);
-
-$usuarios = [];
-
-while ($row = $result->fetch_assoc()) {
-  $usuarios[] = $row;
-}
+$result   = $conn->query($sql);
+$usuarios = $result->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode($usuarios);

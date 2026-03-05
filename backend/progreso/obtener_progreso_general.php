@@ -6,20 +6,19 @@ require "../config/db.php";
 $usuario_id = $_SESSION["user_id"];
 
 $sql = "
-SELECT 
+SELECT
   COUNT(*) AS total,
-  SUM(completado = 1) AS completados
+  SUM(CASE WHEN completado = 1 THEN 1 ELSE 0 END) AS completados
 FROM progreso
 WHERE usuario_id = ?
 ";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $usuario_id);
-$stmt->execute();
-$res = $stmt->get_result()->fetch_assoc();
+$stmt->execute([$usuario_id]);
+$res = $stmt->fetch(PDO::FETCH_ASSOC);
 
 echo json_encode([
-  "success" => true,
-  "total" => (int)$res["total"],
+  "success"    => true,
+  "total"      => (int)$res["total"],
   "completados" => (int)$res["completados"]
 ]);

@@ -15,7 +15,7 @@ try {
     if ($accion === 'obtener') {
 
         $usuario_id = $_GET['usuario_id'] ?? 0;
-        $curso_id = $_GET['curso_id'] ?? 0;
+        $curso_id   = $_GET['curso_id'] ?? 0;
 
         if (!$usuario_id || !$curso_id) {
             echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
@@ -23,11 +23,10 @@ try {
         }
 
         $stmt = $conn->prepare("SELECT porcentaje, completado FROM progreso WHERE usuario_id = ? AND curso_id = ?");
-        $stmt->bind_param("ii", $usuario_id, $curso_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $stmt->execute([$usuario_id, $curso_id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($row = $result->fetch_assoc()) {
+        if ($row) {
             echo json_encode(['success' => true, 'data' => $row]);
         } else {
             echo json_encode(['success' => true, 'data' => null]);
@@ -41,7 +40,7 @@ try {
         $data = json_decode(file_get_contents("php://input"), true);
 
         $usuario_id = $data['usuario_id'] ?? 0;
-        $curso_id = $data['curso_id'] ?? 0;
+        $curso_id   = $data['curso_id'] ?? 0;
         $porcentaje = $data['porcentaje'] ?? 0;
 
         if (!$usuario_id || !$curso_id) {
@@ -52,13 +51,12 @@ try {
         $stmt = $conn->prepare("
             INSERT INTO progreso (usuario_id, curso_id, porcentaje)
             VALUES (?, ?, ?)
-            ON DUPLICATE KEY UPDATE porcentaje = ?
+            ON CONFLICT (usuario_id, curso_id) DO UPDATE SET porcentaje = EXCLUDED.porcentaje
         ");
-        $stmt->bind_param("iiii", $usuario_id, $curso_id, $porcentaje, $porcentaje);
-        $stmt->execute();
+        $stmt->execute([$usuario_id, $curso_id, $porcentaje]);
 
         echo json_encode([
-            'success' => true,
+            'success'   => true,
             'completado' => ($porcentaje == 100 ? 1 : 0)
         ]);
         exit;
@@ -69,15 +67,14 @@ try {
         $data = json_decode(file_get_contents("php://input"), true);
 
         $usuario_id = $data['usuario_id'];
-        $curso_id = $data['curso_id'];
+        $curso_id   = $data['curso_id'];
 
         $stmt = $conn->prepare("
-            UPDATE progreso 
+            UPDATE progreso
             SET completado = 1, porcentaje = 100
             WHERE usuario_id = ? AND curso_id = ?
         ");
-        $stmt->bind_param("ii", $usuario_id, $curso_id);
-        $stmt->execute();
+        $stmt->execute([$usuario_id, $curso_id]);
 
         echo json_encode(['success' => true]);
         exit;
@@ -90,7 +87,7 @@ try {
 
     echo json_encode([
         'success' => false,
-        'error' => $e->getMessage()
+        'error'   => $e->getMessage()
     ]);
     exit;
 }

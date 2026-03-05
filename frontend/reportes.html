@@ -4,577 +4,187 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reportes | CapaciTrack</title>
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f7fa;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* TOPBAR */
-.topbar {
-  background-color: #e8f5e9;
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #dcedc8;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo-container img {
-  height: 55px;
-}
-
-.logo-container a {
-  font-size: 1.7rem;
-  font-weight: 700;
-  color: #2e7d32;
-  text-decoration: none;
-}
-
-.topbar nav a {
-  margin-left: 25px;
-  color: #2e7d32;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-/* DASHBOARD */
-.dashboard-container {
-  display: flex;
-  flex: 1;
-}
-
-/* SIDEBAR */
-.sidebar {
-  width: 240px;
-  background: #e8f5e9;
-  border-right: 1px solid #c8e6c9;
-  padding: 20px 0;
-}
-
-.sidebar-item {
-  padding: 14px 25px;
-  display: flex;
-  gap: 12px;
-  color: #2e7d32;
-  text-decoration: none;
-}
-
-.sidebar-item:hover {
-  background: #c8e6c9;
-}
-
-/* MAIN */
-.main-content {
-  flex: 1;
-  padding: 30px;
-}
-
-h1 {
-  color: #2e7d32;
-  margin-bottom: 25px;
-}
-
-/* REPORTES GRID */
-.reportes-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
-}
-
-.reporte-card {
-  background: #fff;
-  border: 2px solid #66bb6a;
-  border-radius: 8px;
-  padding: 20px;
-  min-height: 320px;
-}
-
-.reporte-card h3 {
-  text-align: center;
-  color: #2e7d32;
-  margin-bottom: 15px;
-  font-size: 1rem;
-}
-
-/* FOOTER */
-footer {
-  background: #e8f5e9;
-  padding: 15px;
-  text-align: center;
-  border-top: 1px solid #c8e6c9;
-}
-
-/*cerrar sesion*/
-    .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.modal-box {
-  background: #fff;
-  padding: 30px;
-  width: 400px;
-  border-radius: 14px;
-  text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  animation: aparecer 0.25s ease;
-}
-
-.modal-box h2 {
-  margin-bottom: 10px;
-  color: #19aa1e;
-}
-
-.modal-box p {
-  color: #555;
-  margin-bottom: 25px;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.btn-cancelar {
-  background: #e5e5e5;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-confirmar {
-  background: #19aa1e;
-  color: white;
-  border: none;
-  padding: 10px 22px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-confirmar:hover {
-  background: #19aa1e;
-}
-
-@keyframes aparecer {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-/* Icono hamburguesa */
-.menu-toggle {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #2e7d32;
-}
-
-/* Responsive: menú hamburguesa */
-@media screen and (max-width: 768px) {
-  .topbar nav {
-    display: none; /* Oculto por defecto */
-    flex-direction: column;
-    gap: 0;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    background-color: #e8f5e9;
-    width: 200px;
-    border-left: 1px solid #dcedc8;
-    padding: 10px 0;
-    z-index: 999;
-  }
-
-  .topbar nav a {
-    padding: 12px 20px;
-    border-top: 1px solid #dcedc8;
-    margin: 0;
-  }
-
-  .menu-toggle {
-    display: block; /* Mostrar hamburguesa en móvil */
-  }
-
-  /* Cuando el menú está abierto */
-  nav.show {
-    display: flex;
-  }
-}
-
-/* ===== SIDEBAR ESCRITORIO ===== */
-.sidebar {
-  width: 250px;
-  background-color: #e8f5e9;
-  border-right: 1px solid #c8e6c9;
-  display: flex;
-  flex-direction: column;
-  padding-top: 20px;
-}
-
-/* Botón hamburguesa sidebar */
-.sidebar-toggle {
-  display: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #2e7d32;
-}
-
-/* ===== MODO MÓVIL ===== */
-@media screen and (max-width: 768px) {
-
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: -260px; /* Oculto */
-    height: 100%;
-    z-index: 1000;
-    transition: 0.3s ease;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
-  }
-
-  .sidebar.show {
-    left: 0; /* Se muestra */
-  }
-
-  .sidebar-toggle {
-    display: block;
-  }
-}
-.sidebar-toggle {
-  cursor: pointer;
-  font-size: 22px;
-  color: #2e7d32;
-  transition: transform 0.3s ease;
-}
-
-.sidebar-toggle.rotate {
-  transform: rotate(90deg);
-}
-.sidebar-toggle {
-  margin-left: 15px;   /* Ajusta el espacio hacia la derecha */
-}
-
-</style>
+  <link rel="stylesheet" href="assets/css/global.css">
 </head>
-
 <body>
 
-<header class="topbar">
-  <div class="logo-container">
-    <img src="assets/logo.png" alt="Logo CapaciTrack">
-    <a href="paneladmin.html">CapaciTrack</a>
-  </div>
- <div class="menu-toggle" id="menu-toggle">
-  <i class="fas fa-bars"></i> <!-- Icono hamburguesa -->
-</div>
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="Logo CapaciTrack">
+      <a href="paneladmin.html">CapaciTrack</a>
+    </div>
+    <div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
     <nav id="nav-menu">
-      <a href="registrousuarios.html">Registro de Usuarios</a>
-      <a href="registrodocs.html">Registro de Documentos</a>
-      <a href="perfil-admin.html">Perfil</a>
-         <a href="#" onclick="abrirModalCerrarSesion(event)">Cerrar Sesión</a>
+      <a href="registrousuarios.html"><i class="fas fa-list-ul"></i> Registro Usuarios</a>
+      <a href="registrodocs.html"><i class="fas fa-file-alt"></i> Registro Docs</a>
+      <a href="perfil-admin.html"><i class="fas fa-user-circle"></i> Perfil</a>
+      <a href="#" onclick="abrirModalCerrarSesion(event)"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
     </nav>
-</header>
+  </header>
 
-<div class="dashboard-container">
+  <div class="dashboard-container">
 
- <!-- SIDEBAR -->
-<div class="sidebar-toggle" id="sidebar-toggle">
-  <i class="fas fa-chevron-right"></i>
-</div>
-
-<aside class="sidebar" id="sidebar">
-  <a href="crear-curso.html" class="sidebar-item">
-    <i class="fas fa-plus-circle"></i>Agregar Curso
-  </a>
-  <a href="agregar-usuario.html" class="sidebar-item">
-    <i class="fas fa-user-plus"></i>Agregar Usuario
-  </a>
-  <a href="reportes.html" class="sidebar-item">
-    <i class="fas fa-chart-bar"></i>Reportes
-  </a>
-  <a href="ver-cursos.html" class="sidebar-item">
-    <i class="fas fa-play-circle"></i>Ver Cursos
-  </a>
-</aside>
-
-  <main class="main-content">
-    <h1>Reportes</h1>
-
-    <div class="reportes-grid">
-
-      <div class="reporte-card">
-        <h3>Cantidad de personas que toman cursos</h3>
-        <canvas id="cursosChart"></canvas>
-      </div>
-
-      <div class="reporte-card">
-        <h3>Cantidad de personas con documentación</h3>
-        <canvas id="docsChart"></canvas>
-      </div>
-
-      <div class="reporte-card">
-        <h3>Progreso del curso</h3>
-        <canvas id="progresoChart"></canvas>
-      </div>
-
-    <div class="reporte-card">
-  <h3>Cantidad de personas que cuentan con certificado</h3>
-  <canvas id="certificadosChart"></canvas>
-</div>
-
+    <div class="sidebar-toggle" id="sidebar-toggle">
+      <i class="fas fa-chevron-right"></i>
     </div>
-  </main>
-</div>
 
-<footer>
-  © 2026 CapaciTrack
-</footer>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-section">Principal</div>
+      <a href="paneladmin.html" class="sidebar-item"><i class="fas fa-home"></i> Inicio</a>
+      <a href="reportes.html" class="sidebar-item active"><i class="fas fa-chart-bar"></i> Reportes</a>
+      <div class="sidebar-section">Gestión</div>
+      <a href="crear-curso.html" class="sidebar-item"><i class="fas fa-plus-circle"></i> Crear Curso</a>
+      <a href="ver-cursos.html" class="sidebar-item"><i class="fas fa-play-circle"></i> Ver Cursos</a>
+      <a href="agregar-usuario.html" class="sidebar-item"><i class="fas fa-user-plus"></i> Agregar Usuario</a>
+      <div class="sidebar-section">Registros</div>
+      <a href="registrousuarios.html" class="sidebar-item"><i class="fas fa-users"></i> Registro Usuarios</a>
+      <a href="registrodocs.html" class="sidebar-item"><i class="fas fa-file-alt"></i> Documentos</a>
+    </aside>
 
-<script>
-fetch('/capacitrack/backend/obtener_reportes.php')
-  .then(res => {
-    if (!res.ok) {
-      throw new Error('Error en la respuesta del servidor');
-    }
-    return res.json();
-  })
-  .then(data => {
+    <main class="main-content">
+      <div style="background:linear-gradient(135deg,#d97706 0%,#f59e0b 60%,#fbbf24 100%);border-radius:var(--radius-xl);padding:26px 32px;color:#fff;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;overflow:hidden;">
+        <div style="position:relative;z-index:1;">
+          <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);padding:4px 12px;border-radius:50px;font-size:.78rem;font-weight:600;color:#fff;margin-bottom:8px;"><i class="fas fa-chart-bar"></i> Analíticas</div>
+          <h1 style="font-size:1.4rem;font-weight:800;color:#fff;-webkit-text-fill-color:#fff;background:none;margin:0 0 4px;">Reportes de Capacitación</h1>
+          <p style="color:rgba(255,255,255,.85);font-size:.88rem;margin:0;">Estadísticas de progreso, inscripciones y certificados de Grupo Gusi</p>
+        </div>
+        <div style="width:52px;height:52px;border-radius:var(--radius-md);background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;flex-shrink:0;z-index:1;"><i class="fas fa-chart-pie"></i></div>
+      </div>
 
-    console.log('Datos recibidos:', data);
+      <div class="reportes-grid">
+        <div class="reporte-card">
+          <h3><i class="fas fa-users" style="color:var(--primary);margin-right:6px;"></i>Personas por curso</h3>
+          <canvas id="cursosChart"></canvas>
+        </div>
+        <div class="reporte-card">
+          <h3><i class="fas fa-file-alt" style="color:var(--primary);margin-right:6px;"></i>Documentación</h3>
+          <canvas id="docsChart"></canvas>
+        </div>
+        <div class="reporte-card">
+          <h3><i class="fas fa-tasks" style="color:var(--primary);margin-right:6px;"></i>Progreso general</h3>
+          <canvas id="progresoChart"></canvas>
+        </div>
+        <div class="reporte-card">
+          <h3><i class="fas fa-certificate" style="color:var(--primary);margin-right:6px;"></i>Certificados emitidos</h3>
+          <canvas id="certificadosChart"></canvas>
+        </div>
+      </div>
+    </main>
 
-    if (!data.success) {
-      alert('Error del servidor');
-      return;
-    }
+  </div>
 
-    /* ==========================
-       GRÁFICA 1 - CURSOS
-    ========================== */
+  <footer>
+    <img src="assets/esr.png" class="footer-logo left" alt="ESR">
+    <p>&copy; 2026 CapaciTrack. Todos los derechos reservados.</p>
+    <img src="assets/Grupo-Gusi.png" class="footer-logo right" alt="Grupo Gusi">
+  </footer>
 
-    if (Array.isArray(data.cursos) && data.cursos.length > 0) {
-
-      new Chart(document.getElementById('cursosChart'), {
-        type: 'bar',
-        data: {
-          labels: data.cursos.map(c => c.titulo),
-          datasets: [{
-            label: 'Usuarios inscritos',
-            data: data.cursos.map(c => parseInt(c.total)),
-            backgroundColor: '#2e7d32'
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { display: false } },
-          scales: {
-            y: { beginAtZero: true }
-          }
-        }
-      });
-
-    } else {
-      document.getElementById('cursosChart').parentElement.innerHTML +=
-        '<p style="text-align:center;color:#999;">Sin datos disponibles</p>';
-    }
-
-    /* ==========================
-       GRÁFICA 2 - DOCUMENTOS
-    ========================== */
-
-    if (Array.isArray(data.documentos) && data.documentos.length > 0) {
-
-      new Chart(document.getElementById('docsChart'), {
-        type: 'bar',
-        data: {
-          labels: data.documentos.map(d => d.tipo_documento),
-          datasets: [{
-            label: 'Documentos',
-            data: data.documentos.map(d => parseInt(d.total)),
-            backgroundColor: '#2e7d32'
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { display: false } },
-          scales: {
-            y: { beginAtZero: true }
-          }
-        }
-      });
-
-    } else {
-      document.getElementById('docsChart').parentElement.innerHTML +=
-        '<p style="text-align:center;color:#999;">Sin datos disponibles</p>';
-    }
-
-    /* ==========================
-       GRÁFICA 3 - PROGRESO
-    ========================== */
-
-    if (data.progreso &&
-        typeof data.progreso.en_curso !== "undefined" &&
-        typeof data.progreso.completados !== "undefined") {
-
-      const totalProgreso =
-        parseInt(data.progreso.en_curso) +
-        parseInt(data.progreso.completados);
-
-      if (totalProgreso > 0) {
-
-        new Chart(document.getElementById('progresoChart'), {
-          type: 'pie',
-          data: {
-            labels: ['En curso', 'Completado'],
-            datasets: [{
-              data: [
-                parseInt(data.progreso.en_curso),
-                parseInt(data.progreso.completados)
-              ],
-              backgroundColor: ['#81c784', '#2e7d32']
-            }]
-          },
-          options: {
-            responsive: true,
-            plugins: {
-              legend: { position: 'bottom' }
-            }
-          }
-        });
-
-      } else {
-        document.getElementById('progresoChart').parentElement.innerHTML +=
-          '<p style="text-align:center;color:#999;">Sin datos disponibles</p>';
-      }
-
-    } else {
-      document.getElementById('progresoChart').parentElement.innerHTML +=
-        '<p style="text-align:center;color:#999;">Sin datos disponibles</p>';
-    }
-/* ==========================
-   GRÁFICA 4 - CERTIFICADOS
-========================== */
-if (data.certificados &&
-    typeof data.certificados.con_certificado !== "undefined" &&
-    typeof data.certificados.sin_certificado !== "undefined") {
-
-  new Chart(document.getElementById('certificadosChart'), {
-    type: 'pie',
-    data: {
-      labels: ['Con certificado', 'Sin certificado'],
-      datasets: [{
-        data: [
-          parseInt(data.certificados.con_certificado),
-          parseInt(data.certificados.sin_certificado)
-        ],
-        backgroundColor: ['#2e7d32', '#c8e6c9']
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { position: 'bottom' }
-      }
-    }
-  });
-
-} else {
-  document.getElementById('certificadosChart').parentElement.innerHTML +=
-    '<p style="text-align:center;color:#999;">Sin datos disponibles</p>';
-}
-
-
-  })
-  .catch(err => {
-    console.error('Error cargando reportes:', err);
-    alert('No se pudieron cargar los reportes.');
-  });
-
-//menu ham//
-  const menuToggle = document.getElementById('menu-toggle');
-const navMenu = document.getElementById('nav-menu');
-
-menuToggle.addEventListener('click', () => {
-  navMenu.classList.toggle('show'); // Agrega/quita clase para mostrar menú
-});
-
-//menu lateral//
-const sidebarToggle = document.getElementById('sidebar-toggle');
-const sidebar = document.getElementById('sidebar');
-
-sidebarToggle.addEventListener('click', () => {
-  sidebar.classList.toggle('show');
-  sidebarToggle.classList.toggle('rotate');
-});
-
-</script>
-
-
-
-<!-- MODAL CERRAR SESIÓN -->
-<div id="modalCerrarSesion" class="modal-overlay">
-  <div class="modal-box">
-    <h2>⚠️ Cerrar sesión</h2>
-    <p>¿Seguro que deseas cerrar la sesión?</p>
-
-    <div class="modal-actions">
-      <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
-      <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
+  <!-- MODAL CERRAR SESIÓN -->
+  <div id="modalCerrarSesion" class="modal-overlay">
+    <div class="modal-box">
+      <h2>🚪 Cerrar sesión</h2>
+      <p>¿Seguro que deseas cerrar la sesión?</p>
+      <div class="modal-actions">
+        <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
+      </div>
     </div>
   </div>
-</div>
-<script>
-function abrirModalCerrarSesion(e) {
-  e.preventDefault();
-  document.getElementById("modalCerrarSesion").style.display = "flex";
-}
 
-function cerrarModal() {
-  document.getElementById("modalCerrarSesion").style.display = "none";
-}
+  <script>
+    const chartColors = { primary: '#16a34a', light: '#bbf7d0', medium: '#4ade80', gray: '#e2e8f0' };
 
-function confirmarCerrarSesion() {
-  // Si usas sesiones o tokens, aquí los limpias
-  // localStorage.clear();
-  // sessionStorage.clear();
+    fetch('/capacitrack/backend/obtener_reportes.php')
+      .then(r => { if (!r.ok) throw new Error('Error'); return r.json(); })
+      .then(data => {
+        if (!data.success) { alert('Error del servidor'); return; }
 
-  window.location.href = "index.html";
-}
-</script>
+        // Gráfica 1 - Cursos
+        if (Array.isArray(data.cursos) && data.cursos.length > 0) {
+          new Chart(document.getElementById('cursosChart'), {
+            type: 'bar',
+            data: {
+              labels: data.cursos.map(c => c.titulo),
+              datasets: [{ label: 'Usuarios inscritos', data: data.cursos.map(c => parseInt(c.total)), backgroundColor: chartColors.primary, borderRadius: 6, }]
+            },
+            options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: chartColors.gray } } } }
+          });
+        } else {
+          document.getElementById('cursosChart').parentElement.innerHTML += '<p style="text-align:center;color:var(--gray-400);margin-top:20px;">Sin datos disponibles</p>';
+        }
+
+        // Gráfica 2 - Documentos
+        if (Array.isArray(data.documentos) && data.documentos.length > 0) {
+          new Chart(document.getElementById('docsChart'), {
+            type: 'bar',
+            data: {
+              labels: data.documentos.map(d => d.tipo_documento),
+              datasets: [{ label: 'Documentos', data: data.documentos.map(d => parseInt(d.total)), backgroundColor: chartColors.medium, borderRadius: 6 }]
+            },
+            options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: chartColors.gray } } } }
+          });
+        } else {
+          document.getElementById('docsChart').parentElement.innerHTML += '<p style="text-align:center;color:var(--gray-400);margin-top:20px;">Sin datos disponibles</p>';
+        }
+
+        // Gráfica 3 - Progreso
+        if (data.progreso && typeof data.progreso.en_curso !== "undefined") {
+          const total = parseInt(data.progreso.en_curso) + parseInt(data.progreso.completados);
+          if (total > 0) {
+            new Chart(document.getElementById('progresoChart'), {
+              type: 'doughnut',
+              data: {
+                labels: ['En progreso', 'Completado'],
+                datasets: [{ data: [parseInt(data.progreso.en_curso), parseInt(data.progreso.completados)], backgroundColor: [chartColors.medium, chartColors.primary], borderWidth: 0 }]
+              },
+              options: { responsive: true, plugins: { legend: { position: 'bottom' } }, cutout: '60%' }
+            });
+          } else {
+            document.getElementById('progresoChart').parentElement.innerHTML += '<p style="text-align:center;color:var(--gray-400);margin-top:20px;">Sin datos disponibles</p>';
+          }
+        }
+
+        // Gráfica 4 - Certificados
+        if (data.certificados && typeof data.certificados.con_certificado !== "undefined") {
+          new Chart(document.getElementById('certificadosChart'), {
+            type: 'doughnut',
+            data: {
+              labels: ['Con certificado', 'Sin certificado'],
+              datasets: [{ data: [parseInt(data.certificados.con_certificado), parseInt(data.certificados.sin_certificado)], backgroundColor: [chartColors.primary, chartColors.gray], borderWidth: 0 }]
+            },
+            options: { responsive: true, plugins: { legend: { position: 'bottom' } }, cutout: '60%' }
+          });
+        } else {
+          document.getElementById('certificadosChart').parentElement.innerHTML += '<p style="text-align:center;color:var(--gray-400);margin-top:20px;">Sin datos disponibles</p>';
+        }
+      })
+      .catch(err => { console.error(err); alert('No se pudieron cargar los reportes.'); });
+
+    function abrirModalCerrarSesion(e) { e.preventDefault(); document.getElementById("modalCerrarSesion").style.display = "flex"; }
+    function cerrarModal() { document.getElementById("modalCerrarSesion").style.display = "none"; }
+    function confirmarCerrarSesion() { window.location.href = "index.html"; }
+
+    document.getElementById('menu-toggle').addEventListener('click', () => document.getElementById('nav-menu').classList.toggle('show'));
+
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.createElement('div');
+    sidebarOverlay.className = 'sidebar-overlay';
+    document.body.appendChild(sidebarOverlay);
+    sidebarToggle.addEventListener('click', () => {
+      const open = sidebar.classList.toggle('show');
+      sidebarToggle.classList.toggle('rotate', open);
+      sidebarOverlay.classList.toggle('active', open);
+    });
+    sidebarOverlay.addEventListener('click', () => {
+      sidebar.classList.remove('show');
+      sidebarToggle.classList.remove('rotate');
+      sidebarOverlay.classList.remove('active');
+    });
+  </script>
 
 </body>
 </html>

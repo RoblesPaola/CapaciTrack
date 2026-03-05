@@ -14,7 +14,7 @@ $usuario_id = intval($_SESSION['user_id']);
 try {
 
     $sql = "
-        SELECT 
+        SELECT
             c.id AS curso_id,
             c.titulo AS curso_nombre,
             p.porcentaje,
@@ -25,44 +25,29 @@ try {
     ";
 
     $stmt = $conn->prepare($sql);
+    $stmt->execute([$usuario_id]);
 
-    if (!$stmt) {
-        echo json_encode([
-            "success" => false,
-            "message" => $conn->error
-        ]);
-        exit;
-    }
+    $cursos           = [];
+    $suma_porcentaje  = 0;
+    $cursos_activos   = 0;
 
-    $stmt->bind_param("i", $usuario_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $cursos = [];
-    $suma_porcentaje = 0;
-    $cursos_activos = 0;
-
-    while ($row = $result->fetch_assoc()) {
-
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $cursos[] = $row;
-
-        // Solo contar cursos NO completados para progreso general
-       $suma_porcentaje += intval($row['porcentaje']);
-$cursos_activos++;
+        $suma_porcentaje += intval($row['porcentaje']);
+        $cursos_activos++;
     }
 
     $porcentaje_general = 0;
-
     if ($cursos_activos > 0) {
         $porcentaje_general = round($suma_porcentaje / $cursos_activos);
     }
 
     echo json_encode([
-        "success" => true,
-        "cursos" => $cursos,
-        "total_modulos" => 0,
+        "success"            => true,
+        "cursos"             => $cursos,
+        "total_modulos"      => 0,
         "modulos_completados" => 0,
-        "porcentaje" => $porcentaje_general
+        "porcentaje"         => $porcentaje_general
     ]);
 
 } catch (Exception $e) {

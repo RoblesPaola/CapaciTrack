@@ -3,13 +3,11 @@ session_start();
 header("Content-Type: application/json");
 require "config/db.php";
 
-// Verificar autenticación
 if (!isset($_SESSION["user_id"])) {
     echo json_encode(["success" => false, "message" => "No autorizado"]);
     exit;
 }
 
-// Obtener ID del curso
 $curso_id = $_GET['id'] ?? null;
 
 if (!$curso_id || !is_numeric($curso_id)) {
@@ -17,9 +15,8 @@ if (!$curso_id || !is_numeric($curso_id)) {
     exit;
 }
 
-// Obtener información del curso
 $stmt = $conn->prepare("
-    SELECT 
+    SELECT
         c.id,
         c.titulo,
         c.descripcion,
@@ -32,63 +29,40 @@ $stmt = $conn->prepare("
     LEFT JOIN usuarios u ON c.creado_por = u.id
     WHERE c.id = ?
 ");
+$stmt->execute([$curso_id]);
 
-$stmt->bind_param("i", $curso_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows === 0) {
+if ($stmt->rowCount() === 0) {
     echo json_encode(["success" => false, "message" => "Curso no encontrado"]);
     exit;
 }
 
-$curso = $result->fetch_assoc();
+$curso = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Obtener módulos del curso
 $stmtModulos = $conn->prepare("
     SELECT id, titulo, descripcion, tipo_contenido, archivo
     FROM modulos
     WHERE curso_id = ?
     ORDER BY id ASC
 ");
+$stmtModulos->execute([$curso_id]);
+$modulos = $stmtModulos->fetchAll(PDO::FETCH_ASSOC);
 
-$stmtModulos->bind_param("i", $curso_id);
-$stmtModulos->execute();
-$resultModulos = $stmtModulos->get_result();
-
-$modulos = [];
-while ($mod = $resultModulos->fetch_assoc()) {
-    $modulos[] = $mod;
-}
-
-// Obtener evaluaciones del curso
 $stmtEval = $conn->prepare("
-    SELECT id, tipo, pregunta, opciones, respuesta_correcta
+    SELECT id, curso_id, tipo, pregunta, opciones, respuesta_correcta, puntos, imagen
     FROM evaluaciones
     WHERE curso_id = ?
     ORDER BY id ASC
 ");
+$stmtEval->execute([$curso_id]);
+$evaluaciones = $stmtEval->fetchAll(PDO::FETCH_ASSOC);
 
-$stmtEval->bind_param("i", $curso_id);
-$stmtEval->execute();
-$resultEval = $stmtEval->get_result();
-
-$evaluaciones = [];
-while ($eval = $resultEval->fetch_assoc()) {
-    $evaluaciones[] = $eval;
-}
-
-// Agregar módulos y evaluaciones al curso
-$curso['modulos'] = $modulos;
+$curso['modulos']      = $modulos;
 $curso['evaluaciones'] = $evaluaciones;
 
-$stmt->close();
-$stmtModulos->close();
-$stmtEval->close();
-$conn->close();
+$conn = null;
 
 echo json_encode([
     "success" => true,
-    "curso" => $curso
+    "curso"   => $curso
 ]);
 ?>

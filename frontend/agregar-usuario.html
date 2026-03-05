@@ -3,358 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agregar Usuarios | CapaciTrack</title>
-
+  <title>Agregar Usuario | CapaciTrack</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <link rel="stylesheet" href="assets/css/global.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f5f7fa;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* TOPBAR */
-    .topbar {
-      background-color: #e8f5e9;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #c8e6c9;
-    }
-
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-container img {
-      height: 55px;
-    }
-
-    .logo-container a {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #2e7d32;
-      text-decoration: none;
-    }
-
-    .topbar nav a {
-      margin-left: 25px;
-      color: #2e7d32;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    /* DASHBOARD */
-    .dashboard-container {
-      display: flex;
-      flex: 1;
-    }
-
-    /* SIDEBAR */
-    .sidebar {
-      width: 240px;
-      background: #e8f5e9;
-      border-right: 1px solid #c8e6c9;
-      padding: 20px 0;
-    }
-
-    .sidebar-item {
-      padding: 14px 25px;
-      display: flex;
-      gap: 12px;
-      color: #2e7d32;
-      text-decoration: none;
-    }
-
-    .sidebar-item:hover {
-      background: #c8e6c9;
-    }
-
-    /* MAIN */
-    .main-content {
-      flex: 1;
-      padding: 40px;
-    }
-
-    h1 {
-      color: #2e7d32;
-      margin-bottom: 30px;
-    }
-
-    /* FORM */
-    .form-container {
-      max-width: 600px;
-      background: #fff;
-      padding: 35px;
-      border-radius: 12px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 500;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #c8e6c9;
-      border-radius: 6px;
-      font-size: 1rem;
-    }
-
     .roles {
       display: flex;
-      gap: 25px;
-      margin-top: 10px;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 8px;
     }
-
     .roles label {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       cursor: pointer;
+      font-weight: 500;
+      color: var(--gray-700);
+      padding: 9px 16px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-full);
+      transition: var(--ease);
     }
-
-    .btn-submit {
-      margin-top: 25px;
-      background: #66bb6a;
-      color: #fff;
-      border: none;
-      padding: 12px 28px;
-      font-size: 1rem;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: background 0.3s ease;
+    .roles label:has(input:checked) {
+      border-color: var(--primary);
+      background: var(--primary-50);
+      color: var(--primary-dark);
     }
+    .roles label input { accent-color: var(--primary); }
 
-    .btn-submit:hover {
-      background: #43a047;
+    .password-wrapper { position: relative; }
+    .password-wrapper input { padding-right: 42px; }
+    .password-wrapper .toggle-pw {
+      position: absolute; top: 50%; right: 12px; transform: translateY(-50%);
+      cursor: pointer; color: var(--gray-400); font-size: 1rem; transition: color .2s;
     }
-.password-wrapper {
-  position: relative;
-}
-
-.password-wrapper input {
-  width: 100%;
-  padding-right: 40px;
-}
-
-.password-wrapper i {
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #2e7d32;
-  font-size: 1.1rem;
-}
-
-.password-wrapper i:hover {
-  color: #1b5e20;
-}
-
-    /* FOOTER */
-    footer {
-      background: #e8f5e9;
-      padding: 15px;
-      text-align: center;
-      border-top: 1px solid #c8e6c9;
-    }
-
-    /*cerrar sesion*/
-    .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.modal-box {
-  background: #fff;
-  padding: 30px;
-  width: 400px;
-  border-radius: 14px;
-  text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  animation: aparecer 0.25s ease;
-}
-
-.modal-box h2 {
-  margin-bottom: 10px;
-  color: #19aa1e;
-}
-
-.modal-box p {
-  color: #555;
-  margin-bottom: 25px;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.btn-cancelar {
-  background: #e5e5e5;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-confirmar {
-  background: #19aa1e;
-  color: white;
-  border: none;
-  padding: 10px 22px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-confirmar:hover {
-  background: #19aa1e;
-}
-
-@keyframes aparecer {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-.modal-success h2 {
-  color: #2e7d32;
-}
-
-.modal-success p {
-  font-size: 0.95rem;
-}
-
-/* Icono hamburguesa */
-.menu-toggle {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #2e7d32;
-}
-
-/* Responsive: menú hamburguesa */
-@media screen and (max-width: 768px) {
-  .topbar nav {
-    display: none; /* Oculto por defecto */
-    flex-direction: column;
-    gap: 0;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    background-color: #e8f5e9;
-    width: 200px;
-    border-left: 1px solid #dcedc8;
-    padding: 10px 0;
-    z-index: 999;
-  }
-
-  .topbar nav a {
-    padding: 12px 20px;
-    border-top: 1px solid #dcedc8;
-    margin: 0;
-  }
-
-  .menu-toggle {
-    display: block; /* Mostrar hamburguesa en móvil */
-  }
-
-  /* Cuando el menú está abierto */
-  nav.show {
-    display: flex;
-  }
-}
-/* ===== SIDEBAR ESCRITORIO ===== */
-.sidebar {
-  width: 250px;
-  background-color: #e8f5e9;
-  border-right: 1px solid #c8e6c9;
-  display: flex;
-  flex-direction: column;
-  padding-top: 20px;
-}
-
-/* Botón hamburguesa sidebar */
-.sidebar-toggle {
-  display: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #2e7d32;
-}
-
-/* ===== MODO MÓVIL ===== */
-@media screen and (max-width: 768px) {
-
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: -260px; /* Oculto */
-    height: 100%;
-    z-index: 1000;
-    transition: 0.3s ease;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
-  }
-
-  .sidebar.show {
-    left: 0; /* Se muestra */
-  }
-
-  .sidebar-toggle {
-    display: block;
-  }
-}
-.sidebar-toggle {
-  cursor: pointer;
-  font-size: 22px;
-  color: #2e7d32;
-  transition: transform 0.3s ease;
-}
-
-.sidebar-toggle.rotate {
-  transform: rotate(90deg);
-}
-.sidebar-toggle {
-  margin-left: 15px;   /* Ajusta el espacio hacia la derecha */
-}
-
-
+    .password-wrapper .toggle-pw:hover { color: var(--primary); }
   </style>
 </head>
-
 <body>
 
   <!-- TOPBAR -->
@@ -363,202 +49,160 @@
       <img src="assets/logo.png" alt="Logo CapaciTrack">
       <a href="paneladmin.html">CapaciTrack</a>
     </div>
-
-    <div class="menu-toggle" id="menu-toggle">
-  <i class="fas fa-bars"></i> <!-- Icono hamburguesa -->
-</div>
+    <div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
     <nav id="nav-menu">
-      <a href="registrousuarios.html">Registro de Usuarios</a>
-      <a href="registrodocs.html">Registro de Documentos</a>
-      <a href="perfil-admin.html">Perfil</a>
-         <a href="#" onclick="abrirModalCerrarSesion(event)">Cerrar Sesión</a>
+      <a href="registrousuarios.html"><i class="fas fa-list-ul"></i> Registro Usuarios</a>
+      <a href="registrodocs.html"><i class="fas fa-file-alt"></i> Registro Docs</a>
+      <a href="perfil-admin.html"><i class="fas fa-user-circle"></i> Perfil</a>
+      <a href="#" onclick="abrirModalCerrarSesion(event)"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
     </nav>
   </header>
 
   <div class="dashboard-container">
+    <div class="sidebar-toggle" id="sidebar-toggle"><i class="fas fa-chevron-right"></i></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-section">Principal</div>
+      <a href="paneladmin.html" class="sidebar-item"><i class="fas fa-home"></i> Inicio</a>
+      <a href="reportes.html" class="sidebar-item"><i class="fas fa-chart-bar"></i> Reportes</a>
+      <div class="sidebar-section">Gestión</div>
+      <a href="crear-curso.html" class="sidebar-item"><i class="fas fa-plus-circle"></i> Crear Curso</a>
+      <a href="ver-cursos.html" class="sidebar-item"><i class="fas fa-play-circle"></i> Ver Cursos</a>
+      <a href="agregar-usuario.html" class="sidebar-item active"><i class="fas fa-user-plus"></i> Agregar Usuario</a>
+      <div class="sidebar-section">Registros</div>
+      <a href="registrousuarios.html" class="sidebar-item"><i class="fas fa-users"></i> Registro Usuarios</a>
+      <a href="registrodocs.html" class="sidebar-item"><i class="fas fa-file-alt"></i> Documentos</a>
+    </aside>
 
-   <!-- SIDEBAR -->
-<div class="sidebar-toggle" id="sidebar-toggle">
-  <i class="fas fa-chevron-right"></i>
-</div>
-
-<aside class="sidebar" id="sidebar">
-  <a href="crear-curso.html" class="sidebar-item">
-    <i class="fas fa-plus-circle"></i>Agregar Curso
-  </a>
-  <a href="agregar-usuario.html" class="sidebar-item">
-    <i class="fas fa-user-plus"></i>Agregar Usuario
-  </a>
-  <a href="reportes.html" class="sidebar-item">
-    <i class="fas fa-chart-bar"></i>Reportes
-  </a>
-  <a href="ver-cursos.html" class="sidebar-item">
-    <i class="fas fa-play-circle"></i>Ver Cursos
-  </a>
-</aside>
-
-
-
-    <!-- MAIN -->
     <main class="main-content">
-      <h1>Agregar Nuevo Usuario</h1>
+      <div style="background:linear-gradient(135deg,#7c3aed 0%,#8b5cf6 60%,#a78bfa 100%);border-radius:var(--radius-xl);padding:26px 32px;color:#fff;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;overflow:hidden;">
+        <div style="position:relative;z-index:1;">
+          <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);padding:4px 12px;border-radius:50px;font-size:.78rem;font-weight:600;color:#fff;margin-bottom:8px;"><i class="fas fa-user-plus"></i> Nuevo Colaborador</div>
+          <h1 style="font-size:1.4rem;font-weight:800;color:#fff;-webkit-text-fill-color:#fff;background:none;margin:0 0 4px;">Agregar Usuario</h1>
+          <p style="color:rgba(255,255,255,.75);font-size:.88rem;margin:0;">Registra un nuevo colaborador en la plataforma CapaciTrack</p>
+        </div>
+        <div style="width:52px;height:52px;border-radius:var(--radius-md);background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;flex-shrink:0;z-index:1;"><i class="fas fa-user-circle"></i></div>
+      </div>
 
       <div class="form-container">
         <form id="formAgregarUsuario">
-          
+
           <div class="form-group">
-            <label>Nombre del usuario</label>
-            <input type="text" required>
+            <label>Nombre completo</label>
+            <input type="text" placeholder="Ej. Juan Pérez" required>
           </div>
 
           <div class="form-group">
-            <label>Correo</label>
-            <input type="email" required>
+            <label>Correo electrónico</label>
+            <input type="email" placeholder="correo@ejemplo.com" required>
           </div>
 
-            <div class="form-group password-group">
-              <label>Contraseña</label>
-              <div class="password-wrapper">
-                <input type="password" id="password" required>
-                <i class="fa-solid fa-eye" id="togglePassword"></i>
-              </div>
+          <div class="form-group">
+            <label>Contraseña</label>
+            <div class="password-wrapper">
+              <input type="password" id="password" placeholder="••••••••" required>
+              <i class="fa-solid fa-eye toggle-pw" id="togglePassword"></i>
             </div>
+          </div>
 
           <div class="form-group">
             <label>Rol</label>
             <div class="roles">
-              <label><input type="radio" name="rol" value="admin" required> Admin</label>
-              <label><input type="radio" name="rol" value="moderador"> Moderador</label>
-              <label><input type="radio" name="rol" value="usuario"> Usuario</label>
+              <label><input type="radio" name="rol" value="admin" required> <i class="fas fa-shield-alt"></i> Admin</label>
+              <label><input type="radio" name="rol" value="moderador"> <i class="fas fa-user-tie"></i> Moderador</label>
+              <label><input type="radio" name="rol" value="usuario"> <i class="fas fa-user"></i> Usuario</label>
             </div>
           </div>
 
-          <button type="submit" class="btn-submit">Agregar Usuario</button>
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-user-plus"></i> Agregar Usuario
+          </button>
+
         </form>
       </div>
     </main>
   </div>
-<script>
-document.getElementById("formAgregarUsuario").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const nombre = document.querySelector("input[type='text']").value;
-  const email = document.querySelector("input[type='email']").value;
-  const password = document.querySelector("input[type='password']").value;
-  const rol = document.querySelector("input[name='rol']:checked")?.value;
-
-  fetch("../backend/auth/agregar_usuario.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      nombre,
-      email,
-      password,
-      rol
-    })
-  })
-  .then(res => res.json())
-  .then(data => {
-   if (data.success) {
-  document.getElementById("modalExito").style.display = "flex";
-  document.getElementById("formAgregarUsuario").reset();
-} else {
-  alert("❌ " + data.message);
-}
-  })
-  .catch(err => {
-    console.error(err);
-    alert("❌ Error de conexión con el servidor");
-
-    
-  });
-});
-const togglePassword = document.getElementById("togglePassword");
-const passwordInput = document.getElementById("password");
-
-togglePassword.addEventListener("click", () => {
-  const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-  passwordInput.setAttribute("type", type);
-
-  togglePassword.classList.toggle("fa-eye");
-  togglePassword.classList.toggle("fa-eye-slash");
-  });
-</script>
 
   <footer>
-    © 2026 CapaciTrack
+    <img src="assets/esr.png" class="footer-logo left" alt="ESR">
+    <p>&copy; 2026 CapaciTrack. Todos los derechos reservados.</p>
+    <img src="assets/Grupo-Gusi.png" class="footer-logo right" alt="Grupo Gusi">
   </footer>
 
-<!-- MODAL CERRAR SESIÓN -->
-<div id="modalCerrarSesion" class="modal-overlay">
-  <div class="modal-box">
-    <h2>⚠️ Cerrar sesión</h2>
-    <p>¿Seguro que deseas cerrar la sesión?</p>
-
-    <div class="modal-actions">
-      <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
-      <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
+  <!-- MODAL CERRAR SESIÓN -->
+  <div id="modalCerrarSesion" class="modal-overlay">
+    <div class="modal-box">
+      <h2>🚪 Cerrar sesión</h2>
+      <p>¿Seguro que deseas cerrar la sesión?</p>
+      <div class="modal-actions">
+        <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- MODAL ÉXITO -->
-<div id="modalExito" class="modal-overlay">
-  <div class="modal-box modal-success">
-    <h2>✅ Usuario agregado</h2>
-    <p>El usuario se registró correctamente.</p>
-
-    <div class="modal-actions">
-      <button class="btn-confirmar" onclick="cerrarModalExito()">Aceptar</button>
+  <!-- MODAL ÉXITO -->
+  <div id="modalExito" class="modal-overlay">
+    <div class="modal-box">
+      <h2>✅ Usuario agregado</h2>
+      <p>El usuario se registró correctamente.</p>
+      <div class="modal-actions">
+        <button class="btn-confirmar" onclick="cerrarModalExito()">Aceptar</button>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-function abrirModalCerrarSesion(e) {
-  e.preventDefault();
-  document.getElementById("modalCerrarSesion").style.display = "flex";
-}
+  <script>
+    document.getElementById("formAgregarUsuario").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const nombre   = document.querySelector("input[type='text']").value;
+      const email    = document.querySelector("input[type='email']").value;
+      const password = document.querySelector("input[type='password']").value;
+      const rol      = document.querySelector("input[name='rol']:checked")?.value;
 
-function cerrarModal() {
-  document.getElementById("modalCerrarSesion").style.display = "none";
-}
+      fetch("../backend/auth/agregar_usuario.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre, email, password, rol })
+      })
+        .then(r => r.json())
+        .then(d => {
+          if (d.success) { document.getElementById("modalExito").style.display = "flex"; this.reset(); }
+          else alert("❌ " + d.message);
+        })
+        .catch(err => { console.error(err); alert("❌ Error de conexión"); });
+    });
 
-function confirmarCerrarSesion() {
-  // Si usas sesiones o tokens, aquí los limpias
-  // localStorage.clear();
-  // sessionStorage.clear();
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+    togglePassword.addEventListener("click", () => {
+      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+      passwordInput.setAttribute("type", type);
+      togglePassword.classList.toggle("fa-eye");
+      togglePassword.classList.toggle("fa-eye-slash");
+    });
 
-  window.location.href = "index.html";
-}
-//menu hamburguesa//
-const menuToggle = document.getElementById('menu-toggle');
-const navMenu = document.getElementById('nav-menu');
+    function abrirModalCerrarSesion(e) { e.preventDefault(); document.getElementById("modalCerrarSesion").style.display = "flex"; }
+    function cerrarModal() { document.getElementById("modalCerrarSesion").style.display = "none"; }
+    function confirmarCerrarSesion() { window.location.href = "index.html"; }
+    function cerrarModalExito() { document.getElementById("modalExito").style.display = "none"; }
 
-menuToggle.addEventListener('click', () => {
-  navMenu.classList.toggle('show'); // Agrega/quita clase para mostrar menú
-});
-
-//menu lateral//
-const sidebarToggle = document.getElementById('sidebar-toggle');
-const sidebar = document.getElementById('sidebar');
-
-sidebarToggle.addEventListener('click', () => {
-  sidebar.classList.toggle('show');
-  sidebarToggle.classList.toggle('rotate');
-});
-
-
-
-</script>
-<script>
-function cerrarModalExito() {
-  document.getElementById("modalExito").style.display = "none";
-}
-</script>
-
+    document.getElementById('menu-toggle').addEventListener('click', () => document.getElementById('nav-menu').classList.toggle('show'));
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.createElement('div');
+    sidebarOverlay.className = 'sidebar-overlay';
+    document.body.appendChild(sidebarOverlay);
+    sidebarToggle.addEventListener('click', () => {
+      const open = sidebar.classList.toggle('show');
+      sidebarToggle.classList.toggle('rotate', open);
+      sidebarOverlay.classList.toggle('active', open);
+    });
+    sidebarOverlay.addEventListener('click', () => {
+      sidebar.classList.remove('show');
+      sidebarToggle.classList.remove('rotate');
+      sidebarOverlay.classList.remove('active');
+    });
+  </script>
 
 </body>
 </html>

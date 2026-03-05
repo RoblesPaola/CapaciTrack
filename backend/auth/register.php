@@ -2,14 +2,10 @@
 header("Content-Type: application/json");
 
 //CODIGO FUNCIONANDO NO MOVER
-//  Conexión
 require_once __DIR__ . "/../config/db.php";
 
-
-//  Leer JSON
 $data = json_decode(file_get_contents("php://input"), true);
 
-//  Validar datos
 $nombre   = trim($data["nombre"] ?? "");
 $email    = trim($data["email"] ?? "");
 $password = $data["password"] ?? "";
@@ -23,19 +19,15 @@ if ($nombre === "" || $email === "" || $password === "") {
   exit;
 }
 
-//  Validar rol permitido
 $rolesPermitidos = ["admin", "moderador", "usuario"];
 if (!in_array($rol, $rolesPermitidos)) {
   $rol = "usuario";
 }
 
-//  Verificar correo duplicado
 $check = $conn->prepare("SELECT id FROM usuarios WHERE email = ?");
-$check->bind_param("s", $email);
-$check->execute();
-$check->store_result();
+$check->execute([$email]);
 
-if ($check->num_rows > 0) {
+if ($check->rowCount() > 0) {
   echo json_encode([
     "success" => false,
     "message" => "El correo ya está registrado"
@@ -43,23 +35,19 @@ if ($check->num_rows > 0) {
   exit;
 }
 
-//  Encriptar contraseña
 $hash = password_hash($password, PASSWORD_DEFAULT);
 
-//  Insertar usuario
 $stmt = $conn->prepare(
-  "INSERT INTO usuarios (nombre, email, password, rol)
-   VALUES (?, ?, ?, ?)"
+  "INSERT INTO usuarios (nombre, email, password, rol) VALUES (?, ?, ?, ?)"
 );
 
-$stmt->bind_param("ssss", $nombre, $email, $hash, $rol);
-
-if ($stmt->execute()) {
+try {
+  $stmt->execute([$nombre, $email, $hash, $rol]);
   echo json_encode([
     "success" => true,
     "message" => "Usuario registrado correctamente"
   ]);
-} else {
+} catch (PDOException $e) {
   echo json_encode([
     "success" => false,
     "message" => "Error al registrar usuario"

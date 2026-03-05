@@ -8,21 +8,18 @@ if (!isset($_SESSION["user_id"])) {
   exit;
 }
 
-$data = json_decode(file_get_contents("php://input"), true);
-
+$data    = json_decode(file_get_contents("php://input"), true);
 $telefono = trim($data["telefono"] ?? "");
-$razon = trim($data["razon_social"] ?? "");
+$razon   = trim($data["razon_social"] ?? "");
 $user_id = $_SESSION["user_id"];
 
-$sql = "UPDATE usuarios 
-        SET telefono = ?, razon_social = ?
-        WHERE id = ?";
+$stmt = $conn->prepare(
+  "UPDATE usuarios SET telefono = ?, razon_social = ? WHERE id = ?"
+);
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("ssi", $telefono, $razon, $user_id);
-
-if ($stmt->execute()) {
+try {
+  $stmt->execute([$telefono, $razon, $user_id]);
   echo json_encode(["success" => true]);
-} else {
+} catch (PDOException $e) {
   echo json_encode(["success" => false, "message" => "Error al guardar"]);
 }

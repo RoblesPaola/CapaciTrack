@@ -4,540 +4,130 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mis Cursos | CapaciTrack</title>
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f5f7fa;
-      color: #333;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ===== TOPBAR ===== */
-    .topbar {
-      background-color: #e8f5e9;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #dcedc8;
-    }
-
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-container img {
-      height: 42px;
-    }
-
-    .logo-container a {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #2e7d32;
-      text-decoration: none;
-    }
-
-    .topbar nav a {
-      margin-left: 25px;
-      color: #2e7d32;
-      text-decoration: none;
-      font-weight: 500;
-      transition: 0.2s;
-    }
-
-    .topbar nav a:hover {
-      color: #1b5e20;
-    }
-
-    #bienvenida {
-      font-weight: 600;
-      color: #2e7d32;
-      margin-left: 30px;
-    }
- /* SIDEBAR */
-    .sidebar {
-      width: 240px;
-      background-color: #e8f5e9;
-      padding: 20px 0;
-      border-right: 1px solid #dcedc8;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .sidebar-item {
-      padding: 14px 25px;
-      color: #2e7d32;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: 0.2s;
-    }
-
-    .sidebar-item:hover {
-      background-color: #c8e6c9;
-      color: #1b5e20;
-    }
-    /* ===== CONTENIDO ===== */
-    .dashboard-container {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-    }
-
-    .main-content {
-      flex: 1;
-      padding: 30px;
-      background-color: #fff;
-      overflow-y: auto;
-    }
-/* ===== MEJORAS VISUALES MIS CURSOS ===== */
-
-h2 {
-  color: #2e7d32;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-h2::before {
-  content: "\f02d";
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-}
-
-/* Cards más modernas */
-.curso-card {
-  background: #ffffff;
-  border-radius: 14px;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.curso-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-
-/* ===== PORTADAS DE CURSOS ===== */
-
-.curso-portada {
-  width: 100%;
-  height: 150px;
-  overflow: hidden;
-  border-radius: 14px 14px 0 0;
-  background: linear-gradient(135deg, #2e7d32, #66bb6a);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.curso-portada img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.portada-placeholder {
-  color: white;
-  font-size: 3rem;
-}
-
-
-/* Contenido */
-.curso-card h3 {
-  padding: 15px 15px 5px;
-  font-size: 1.2rem;
-}
-
-.curso-card p {
-  padding: 0 15px;
-  color: #666;
-  line-height: 1.5;
-  flex-grow: 1;
-}
-
-/* Botón */
-.curso-card button {
-  margin: 15px;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: background 0.2s, transform 0.2s;
-}
-
-.curso-card button:hover {
-  background: #1b5e20;
-  transform: scale(1.03);
-}
-
-/* Mensaje sin cursos */
-#listaCursos > div {
-  border-radius: 12px;
-  background: #f5f7fa;
-}
-
-   
-
-    .caption {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      background: rgba(0,0,0,0.6);
-      color: #fff;
-      padding: 10px 15px;
-      border-radius: 6px;
-    }
-
-    /* ===== CURSOS ===== */
-    #listaCursos {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .curso-card {
-      border: 1px solid #ccc;
-      padding: 15px;
-      border-radius: 10px;
-      background: #f9f9f9;
-    }
-
-    .curso-card h3 {
-      color: #2e7d32;
-      margin-bottom: 10px;
-    }
-
-    .curso-card button {
-      padding: 8px 12px;
-      background: #2e7d32;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background-color: #e8f5e9;
-      padding: 15px;
-      text-align: center;
-      color: #2e7d32;
-      border-top: 1px solid #dcedc8;
-      position: relative;
-    }
-
-    .footer-logo {
-      position: absolute;
-      bottom: 5px;
-    }
-
-    .footer-logo.left {
-      left: 20px;
-      width: 100px;
-    }
-
-    .footer-logo.right {
-      right: 20px;
-      width: 110px;
-    }
-    /*cerrar sesion*/
-    .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.modal-box {
-  background: #fff;
-  padding: 30px;
-  width: 400px;
-  border-radius: 14px;
-  text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  animation: aparecer 0.25s ease;
-}
-
-.modal-box h2 {
-  margin-bottom: 10px;
-  color: #19aa1e;
-}
-
-.modal-box p {
-  color: #555;
-  margin-bottom: 25px;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.btn-cancelar {
-  background: #e5e5e5;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-confirmar {
-  background: #19aa1e;
-  color: white;
-  border: none;
-  padding: 10px 22px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-confirmar:hover {
-  background: #19aa1e;
-}
-
-@keyframes aparecer {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-/* Icono hamburguesa */
-.menu-toggle {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #2e7d32;
-}
-
-/* Responsive: menú hamburguesa */
-@media screen and (max-width: 768px) {
-  .topbar nav {
-    display: none; /* Oculto por defecto */
-    flex-direction: column;
-    gap: 0;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    background-color: #e8f5e9;
-    width: 200px;
-    border-left: 1px solid #dcedc8;
-    padding: 10px 0;
-    z-index: 999;
-  }
-
-  .topbar nav a {
-    padding: 12px 20px;
-    border-top: 1px solid #dcedc8;
-    margin: 0;
-  }
-
-  .menu-toggle {
-    display: block; /* Mostrar hamburguesa en móvil */
-  }
-
-  /* Cuando el menú está abierto */
-  nav.show {
-    display: flex;
-  }
-}
-  </style>
+  <link rel="stylesheet" href="assets/css/global.css">
 </head>
-
 <body>
 
-<!-- ===== TOPBAR ===== -->
-<header class="topbar">
-  <div class="logo-container">
-    <img src="assets/logo.png" alt="CapaciTrack">
-    <a href="panelusuarios.html">CapaciTrack</a>
-  </div>
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="CapaciTrack">
+      <a href="panelusuarios.html">CapaciTrack</a>
+    </div>
+    <div id="bienvenida">Bienvenido</div>
+    <div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
+    <nav id="nav-menu">
+      <a href="catalogo-curso.html"><i class="fas fa-book"></i> Catálogo</a>
+      <a href="mis-cursos.html" class="active"><i class="fas fa-graduation-cap"></i> Mis Cursos</a>
+      <a href="perfil.html"><i class="fas fa-user-circle"></i> Perfil</a>
+      <a href="#" onclick="abrirModalCerrarSesion(event)"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+    </nav>
+  </header>
 
-  <div id="bienvenida">Bienvenido</div>
-
-  <div class="menu-toggle" id="menu-toggle">
-  <i class="fas fa-bars"></i> <!-- Icono hamburguesa -->
-</div>
-
-<nav id="nav-menu">
-  <a href="catalogo-curso.html">Catálogo de Cursos</a>
-  <a href="mis-cursos.html">Mis Cursos</a>
-  <a href="perfil.html">Perfil</a>
-  <a href="#" onclick="abrirModalCerrarSesion(event)">Cerrar Sesión</a>
-</nav>
-</header>
-
-<!-- ===== CONTENEDOR ===== -->
- <main class="main-content">
-   
-
-
-
-    <!-- ===== CURSOS ===== -->
-  <h2 style="margin-top:30px;">
-  <i></i> Mis Cursos
-</h2>
+  <!-- MAIN -->
+  <main class="main-content">
+    <div style="background:linear-gradient(135deg,var(--primary-darker) 0%,var(--primary) 60%,#4ade80 100%);border-radius:var(--radius-xl);padding:26px 32px;color:#fff;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.07);pointer-events:none;"></div>
+      <div style="position:relative;z-index:1;">
+        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);padding:4px 12px;border-radius:50px;font-size:.78rem;font-weight:600;color:#fff;margin-bottom:8px;"><i class="fas fa-graduation-cap"></i> Mi Aprendizaje</div>
+        <h1 style="font-size:1.4rem;font-weight:800;color:#fff;-webkit-text-fill-color:#fff;background:none;margin:0 0 4px;">Mis Cursos</h1>
+        <p style="color:rgba(255,255,255,.75);font-size:.88rem;margin:0;">Continúa tu capacitación profesional en Grupo Gusi</p>
+      </div>
+      <div style="width:52px;height:52px;border-radius:var(--radius-md);background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;flex-shrink:0;z-index:1;"><i class="fas fa-book-open"></i></div>
+    </div>
     <div id="listaCursos"></div>
-
   </main>
-</div>
 
-<!-- ===== FOOTER ===== -->
-<footer>
-  <img src="assets/esr.png" class="footer-logo left">
-  <p>&copy; 2026 CapaciTrack. Todos los derechos reservados.</p>
-  <img src="assets/Grupo-Gusi.png" class="footer-logo right">
-</footer>
+  <!-- FOOTER -->
+  <footer>
+    <img src="assets/esr.png" class="footer-logo left" alt="ESR">
+    <p>&copy; 2026 CapaciTrack. Todos los derechos reservados.</p>
+    <img src="assets/Grupo-Gusi.png" class="footer-logo right" alt="Grupo Gusi">
+  </footer>
 
-
-
-<!-- ===== BIENVENIDA ===== -->
-<script>
-let cursosData = [];
-
-// Obtener usuario y luego cargar cursos
-fetch("/capacitrack/backend/auth/usuario_actual.php", {
-  credentials: "include"
-})
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      document.getElementById("bienvenida").textContent =
-        "Bienvenido, " + data.nombre;
-      cargarMisCursos();
-    } else {
-      document.getElementById("listaCursos").innerHTML =
-        "<p>No se pudo identificar al usuario.</p>";
-    }
-  });
-
-function cargarMisCursos() {
-  fetch("http://localhost/capacitrack/backend/mis_cursos.php")
-    .then(res => res.json())
-    .then(cursos => {
-      const contenedor = document.getElementById("listaCursos");
-
-      if (!cursos || cursos.length === 0) {
-        contenedor.innerHTML = `
-          <div style="padding:30px; text-align:center; color:#666;">
-            <i class="fas fa-book-open fa-2x"></i><br><br>
-            Aún no estás inscrito en ningún curso.
-          </div>
-        `;
-        return;
-      }
-
-      contenedor.innerHTML = "";
-
-      cursos.forEach(curso => {
-        const card = document.createElement("div");
-        card.className = "curso-card";
-
-        card.innerHTML = `
-          <div class="curso-portada">
-            ${
-              curso.portada
-                ? `<img src="http://localhost/capacitrack/backend/${curso.portada}" alt="${curso.nombre || curso.titulo}">`
-                : `<div class="portada-placeholder">
-                    <i class="fas fa-graduation-cap"></i>
-                  </div>`
-            }
-          </div>
-
-          <h3>${curso.nombre || curso.titulo}</h3>
-          <p>${curso.descripcion || "Sin descripción disponible"}</p>
-
-          <button onclick="verCurso(${curso.id})">
-            <i class="fas fa-play"></i> Entrar al curso
-          </button>
-        `;
-
-
-        contenedor.appendChild(card);
-      });
-
-      cursosData = cursos;
-    })
-    .catch(err => {
-      console.error("Error al cargar mis cursos:", err);
-      document.getElementById("listaCursos").innerHTML =
-        "<p>Error al cargar tus cursos.</p>";
-    });
-}
-
-function verCurso(cursoId) {
-  window.location.href = "curso.html?id=" + cursoId;
-}
-</script>
-
-
-<!-- MODAL CERRAR SESIÓN -->
-<div id="modalCerrarSesion" class="modal-overlay">
-  <div class="modal-box">
-    <h2>⚠️ Cerrar sesión</h2>
-    <p>¿Seguro que deseas cerrar la sesión?</p>
-
-    <div class="modal-actions">
-      <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
-      <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
+  <!-- MODAL CERRAR SESIÓN -->
+  <div id="modalCerrarSesion" class="modal-overlay">
+    <div class="modal-box">
+      <h2>🚪 Cerrar sesión</h2>
+      <p>¿Seguro que deseas cerrar la sesión?</p>
+      <div class="modal-actions">
+        <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn-confirmar" onclick="confirmarCerrarSesion()">Cerrar sesión</button>
+      </div>
     </div>
   </div>
-</div>
-<script>
-function abrirModalCerrarSesion(e) {
-  e.preventDefault();
-  document.getElementById("modalCerrarSesion").style.display = "flex";
-}
 
-function cerrarModal() {
-  document.getElementById("modalCerrarSesion").style.display = "none";
-}
+  <script>
+    let cursosData = [];
 
-function confirmarCerrarSesion() {
-  // Si usas sesiones o tokens, aquí los limpias
-  // localStorage.clear();
-  // sessionStorage.clear();
+    fetch("/capacitrack/backend/auth/usuario_actual.php", { credentials: "include" })
+      .then(r => r.json())
+      .then(d => {
+        if (d.success) {
+          document.getElementById("bienvenida").textContent = "Hola, " + d.nombre;
+          cargarMisCursos();
+        } else {
+          document.getElementById("listaCursos").innerHTML = "<p>No se pudo identificar al usuario.</p>";
+        }
+      });
 
-  window.location.href = "index.html";
-}
-const menuToggle = document.getElementById('menu-toggle');
-const navMenu = document.getElementById('nav-menu');
+    function cargarMisCursos() {
+      fetch("http://localhost/capacitrack/backend/mis_cursos.php")
+        .then(r => r.json())
+        .then(cursos => {
+          const contenedor = document.getElementById("listaCursos");
 
-menuToggle.addEventListener('click', () => {
-  navMenu.classList.toggle('show'); // Agrega/quita clase para mostrar menú
-});
-</script>
+          if (!cursos || cursos.length === 0) {
+            contenedor.innerHTML = `
+              <div class="empty-state">
+                <i class="fas fa-book-open"></i>
+                <h3>Sin cursos inscritos</h3>
+                <p>Aún no estás inscrito en ningún curso.</p>
+                <a href="catalogo-curso.html" class="btn btn-primary" style="margin-top:16px;">
+                  <i class="fas fa-search"></i> Ver Catálogo
+                </a>
+              </div>`;
+            return;
+          }
+
+          contenedor.innerHTML = "";
+          cursos.forEach(curso => {
+            const card = document.createElement("div");
+            card.className = "curso-card";
+            card.innerHTML = `
+              <div class="curso-card-image">
+                ${curso.portada
+                  ? `<img src="http://localhost/capacitrack/backend/${curso.portada}" alt="${curso.nombre || curso.titulo}">`
+                  : `<div class="portada-placeholder"><i class="fas fa-graduation-cap"></i></div>`}
+              </div>
+              <div class="curso-card-content">
+                <h3>${curso.nombre || curso.titulo}</h3>
+                <p>${curso.descripcion || "Sin descripción disponible"}</p>
+                <button onclick="verCurso(${curso.id})">
+                  <i class="fas fa-play"></i> Entrar al curso
+                </button>
+              </div>`;
+            contenedor.appendChild(card);
+          });
+          cursosData = cursos;
+        })
+        .catch(err => {
+          console.error("Error:", err);
+          document.getElementById("listaCursos").innerHTML = "<p>Error al cargar tus cursos.</p>";
+        });
+    }
+
+    function verCurso(id) { window.location.href = "curso.html?id=" + id; }
+
+    function abrirModalCerrarSesion(e) { e.preventDefault(); document.getElementById("modalCerrarSesion").style.display = "flex"; }
+    function cerrarModal() { document.getElementById("modalCerrarSesion").style.display = "none"; }
+    function confirmarCerrarSesion() { window.location.href = "index.html"; }
+
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      document.getElementById('nav-menu').classList.toggle('show');
+    });
+  </script>
 
 </body>
 </html>
