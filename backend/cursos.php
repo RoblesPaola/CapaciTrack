@@ -29,26 +29,26 @@ try {
             c.portada,
             c.creado_por,
             c.creado_en,
+            i.id AS inscripcion_id,
             p.completado
         FROM cursos c
-        LEFT JOIN progreso p
-            ON c.id = p.curso_id
-            AND p.usuario_id = ?
+        LEFT JOIN inscripciones i ON c.id = i.curso_id AND i.usuario_id = ?
+        LEFT JOIN progreso p      ON c.id = p.curso_id AND p.usuario_id = ?
         ORDER BY c.creado_en DESC
     ");
-    $stmt->execute([$usuario_id]);
+    $stmt->execute([$usuario_id, $usuario_id]);
 
     $cursos = [];
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $contenido = json_decode($row['contenido'], true);
 
-        if (is_null($row['completado'])) {
+        if (is_null($row['inscripcion_id'])) {
             $estado = "no_inscrito";
-        } elseif ($row['completado'] == 0) {
-            $estado = "en_progreso";
-        } else {
+        } elseif (!is_null($row['completado']) && $row['completado'] !== 'f' && $row['completado'] !== false && $row['completado'] != 0) {
             $estado = "completado";
+        } else {
+            $estado = "en_progreso";
         }
 
         $cursos[] = [

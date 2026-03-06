@@ -18,7 +18,7 @@ LEFT JOIN progreso p
     ON p.curso_id = c.id
     AND p.usuario_id = i.usuario_id
 WHERE i.usuario_id = ?
-AND (p.completado IS NULL OR p.completado = 0)
+AND p.completado IS NOT TRUE
 ORDER BY i.fecha_inscripcion DESC
 ";
 

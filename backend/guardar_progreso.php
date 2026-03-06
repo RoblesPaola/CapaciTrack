@@ -29,51 +29,58 @@ if ($cursoId <= 0) {
     exit;
 }
 
-$completado      = ($porcentaje >= 100) ? 1 : 0;
-$fechaCompletado = ($completado === 1) ? date("Y-m-d H:i:s") : null;
+$completado      = ($porcentaje >= 100) ? true : false;
+$fechaCompletado = $completado ? date("Y-m-d H:i:s") : null;
 
-$stmt = $conn->prepare("
-    SELECT id, completado
-    FROM progreso
-    WHERE usuario_id = ? AND curso_id = ?
-");
-$stmt->execute([$usuarioId, $cursoId]);
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
+try {
+    $stmt = $conn->prepare("
+        SELECT id, completado
+        FROM progreso
+        WHERE usuario_id = ? AND curso_id = ?
+    ");
+    $stmt->execute([$usuarioId, $cursoId]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($row) {
-
-    if ($row["completado"] == 1) {
-        $stmtUpd = $conn->prepare("
-            UPDATE progreso
-            SET porcentaje = ?
-            WHERE usuario_id = ? AND curso_id = ?
-        ");
-        $stmtUpd->execute([$porcentaje, $usuarioId, $cursoId]);
+    if ($row) {
+        $yaCompletado = ($row["completado"] === 't' || $row["completado"] === true || $row["completado"] == 1);
+        if ($yaCompletado) {
+            $stmtUpd = $conn->prepare("
+                UPDATE progreso
+                SET porcentaje = ?
+                WHERE usuario_id = ? AND curso_id = ?
+            ");
+            $stmtUpd->execute([$porcentaje, $usuarioId, $cursoId]);
+        } else {
+            $stmtUpd = $conn->prepare("
+                UPDATE progreso
+                SET porcentaje = ?,
+                    completado = ?,
+                    fecha_completado = ?
+                WHERE usuario_id = ? AND curso_id = ?
+            ");
+            $stmtUpd->execute([$porcentaje, $completado, $fechaCompletado, $usuarioId, $cursoId]);
+        }
     } else {
-        $stmtUpd = $conn->prepare("
-            UPDATE progreso
-            SET porcentaje = ?,
-                completado = ?,
-                fecha_completado = ?
-            WHERE usuario_id = ? AND curso_id = ?
+        $stmtIns = $conn->prepare("
+            INSERT INTO progreso
+            (usuario_id, curso_id, porcentaje, completado, fecha_completado)
+            VALUES (?, ?, ?, ?, ?)
         ");
-        $stmtUpd->execute([$porcentaje, $completado, $fechaCompletado, $usuarioId, $cursoId]);
+        $stmtIns->execute([$usuarioId, $cursoId, $porcentaje, $completado, $fechaCompletado]);
     }
 
-} else {
-    $stmtIns = $conn->prepare("
-        INSERT INTO progreso
-        (usuario_id, curso_id, porcentaje, completado, fecha_completado)
-        VALUES (?, ?, ?, ?, ?)
-    ");
-    $stmtIns->execute([$usuarioId, $cursoId, $porcentaje, $completado, $fechaCompletado]);
-}
+    echo json_encode([
+        "success"    => true,
+        "message"    => "Progreso guardado correctamente",
+        "completado" => $completado
+    ]);
 
-echo json_encode([
-    "success"    => true,
-    "message"    => "Progreso guardado correctamente",
-    "completado" => $completado
-]);
+} catch (Exception $e) {
+    echo json_encode([
+        "success"  => false,
+        "message"  => "Error al guardar progreso: " . $e->getMessage()
+    ]);
+}
 
 ob_end_flush();
 exit;

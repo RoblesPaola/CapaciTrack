@@ -73,7 +73,7 @@
       });
 
     function cargarMisCursos() {
-      fetch("http://localhost/capacitrack/backend/mis_cursos.php")
+      fetch("/capacitrack/backend/mis_cursos.php", { credentials: "include" })
         .then(r => r.json())
         .then(cursos => {
           const contenedor = document.getElementById("listaCursos");
@@ -98,7 +98,7 @@
             card.innerHTML = `
               <div class="curso-card-image">
                 ${curso.portada
-                  ? `<img src="http://localhost/capacitrack/backend/${curso.portada}" alt="${curso.nombre || curso.titulo}">`
+                  ? `<img src="/capacitrack/backend/${curso.portada}" alt="${curso.nombre || curso.titulo}">`
                   : `<div class="portada-placeholder"><i class="fas fa-graduation-cap"></i></div>`}
               </div>
               <div class="curso-card-content">

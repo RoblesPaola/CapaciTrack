@@ -749,7 +749,7 @@ let evaluacionCalificada = false;
 // Cargar progreso desde la base de datos
 async function cargarProgresoDesdeDB() {
     try {
-        const usuarioId = localStorage.getItem("usuario_id");
+        const usuarioId = localStorage.getItem("user_id");
 
         const res = await fetch(
             `/capacitrack/backend/gestionar_progreso.php?accion=obtener&usuario_id=${usuarioId}&curso_id=${cursoId}`
@@ -765,7 +765,7 @@ async function cargarProgresoDesdeDB() {
 // Guardar progreso en la base de datos
 async function guardarProgresoEnDB(porcentaje) {
     try {
-        const usuarioId = localStorage.getItem("usuario_id");
+        const usuarioId = localStorage.getItem("user_id");
 
         const res = await fetch(
             `/capacitrack/backend/gestionar_progreso.php?accion=actualizar`,
@@ -804,7 +804,7 @@ if (!cursoId) {
 
 async function cargarCursoDetalle(id) {
   try {
-    const res = await fetch(`${backendURL}obtener_curso_detalle.php?id=${id}`);
+    const res = await fetch(`${backendURL}obtener_curso_detalle.php?id=${id}`, { credentials: 'include' });
     const data = await res.json();
     
     document.getElementById('loading').style.display = 'none';
@@ -1296,14 +1296,12 @@ function finalizarCurso() {
   const porcentajeEval = calcularPorcentajeEvaluacion();
   
   if (porcentaje === 100 && porcentajeEval >= 80) {
-    fetch('../backend/guardar_progreso.php', { 
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    curso_id: cursoId,
-    porcentaje: 100
-  })
-})
+    fetch(`${backendURL}guardar_progreso.php`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ curso_id: cursoId, porcentaje: 100 })
+    })
     .then(res => res.json())
     .then(data => {
       if (data.success) {
