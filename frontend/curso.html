@@ -710,179 +710,134 @@
     .then(d => { if (d.success) document.getElementById("bienvenida").textContent = "Hola, " + d.nombre; });
 
 const urlParams = new URLSearchParams(window.location.search);
-const cursoId = urlParams.get('id');
+const cursoId   = urlParams.get('id');
 const backendURL = '/capacitrack/backend/';
 
-// Obtener el ID del usuario desde localStorage
-let usuarioId = localStorage.getItem('user_id');
-
-// Si no hay usuario, verificar sesión o redirigir
-if (!usuarioId) {
-  fetch(`${backendURL}verificar_sesion.php`, {
-  credentials: 'include'
-})
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        usuarioId = data.user_id;
-        localStorage.setItem('user_id', data.user_id);
-        localStorage.setItem('user_nombre', data.nombre);
-        localStorage.setItem('user_rol', data.rol);
-      } else {
-        alert('Debes iniciar sesión');
-        window.location.href = 'index.html';
-      }
-    })
-    .catch(() => {
-      usuarioId = 1;
-      console.warn('Usando usuario por defecto. Implementa el sistema de login.');
-    });
-}
-
 // Variables globales
-let cursoData = null;
-let indiceActual = 0; // Índice del módulo o evaluación actual
-let modulosCompletados = [];
+let usuarioId          = null;
+let cursoData          = null;
+let indiceActual       = 0;
+let modulosCompletados = []; // Array de IDs de módulos (integers desde la BD)
 let respuestasEvaluacion = {};
-let evaluacionCalificada = false;
+let evaluacionCalificada  = false;
+let notaEvaluacion        = null; // Puntuación 0-100, cargada/guardada en BD
+let intentosEvaluacion    = 0;
+let cursoYaFinalizado     = false;
 
-// Cargar progreso desde la base de datos
+// Verificar sesión primero, luego cargar curso
+fetch('/capacitrack/backend/verificar_sesion.php', { credentials: 'include' })
+  .then(res => res.json())
+  .then(data => {
+    if (!data.success) {
+      window.location.href = 'index.html';
+      return;
+    }
+    usuarioId = data.user_id;
+    if (!cursoId) { mostrarError('No se especificó un ID de curso'); return; }
+    cargarProgresoDesdeDB().then(() => cargarCursoDetalle(cursoId));
+  })
+  .catch(() => mostrarError('Error de conexión al verificar sesión'));
+
+// Carga qué módulos completó el usuario y el estado de la inscripción desde la BD
 async function cargarProgresoDesdeDB() {
-    try {
-        const usuarioId = localStorage.getItem("user_id");
-
-        const res = await fetch(
-            `/capacitrack/backend/gestionar_progreso.php?accion=obtener&usuario_id=${usuarioId}&curso_id=${cursoId}`
-        );
-
-        const data = await res.json();
-        console.log(data);
-
-    } catch (error) {
-        console.error("Error al cargar progreso:", error);
+  try {
+    const res  = await fetch(`/capacitrack/backend/modulos/obtener_completados.php?curso_id=${cursoId}`, { credentials: 'include' });
+    const data = await res.json();
+    if (data.success) {
+      modulosCompletados = (data.modulos_completados || []).map(Number);
+      if (data.inscripcion) {
+        const insc        = data.inscripcion;
+        intentosEvaluacion = parseInt(insc.intentos_evaluacion) || 0;
+        cursoYaFinalizado  = (insc.estado === 'finalizado');
+        if (insc.nota_evaluacion !== null && insc.nota_evaluacion !== undefined) {
+          notaEvaluacion    = parseInt(insc.nota_evaluacion);
+          evaluacionCalificada = true;
+        }
+      }
     }
-}
-// Guardar progreso en la base de datos
-async function guardarProgresoEnDB(porcentaje) {
-    try {
-        const usuarioId = localStorage.getItem("user_id");
-
-        const res = await fetch(
-            `/capacitrack/backend/gestionar_progreso.php?accion=actualizar`,
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    usuario_id: usuarioId,
-                    curso_id: cursoId,
-                    porcentaje: porcentaje
-                })
-            }
-        );
-
-        const data = await res.json();
-        console.log(data);
-
-    } catch (error) {
-        console.error("Error al guardar progreso:", error);
-    }
+  } catch (e) {
+    console.error('Error al cargar progreso:', e);
+  }
 }
 
-
-// Guardar módulos en localStorage
-function guardarModulosLocal() {
-  localStorage.setItem(`curso_${cursoId}_modulos`, JSON.stringify(modulosCompletados));
-}
-
-if (!cursoId) {
-  mostrarError('No se especificó un ID de curso');
-} else {
-  cargarProgresoDesdeDB().then(() => {
-    cargarCursoDetalle(cursoId);
-  });
+async function guardarProgresoEnDB(porcentaje, opts = {}) {
+  try {
+    await fetch(`${backendURL}guardar_progreso.php`, {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ curso_id: cursoId, porcentaje, ...opts })
+    });
+  } catch (e) { console.error('Error al guardar progreso:', e); }
 }
 
 async function cargarCursoDetalle(id) {
   try {
-    const res = await fetch(`${backendURL}obtener_curso_detalle.php?id=${id}`, { credentials: 'include' });
+    const res  = await fetch(`${backendURL}obtener_curso_detalle.php?id=${id}`, { credentials: 'include' });
     const data = await res.json();
-    
     document.getElementById('loading').style.display = 'none';
-    
-    if (data.success) {
-      cursoData = data.curso;
-      mostrarCurso(data.curso);
-    } else {
-      mostrarError(data.message || 'Error al cargar el curso');
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    mostrarError('Error de conexión al servidor');
-  }
+    if (data.success) { cursoData = data.curso; mostrarCurso(data.curso); }
+    else              { mostrarError(data.message || 'Error al cargar el curso'); }
+  } catch (e) { mostrarError('Error de conexión al servidor'); }
 }
 
 function calcularPorcentajeProgreso() {
   if (!cursoData) return 0;
-  
-  const totalModulos = cursoData.modulos ? cursoData.modulos.length : 0;
+  const totalModulos    = cursoData.modulos ? cursoData.modulos.length : 0;
   const tieneEvaluacion = cursoData.evaluaciones && cursoData.evaluaciones.length > 0;
-  
   if (totalModulos === 0 && !tieneEvaluacion) return 0;
-  
-  // Calcular progreso de módulos
-  let progresoModulos = 0;
-  if (totalModulos > 0) {
-    progresoModulos = (modulosCompletados.length / totalModulos) * 70; // 70% del progreso
+
+  const modulosHechos = totalModulos > 0
+    ? cursoData.modulos.filter(m => modulosCompletados.includes(Number(m.id))).length
+    : 0;
+
+  if (tieneEvaluacion) {
+    const pctMod  = totalModulos > 0 ? (modulosHechos / totalModulos) * 70 : 70;
+    const nota    = evaluacionCalificada ? (notaEvaluacion ?? calcularPorcentajeEvaluacion()) : 0;
+    const pctEval = nota >= 80 ? 30 : 0;
+    return Math.round(pctMod + pctEval);
   }
-  
-  // Calcular progreso de evaluación (30% del progreso total)
-  let progresoEvaluacion = 0;
-  if (tieneEvaluacion && evaluacionCalificada) {
-    const totalPreguntas = cursoData.evaluaciones.length;
-    const respuestasCorrectas = Object.values(respuestasEvaluacion).filter(r => r.correcta).length;
-    const porcentajeCorrectas = (respuestasCorrectas / totalPreguntas) * 100;
-    
-    // Solo se suma el 30% si aprueba con 80% o más
-    if (porcentajeCorrectas >= 80) {
-      progresoEvaluacion = 30;
-    }
-  }
-  
-  return Math.round(progresoModulos + progresoEvaluacion);
+  return totalModulos > 0 ? Math.round((modulosHechos / totalModulos) * 100) : 0;
 }
 
 function actualizarBarraProgreso() {
-  const porcentaje = calcularPorcentajeProgreso();
-  const barraFill = document.querySelector('.barra-progreso-fill');
-  const textoPorcentaje = document.querySelector('.progreso-porcentaje');
-  
-  if (barraFill) {
-    barraFill.style.width = `${porcentaje}%`;
-  }
-  
-  if (textoPorcentaje) {
-    textoPorcentaje.textContent = `${porcentaje}%`;
-  }
-  
-  guardarProgresoEnDB(porcentaje);
+  const pct = calcularPorcentajeProgreso();
+  const fill = document.querySelector('.barra-progreso-fill');
+  const txt  = document.querySelector('.progreso-porcentaje');
+  if (fill) fill.style.width = `${pct}%`;
+  if (txt)  txt.textContent  = `${pct}%`;
 }
 
 function mostrarCurso(curso) {
   document.getElementById('breadcrumbTitulo').textContent = curso.titulo;
   document.getElementById('cursoContainer').style.display = 'block';
-  
-  let portadaHTML = '';
-  if (curso.portada && curso.portada !== '') {
-    portadaHTML = `<img src="${backendURL}${curso.portada}" 
-                       alt="${curso.titulo}" 
-                       class="curso-portada-pequena">`;
-  }
-  
+
+  let portadaHTML = curso.portada
+    ? `<img src="${backendURL}${curso.portada}" alt="${curso.titulo}" class="curso-portada-pequena">`
+    : '';
+
   const porcentajeInicial = calcularPorcentajeProgreso();
-  const totalModulos = curso.modulos ? curso.modulos.length : 0;
-  const totalPreguntas = curso.evaluaciones ? curso.evaluaciones.length : 0;
-  
+  const totalModulos      = curso.modulos ? curso.modulos.length : 0;
+  const totalPreguntas    = curso.evaluaciones ? curso.evaluaciones.length : 0;
+
+  // Banner de curso completado
+  let bannerCompletado = '';
+  if (cursoYaFinalizado) {
+    bannerCompletado = `
+      <div style="background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;border-radius:12px;padding:18px 24px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <i class="fas fa-trophy" style="font-size:2rem;flex-shrink:0;"></i>
+        <div style="flex:1;">
+          <div style="font-weight:700;font-size:1.05rem;margin-bottom:3px;">¡Curso Completado!</div>
+          <div style="opacity:.9;font-size:.88rem;">Ya finalizaste este curso${notaEvaluacion !== null ? ` con <strong>${notaEvaluacion}%</strong> en la evaluación` : ''}. Puedes seguir revisando el contenido.</div>
+        </div>
+        <a href="/capacitrack/backend/generar_certificado.php?usuario_id=${usuarioId}&curso_id=${cursoId}" target="_blank"
+           style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:#fff;padding:8px 18px;border-radius:8px;text-decoration:none;font-size:.85rem;white-space:nowrap;flex-shrink:0;">
+          <i class="fas fa-download"></i> Descargar Certificado
+        </a>
+      </div>`;
+  }
+
   const html = `
+    ${bannerCompletado}
     <div class="curso-header">
       <div class="curso-info-grid">
         ${portadaHTML}
@@ -897,452 +852,369 @@ function mostrarCurso(curso) {
           <div class="curso-descripcion">${curso.descripcion}</div>
         </div>
         <div class="progreso-curso-header">
-          <div class="progreso-header">
-            <span>Progreso</span>
-          </div>
+          <div class="progreso-header"><span>Progreso</span></div>
           <div class="progreso-porcentaje">${porcentajeInicial}%</div>
           <div class="barra-progreso">
             <span class="barra-progreso-fill" style="width: ${porcentajeInicial}%;"></span>
           </div>
+          ${notaEvaluacion !== null ? `<div style="margin-top:8px;font-size:.82rem;color:#555;"><i class="fas fa-star" style="color:#f59e0b;"></i> Evaluación: <strong>${notaEvaluacion}%</strong></div>` : ''}
+          ${intentosEvaluacion > 0 ? `<div style="font-size:.78rem;color:#999;margin-top:3px;">Intentos: ${intentosEvaluacion}</div>` : ''}
         </div>
       </div>
     </div>
 
     <div class="curso-container">
       <aside class="sidebar-modulos">
-        <h3 class="sidebar-titulo">
-          <i class="fas fa-list"></i>
-          Contenido del Curso
-        </h3>
-        <div id="menuModulos">
-          <!-- Se llena dinámicamente -->
-        </div>
+        <h3 class="sidebar-titulo"><i class="fas fa-list"></i> Contenido del Curso</h3>
+        <div id="menuModulos"></div>
       </aside>
-
       <div class="contenido-area">
-        <div id="contenidoActual">
-          <!-- Se llena dinámicamente -->
-        </div>
+        <div id="contenidoActual"></div>
       </div>
     </div>
   `;
-  
+
   document.getElementById('cursoContainer').innerHTML = html;
-  
-  // Generar menú de navegación
   generarMenuNavegacion();
-  
-  // Mostrar el primer módulo
   mostrarContenido(0);
 }
 
 function generarMenuNavegacion() {
   const menuDiv = document.getElementById('menuModulos');
+  if (!menuDiv) return;
   let html = '';
-  
-  // Añadir módulos
+
   if (cursoData.modulos && cursoData.modulos.length > 0) {
     cursoData.modulos.forEach((mod, index) => {
-      const estaCompletado = modulosCompletados.includes(`modulo_${index}`);
-      const esActivo = index === indiceActual;
-      
+      const estaCompletado = modulosCompletados.includes(Number(mod.id));
+      const esActivo       = index === indiceActual;
       html += `
-        <div class="modulo-nav-item ${esActivo ? 'active' : ''} ${estaCompletado ? 'completado' : ''}" 
+        <div class="modulo-nav-item ${esActivo ? 'active' : ''} ${estaCompletado ? 'completado' : ''}"
              onclick="cambiarContenido(${index})">
           <i class="fas fa-${obtenerIconoTipo(mod.tipo_contenido)} icono"></i>
           <span class="modulo-nav-texto">Módulo ${index + 1}: ${mod.titulo}</span>
           ${estaCompletado ? '<i class="fas fa-check-circle check-completado"></i>' : ''}
-        </div>
-      `;
+        </div>`;
     });
   }
-  
-  // Añadir evaluación
+
   if (cursoData.evaluaciones && cursoData.evaluaciones.length > 0) {
-    const indexEvaluacion = cursoData.modulos.length;
-    const esActivo = indexEvaluacion === indiceActual;
-    const estaCompleta = evaluacionCalificada && calcularPorcentajeEvaluacion() >= 80;
-    
+    const idxEval     = cursoData.modulos.length;
+    const esActivo    = idxEval === indiceActual;
+    const nota        = notaEvaluacion ?? (evaluacionCalificada ? calcularPorcentajeEvaluacion() : -1);
+    const estaCompleta = evaluacionCalificada && nota >= 80;
+    const reprobada    = evaluacionCalificada && nota < 80 && nota >= 0;
     html += `
-      <div class="modulo-nav-item ${esActivo ? 'active' : ''} ${estaCompleta ? 'completado' : ''}" 
-           onclick="cambiarContenido(${indexEvaluacion})">
+      <div class="modulo-nav-item ${esActivo ? 'active' : ''} ${estaCompleta ? 'completado' : ''}"
+           onclick="cambiarContenido(${idxEval})">
         <i class="fas fa-clipboard-check icono"></i>
-        <span class="modulo-nav-texto">Evaluación Final</span>
-        ${estaCompleta ? '<i class="fas fa-check-circle check-completado"></i>' : ''}
-      </div>
-    `;
+        <span class="modulo-nav-texto">Evaluación Final${nota >= 0 && evaluacionCalificada ? ` (${nota}%)` : ''}</span>
+        ${estaCompleta  ? '<i class="fas fa-check-circle check-completado"></i>' : ''}
+        ${reprobada     ? '<i class="fas fa-times-circle" style="color:#ef4444;font-size:1.1rem;margin-left:auto;"></i>' : ''}
+      </div>`;
   }
-  
+
   menuDiv.innerHTML = html;
 }
 
 function cambiarContenido(nuevoIndice) {
   indiceActual = nuevoIndice;
   mostrarContenido(nuevoIndice);
-  generarMenuNavegacion(); // Actualizar el menú para reflejar el activo
+  generarMenuNavegacion();
 }
 
 function mostrarContenido(index) {
   const contenidoDiv = document.getElementById('contenidoActual');
+  if (!contenidoDiv) return;
   const totalModulos = cursoData.modulos ? cursoData.modulos.length : 0;
-  
-  // Si es un módulo
   if (index < totalModulos) {
-    const modulo = cursoData.modulos[index];
-    contenidoDiv.innerHTML = generarHTMLModulo(modulo, index);
-  } 
-  // Si es la evaluación
-  else if (cursoData.evaluaciones && cursoData.evaluaciones.length > 0) {
+    contenidoDiv.innerHTML = generarHTMLModulo(cursoData.modulos[index], index);
+  } else if (cursoData.evaluaciones && cursoData.evaluaciones.length > 0) {
     contenidoDiv.innerHTML = generarHTMLEvaluacion();
   }
-  
-  // Scroll al inicio
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function generarHTMLModulo(modulo, index) {
   let contenidoHTML = '';
-  
   if (modulo.archivo && modulo.archivo !== '') {
-    const extension = obtenerExtension(modulo.archivo);
+    const extension  = obtenerExtension(modulo.archivo);
     const tipoArchivo = modulo.tipo_contenido || detectarTipoArchivo(extension);
     contenidoHTML = generarVisualizadorArchivo(modulo.archivo, tipoArchivo, extension, modulo.titulo);
   } else {
     contenidoHTML = '<div class="no-contenido">Este módulo no tiene archivos adjuntos</div>';
   }
-  
-  const estaCompletado = modulosCompletados.includes(`modulo_${index}`);
-  const totalModulos = cursoData.modulos.length;
+
+  const estaCompletado  = modulosCompletados.includes(Number(modulo.id));
+  const totalModulos    = cursoData.modulos.length;
   const tieneEvaluacion = cursoData.evaluaciones && cursoData.evaluaciones.length > 0;
-  const esUltimoModulo = index === totalModulos - 1;
-  
+  const esUltimo        = index === totalModulos - 1;
+
   return `
     <div class="contenido-header">
-      <span class="contenido-tipo">
-        <i class="fas fa-${obtenerIconoTipo(modulo.tipo_contenido)}"></i>
-        ${modulo.tipo_contenido || 'Módulo'}
-      </span>
+      <span class="contenido-tipo"><i class="fas fa-${obtenerIconoTipo(modulo.tipo_contenido)}"></i> ${modulo.tipo_contenido || 'Módulo'}</span>
       <h2 class="contenido-titulo">Módulo ${index + 1}: ${modulo.titulo}</h2>
       <p class="contenido-descripcion">${modulo.descripcion || 'Sin descripción'}</p>
     </div>
-
-    <div style="margin: 25px 0;">
-      ${contenidoHTML}
-    </div>
-
-    <div class="modulo-completado ${estaCompletado ? 'completado' : ''}" 
-         onclick="this.querySelector('input').click()">
-      <input type="checkbox" 
-             id="checkbox_${index}" 
-             ${estaCompletado ? 'checked' : ''}
+    <div style="margin: 25px 0;">${contenidoHTML}</div>
+    <div class="modulo-completado ${estaCompletado ? 'completado' : ''}" onclick="this.querySelector('input').click()">
+      <input type="checkbox" id="checkbox_${index}" ${estaCompletado ? 'checked' : ''}
              onclick="event.stopPropagation(); marcarModuloCompletado(${index}, this)">
-      <label for="checkbox_${index}">
-        <i class="fas fa-check-circle"></i>
-        Marcar como completado
-      </label>
+      <label for="checkbox_${index}"><i class="fas fa-check-circle"></i> Marcar como completado</label>
     </div>
-
     <div class="navegacion-botones">
-      <button class="btn btn-secondary" 
-              onclick="navegarAnterior()" 
-              ${index === 0 ? 'disabled' : ''}>
-        <i class="fas fa-arrow-left"></i>
-        Anterior
+      <button class="btn btn-secondary" onclick="navegarAnterior()" ${index === 0 ? 'disabled' : ''}>
+        <i class="fas fa-arrow-left"></i> Anterior
       </button>
-      
-      <button class="btn btn-primary" 
-              onclick="navegarSiguiente()">
-        ${esUltimoModulo && tieneEvaluacion ? 'Ir a Evaluación' : 'Siguiente'}
-        <i class="fas fa-arrow-right"></i>
+      <button class="btn btn-primary" onclick="navegarSiguiente()">
+        ${esUltimo && tieneEvaluacion ? 'Ir a Evaluación' : 'Siguiente'} <i class="fas fa-arrow-right"></i>
       </button>
-    </div>
-  `;
+    </div>`;
 }
 
 function generarHTMLEvaluacion() {
+  const tieneRespuestasLocales = Object.keys(respuestasEvaluacion).length > 0;
+
+  // Evaluación ya calificada y cargada desde BD (sin respuestas locales en memoria)
+  if (evaluacionCalificada && !tieneRespuestasLocales) {
+    const nota    = notaEvaluacion ?? 0;
+    const aprobado = nota >= 80;
+    return `
+      <div class="contenido-header">
+        <span class="contenido-tipo"><i class="fas fa-clipboard-check"></i> Evaluación</span>
+        <h2 class="contenido-titulo">Evaluación Final</h2>
+        <p class="contenido-descripcion">Resultado de tu evaluación guardada.</p>
+      </div>
+      <div class="evaluacion-resultado ${aprobado ? 'aprobado' : 'reprobado'}" style="display:block;">
+        <h3><i class="fas fa-${aprobado ? 'check-circle' : 'times-circle'}"></i> ${aprobado ? '¡Evaluación aprobada!' : 'Evaluación no aprobada'}</h3>
+        <p style="font-size:1.3rem;margin:15px 0;">Calificación: <strong>${nota}%</strong></p>
+        <p>Intentos realizados: <strong>${intentosEvaluacion}</strong></p>
+        ${aprobado
+          ? `<p style="margin-top:10px;opacity:.85;">¡Felicidades! Puedes descargar tu certificado desde el perfil o con el botón de arriba.</p>`
+          : `<p style="margin-top:10px;">Necesitas al menos 80% para aprobar el curso.</p>
+             <button class="btn btn-primary" onclick="permitirNuevoIntento()" style="margin-top:15px;">
+               <i class="fas fa-redo"></i> Intentar de nuevo
+             </button>`}
+      </div>
+      <div class="navegacion-botones">
+        <button class="btn btn-secondary" onclick="navegarAnterior()"><i class="fas fa-arrow-left"></i> Volver a Módulos</button>
+        ${aprobado && !cursoYaFinalizado
+          ? `<button class="btn btn-primary" onclick="finalizarCurso()">Finalizar Curso <i class="fas fa-graduation-cap"></i></button>`
+          : ''}
+      </div>`;
+  }
+
+  // Evaluación con preguntas (nueva o ya respondida en esta sesión)
   let preguntasHTML = '';
-  
   cursoData.evaluaciones.forEach((pregunta, index) => {
     let opcionesHTML = '';
-    
     if (pregunta.tipo === 'opcion' && pregunta.opciones) {
       const opciones = JSON.parse(pregunta.opciones);
       opcionesHTML = '<div class="opciones-lista">';
-      
       opciones.forEach((opcion, i) => {
-        const letra = String.fromCharCode(65 + i);
-        const respuestaGuardada = respuestasEvaluacion[index];
-        const estaSeleccionada = respuestaGuardada && respuestaGuardada.seleccionada === letra;
-        const esCorrecta = letra === pregunta.respuesta_correcta;
-        const mostrarResultado = evaluacionCalificada;
-        
+        const letra           = String.fromCharCode(65 + i);
+        const respGuardada    = respuestasEvaluacion[index];
+        const estaSeleccionada = respGuardada && respGuardada.seleccionada === letra;
+        const esCorrecta      = letra === pregunta.respuesta_correcta;
         let claseOpcion = '';
-        if (mostrarResultado) {
-          if (estaSeleccionada && esCorrecta) {
-            claseOpcion = 'correcta-mostrada';
-          } else if (estaSeleccionada && !esCorrecta) {
-            claseOpcion = 'incorrecta-mostrada';
-          } else if (esCorrecta) {
-            claseOpcion = 'correcta-mostrada';
-          }
+        if (evaluacionCalificada) {
+          if (estaSeleccionada && esCorrecta)   claseOpcion = 'correcta-mostrada';
+          else if (estaSeleccionada && !esCorrecta) claseOpcion = 'incorrecta-mostrada';
+          else if (esCorrecta)                  claseOpcion = 'correcta-mostrada';
         }
-        
         opcionesHTML += `
-          <div class="opcion ${claseOpcion} ${mostrarResultado ? 'disabled' : ''}" 
-               onclick="${!mostrarResultado ? `seleccionarOpcion(${index}, '${letra}', this)` : ''}">
-            <input type="radio" 
-                   name="pregunta_${index}" 
-                   value="${letra}" 
-                   ${estaSeleccionada ? 'checked' : ''}
-                   ${mostrarResultado ? 'disabled' : ''}
-                   onclick="event.stopPropagation(); ${!mostrarResultado ? `seleccionarOpcion(${index}, '${letra}', this.parentElement)` : ''}">
+          <div class="opcion ${claseOpcion} ${evaluacionCalificada ? 'disabled' : ''}"
+               onclick="${!evaluacionCalificada ? `seleccionarOpcion(${index}, '${letra}', this)` : ''}">
+            <input type="radio" name="pregunta_${index}" value="${letra}"
+                   ${estaSeleccionada ? 'checked' : ''} ${evaluacionCalificada ? 'disabled' : ''}
+                   onclick="event.stopPropagation(); ${!evaluacionCalificada ? `seleccionarOpcion(${index}, '${letra}', this.parentElement)` : ''}">
             <label>${letra}) ${opcion}</label>
-          </div>
-        `;
+          </div>`;
       });
-      
       opcionesHTML += '</div>';
     }
-    
+
     let imagenHTML = '';
+    if (pregunta.imagen && pregunta.imagen !== '') {
+      const urlImagen = `${backendURL}${pregunta.imagen}`;
+      imagenHTML = `<div style="margin:15px 0;"><img src="${urlImagen}" class="modulo-imagen" onclick="openModal('${urlImagen}')" onerror="this.style.display='none'"></div>`;
+    }
 
-if (pregunta.imagen && pregunta.imagen !== '') {
-  const urlImagen = `${backendURL}${pregunta.imagen}`;
-  imagenHTML = `
-    <div style="margin:15px 0;">
-      <img src="${urlImagen}" 
-           class="modulo-imagen"
-           onclick="openModal('${urlImagen}')"
-           onerror="this.style.display='none'">
-    </div>
-  `;
-}
-
-preguntasHTML += `
-  <div class="pregunta-item">
-    <div class="pregunta-numero">Pregunta ${index + 1}</div>
-    <div class="pregunta-texto">${pregunta.pregunta}</div>
-    
-    ${imagenHTML}
-    
-    ${opcionesHTML}
-  </div>
-`;
+    preguntasHTML += `
+      <div class="pregunta-item">
+        <div class="pregunta-numero">Pregunta ${index + 1}</div>
+        <div class="pregunta-texto">${pregunta.pregunta}</div>
+        ${imagenHTML}
+        ${opcionesHTML}
+      </div>`;
   });
-  
-  // Resultado de la evaluación
+
   let resultadoHTML = '';
   if (evaluacionCalificada) {
-    const porcentaje = calcularPorcentajeEvaluacion();
-    const aprobado = porcentaje >= 80;
-    
+    const nota    = notaEvaluacion ?? calcularPorcentajeEvaluacion();
+    const aprobado = nota >= 80;
+    const correctas = Object.values(respuestasEvaluacion).filter(r => r.correcta).length;
     resultadoHTML = `
-      <div class="evaluacion-resultado ${aprobado ? 'aprobado' : 'reprobado'}">
-        <h3>
-          <i class="fas fa-${aprobado ? 'check-circle' : 'times-circle'}"></i>
-          ${aprobado ? '¡Felicidades! Has aprobado' : 'No has aprobado'}
-        </h3>
-        <p style="font-size: 1.2rem; margin: 15px 0;">
-          Calificación: <strong>${porcentaje}%</strong>
-        </p>
-        <p>
-          Respuestas correctas: ${Object.values(respuestasEvaluacion).filter(r => r.correcta).length} de ${cursoData.evaluaciones.length}
-        </p>
+      <div class="evaluacion-resultado ${aprobado ? 'aprobado' : 'reprobado'}" style="display:block;">
+        <h3><i class="fas fa-${aprobado ? 'check-circle' : 'times-circle'}"></i> ${aprobado ? '¡Felicidades! Has aprobado' : 'No has aprobado'}</h3>
+        <p style="font-size:1.2rem;margin:15px 0;">Calificación: <strong>${nota}%</strong></p>
+        <p>Respuestas correctas: ${correctas} de ${cursoData.evaluaciones.length}</p>
+        <p style="margin-top:4px;font-size:.85rem;opacity:.75;">Intento #${intentosEvaluacion}</p>
         ${!aprobado ? `
-          <p style="margin-top: 15px;">Necesitas al menos 80% para aprobar el curso.</p>
-          <button class="btn btn-primary" onclick="reiniciarEvaluacion()" style="margin-top: 15px;">
+          <p style="margin-top:15px;">Necesitas al menos 80% para aprobar el curso.</p>
+          <button class="btn btn-primary" onclick="reiniciarEvaluacion()" style="margin-top:15px;">
             <i class="fas fa-redo"></i> Volver a intentar
-          </button>
-        ` : ''}
-      </div>
-    `;
+          </button>` : ''}
+      </div>`;
   }
-  
+
   return `
     <div class="contenido-header">
-      <span class="contenido-tipo">
-        <i class="fas fa-clipboard-check"></i>
-        Evaluación
-      </span>
+      <span class="contenido-tipo"><i class="fas fa-clipboard-check"></i> Evaluación</span>
       <h2 class="contenido-titulo">Evaluación Final</h2>
-      <p class="contenido-descripcion">
-        Responde las siguientes preguntas. Necesitas obtener al menos 80% de respuestas correctas para completar el curso.
-      </p>
+      <p class="contenido-descripcion">Responde las siguientes preguntas. Necesitas obtener al menos 80% para completar el curso.</p>
     </div>
-
     <div class="evaluacion-container">
       ${preguntasHTML}
-      
-      ${!evaluacionCalificada ? `
-        <button class="btn btn-primary" 
-                onclick="calificarEvaluacion()"
-                style="width: 100%; margin-top: 20px; font-size: 1.1rem;">
-          <i class="fas fa-check"></i>
-          Enviar Evaluación
-        </button>
-      ` : ''}
-      
+      ${!evaluacionCalificada
+        ? `<button class="btn btn-primary" onclick="calificarEvaluacion()" style="width:100%;margin-top:20px;font-size:1.1rem;">
+             <i class="fas fa-check"></i> Enviar Evaluación
+           </button>`
+        : ''}
       ${resultadoHTML}
     </div>
-
     <div class="navegacion-botones">
-      <button class="btn btn-secondary" onclick="navegarAnterior()">
-        <i class="fas fa-arrow-left"></i>
-        Volver a Módulos
-      </button>
-      
-      ${evaluacionCalificada && calcularPorcentajeEvaluacion() >= 80 ? `
-        <button class="btn btn-primary" onclick="finalizarCurso()">
-          Finalizar Curso
-          <i class="fas fa-graduation-cap"></i>
-        </button>
-      ` : ''}
-    </div>
-  `;
+      <button class="btn btn-secondary" onclick="navegarAnterior()"><i class="fas fa-arrow-left"></i> Volver a Módulos</button>
+      ${evaluacionCalificada && (notaEvaluacion ?? calcularPorcentajeEvaluacion()) >= 80 && !cursoYaFinalizado
+        ? `<button class="btn btn-primary" onclick="finalizarCurso()">Finalizar Curso <i class="fas fa-graduation-cap"></i></button>`
+        : ''}
+    </div>`;
+}
+
+function permitirNuevoIntento() {
+  evaluacionCalificada = false;
+  notaEvaluacion       = null;
+  respuestasEvaluacion = {};
+  mostrarContenido(indiceActual);
+  generarMenuNavegacion();
 }
 
 function seleccionarOpcion(preguntaIndex, opcion, elemento) {
   if (evaluacionCalificada) return;
-  
-  // Guardar respuesta
   respuestasEvaluacion[preguntaIndex] = {
     seleccionada: opcion,
     correcta: opcion === cursoData.evaluaciones[preguntaIndex].respuesta_correcta
   };
-  
-  // Actualizar visualización
-  const todasOpciones = elemento.parentElement.querySelectorAll('.opcion');
-  todasOpciones.forEach(opc => opc.classList.remove('seleccionada'));
+  elemento.parentElement.querySelectorAll('.opcion').forEach(o => o.classList.remove('seleccionada'));
   elemento.classList.add('seleccionada');
 }
 
 function calcularPorcentajeEvaluacion() {
-  const totalPreguntas = cursoData.evaluaciones.length;
-  const respuestasCorrectas = Object.values(respuestasEvaluacion).filter(r => r.correcta).length;
-  return Math.round((respuestasCorrectas / totalPreguntas) * 100);
+  if (Object.keys(respuestasEvaluacion).length === 0) return notaEvaluacion ?? 0;
+  const total    = cursoData.evaluaciones.length;
+  const correctas = Object.values(respuestasEvaluacion).filter(r => r.correcta).length;
+  return Math.round((correctas / total) * 100);
 }
 
-function calificarEvaluacion() {
-  // Verificar que todas las preguntas estén respondidas
+async function calificarEvaluacion() {
   if (Object.keys(respuestasEvaluacion).length < cursoData.evaluaciones.length) {
     alert('Por favor responde todas las preguntas antes de enviar la evaluación.');
     return;
   }
-  
   evaluacionCalificada = true;
-  
-  // Actualizar progreso
+  intentosEvaluacion++;
+  notaEvaluacion = calcularPorcentajeEvaluacion();
+
   actualizarBarraProgreso();
-  
-  // Regenerar la evaluación con resultados
+  await guardarProgresoEnDB(calcularPorcentajeProgreso(), {
+    nota_evaluacion: notaEvaluacion,
+    incrementar_intentos: true
+  });
+
   mostrarContenido(indiceActual);
-  
-  // Actualizar menú
   generarMenuNavegacion();
 }
 
 function reiniciarEvaluacion() {
-  // Reiniciar estado de evaluación
   respuestasEvaluacion = {};
   evaluacionCalificada = false;
-  
-  // Regenerar evaluación
+  notaEvaluacion       = null;
   mostrarContenido(indiceActual);
-  
-  // Actualizar progreso y menú
   actualizarBarraProgreso();
   generarMenuNavegacion();
-  
-  // Scroll al inicio
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function marcarModuloCompletado(index, checkbox) {
-  const moduloId = `modulo_${index}`;
-  
-  if (checkbox.checked) {
-    if (!modulosCompletados.includes(moduloId)) {
-      modulosCompletados.push(moduloId);
-    }
+async function marcarModuloCompletado(index, checkbox) {
+  const modulo  = cursoData.modulos[index];
+  const moduloId = Number(modulo.id);
+  const marcado  = checkbox.checked;
+
+  if (marcado) {
+    if (!modulosCompletados.includes(moduloId)) modulosCompletados.push(moduloId);
     checkbox.parentElement.classList.add('completado');
   } else {
     modulosCompletados = modulosCompletados.filter(id => id !== moduloId);
     checkbox.parentElement.classList.remove('completado');
   }
-  
-  guardarModulosLocal();
+
+  // Guardar en BD
+  await fetch('/capacitrack/backend/modulos/marcar_completado.php', {
+    method: 'POST', credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ modulo_id: moduloId, completado: marcado })
+  });
+
   actualizarBarraProgreso();
+  await guardarProgresoEnDB(calcularPorcentajeProgreso());
   generarMenuNavegacion();
 }
 
 function navegarAnterior() {
-  if (indiceActual > 0) {
-    cambiarContenido(indiceActual - 1);
-  }
+  if (indiceActual > 0) cambiarContenido(indiceActual - 1);
 }
 
 function navegarSiguiente() {
-  const totalModulos = cursoData.modulos ? cursoData.modulos.length : 0;
+  const totalModulos    = cursoData.modulos ? cursoData.modulos.length : 0;
   const tieneEvaluacion = cursoData.evaluaciones && cursoData.evaluaciones.length > 0;
-  const maxIndice = totalModulos + (tieneEvaluacion ? 1 : 0) - 1;
-  
-  if (indiceActual < maxIndice) {
-    cambiarContenido(indiceActual + 1);
-  }
+  const maxIndice       = totalModulos + (tieneEvaluacion ? 1 : 0) - 1;
+  if (indiceActual < maxIndice) cambiarContenido(indiceActual + 1);
 }
 
-function finalizarCurso() {
+async function finalizarCurso() {
   const porcentaje = calcularPorcentajeProgreso();
-  const porcentajeEval = calcularPorcentajeEvaluacion();
-  
-  if (porcentaje === 100 && porcentajeEval >= 80) {
-    fetch(`${backendURL}guardar_progreso.php`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ curso_id: cursoId, porcentaje: 100 })
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        mostrarModalCertificado();
-      } else {
-        alert('Error al marcar curso como completado');
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      alert('Error al conectar con el servidor');
-    });
-  } else {
+  if (porcentaje < 100) {
     alert('Completa todos los módulos y aprueba la evaluación con al menos 80% para finalizar el curso.');
+    return;
   }
+  const res  = await fetch(`${backendURL}guardar_progreso.php`, {
+    method: 'POST', credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ curso_id: cursoId, porcentaje: 100, nota_evaluacion: notaEvaluacion })
+  });
+  const data = await res.json();
+  if (data.success) { cursoYaFinalizado = true; mostrarModalCertificado(); }
+  else              { alert('Error al marcar curso como completado: ' + (data.message || '')); }
 }
-
 
 function mostrarModalCertificado() {
   const modal = document.createElement('div');
   modal.className = 'modal-overlay';
   modal.style.display = 'flex';
   modal.innerHTML = `
-    <div class="modal-box" style="max-width: 500px;">
-      <h2 style="color: #2e7d32; margin-bottom: 15px;">
-        <i class="fas fa-trophy"></i> ¡Felicidades!
-      </h2>
-      <p style="font-size: 1.1rem; margin-bottom: 20px;">
-        Has completado exitosamente el curso:<br>
-        <strong>${cursoData.titulo}</strong>
-      </p>
-      <div style="margin: 25px 0;">
-        <button class="btn btn-primary" onclick="descargarCertificado()" style="width: 100%; margin-bottom: 10px;">
+    <div class="modal-box" style="max-width:500px;">
+      <h2 style="color:#2e7d32;margin-bottom:15px;"><i class="fas fa-trophy"></i> ¡Felicidades!</h2>
+      <p style="font-size:1.1rem;margin-bottom:10px;">Has completado exitosamente:<br><strong>${cursoData.titulo}</strong></p>
+      ${notaEvaluacion !== null ? `<p style="margin-bottom:20px;"><i class="fas fa-star" style="color:#f59e0b;"></i> Evaluación: <strong>${notaEvaluacion}%</strong></p>` : ''}
+      <div style="margin:20px 0;">
+        <button class="btn btn-primary" onclick="descargarCertificado()" style="width:100%;margin-bottom:10px;">
           <i class="fas fa-download"></i> Descargar Certificado
         </button>
-        <button class="btn btn-secondary" onclick="volverMisCursos()" style="width: 100%;">
+        <button class="btn btn-secondary" onclick="volverMisCursos()" style="width:100%;">
           <i class="fas fa-arrow-left"></i> Ir a Mis Cursos
         </button>
       </div>
-    </div>
-  `;
+    </div>`;
   document.body.appendChild(modal);
 }
 
@@ -1350,9 +1222,7 @@ function descargarCertificado() {
   window.open(`${backendURL}generar_certificado.php?usuario_id=${usuarioId}&curso_id=${cursoId}`, '_blank');
 }
 
-function volverMisCursos() {
-  window.location.href = 'mis-cursos.html';
-}
+function volverMisCursos() { window.location.href = 'mis-cursos.html'; }
 
 function getYouTubeEmbedUrl(url) {
   const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/);

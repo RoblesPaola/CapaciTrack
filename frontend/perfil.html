@@ -77,14 +77,50 @@
     .progreso-detalle h2 { color: var(--white); font-size: 1rem; margin-bottom: 4px; }
     .progreso-detalle p { font-size: .85rem; opacity: .9; margin: 0; }
 
+    /* Stats row */
+    .stats-row { display: flex; gap: 12px; margin-bottom: 18px; }
+    .stat-card {
+      flex: 1; background: var(--gray-50); border: 1.5px solid var(--gray-100);
+      border-radius: var(--radius); padding: 14px 12px; text-align: center;
+    }
+    .stat-card.completados { border-color: var(--primary-100); background: #f0fdf4; }
+    .stat-card.en-progreso { border-color: #bfdbfe; background: #eff6ff; }
+    .stat-card.certificados { border-color: #fde68a; background: #fffbeb; }
+    .stat-num { font-size: 1.6rem; font-weight: 800; line-height: 1; }
+    .stat-card.completados .stat-num  { color: #16a34a; }
+    .stat-card.en-progreso .stat-num  { color: #2563eb; }
+    .stat-card.certificados .stat-num { color: #d97706; }
+    .stat-label { font-size: .75rem; color: var(--gray-500); margin-top: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+
     /* Curso item */
     .curso-item {
-      background: var(--gray-50); padding: 12px 14px; border-radius: var(--radius);
-      margin-top: 8px; display: flex; justify-content: space-between; align-items: center;
-      border: 1px solid var(--gray-100);
+      background: var(--gray-50); padding: 14px; border-radius: var(--radius);
+      margin-top: 8px; border: 1px solid var(--gray-100);
+      transition: var(--ease);
     }
+    .curso-item:hover { border-color: var(--primary-100); box-shadow: var(--shadow-sm); }
+    .curso-item-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
     .curso-nombre { font-weight: 600; color: var(--gray-700); font-size: .9rem; }
-    .curso-progreso { font-size: .82rem; color: var(--gray-400); margin-top: 2px; }
+    .curso-progreso { font-size: .8rem; color: var(--gray-400); margin-top: 2px; }
+    .curso-badge {
+      font-size: .72rem; font-weight: 700; padding: 3px 9px; border-radius: var(--radius-full);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .badge-progreso  { background: #dbeafe; color: #1d4ed8; }
+    .badge-finalizado { background: #dcfce7; color: #15803d; }
+    .curso-mini-bar { height: 5px; background: var(--gray-200); border-radius: 20px; overflow: hidden; margin-bottom: 6px; }
+    .curso-mini-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #22c55e); border-radius: 20px; }
+    .curso-meta-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .curso-pct  { font-weight: 700; color: var(--primary); font-size: .85rem; }
+    .curso-nota { font-size: .8rem; color: #f59e0b; font-weight: 600; }
+    .curso-fecha { font-size: .78rem; color: var(--gray-400); }
+    .btn-continuar {
+      margin-left: auto; font-size: .78rem; font-weight: 600; padding: 4px 12px;
+      background: var(--primary); color: #fff; border: none; border-radius: var(--radius-full);
+      cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
+      transition: var(--ease);
+    }
+    .btn-continuar:hover { background: var(--primary-dark); }
 
     /* Certificados */
     .certificado-item {
@@ -233,6 +269,22 @@
     <div class="card">
       <h3><i class="fas fa-chart-line" style="color:var(--primary);margin-right:8px;"></i>Tu progreso general</h3>
 
+      <!-- Stats -->
+      <div class="stats-row" id="statsRow">
+        <div class="stat-card en-progreso">
+          <div class="stat-num" id="statProgreso">-</div>
+          <div class="stat-label">En progreso</div>
+        </div>
+        <div class="stat-card completados">
+          <div class="stat-num" id="statCompletados">-</div>
+          <div class="stat-label">Completados</div>
+        </div>
+        <div class="stat-card certificados">
+          <div class="stat-num" id="statCertificados">-</div>
+          <div class="stat-label">Certificados</div>
+        </div>
+      </div>
+
       <div class="progreso-widget">
         <div class="circulo" id="circuloProgreso">
           <div class="circulo-inner">
@@ -241,13 +293,16 @@
           </div>
         </div>
         <div class="progreso-detalle">
-          <h2>Cursos en progreso</h2>
+          <h2>Progreso promedio</h2>
           <p id="progresoDetalle">Completa los módulos para ver tu avance</p>
         </div>
       </div>
 
-      <h3 style="margin-top:22px;"><i class="fas fa-graduation-cap" style="color:var(--primary);margin-right:8px;"></i>Mis cursos activos</h3>
-      <div id="listaCursos"><p style="color:var(--gray-400);font-size:.875rem;">Cargando...</p></div>
+      <h3 style="margin-top:22px;"><i class="fas fa-book-open" style="color:#2563eb;margin-right:8px;"></i>Cursos en progreso</h3>
+      <div id="listaCursosProgreso"><p style="color:var(--gray-400);font-size:.875rem;">Cargando...</p></div>
+
+      <h3 style="margin-top:22px;"><i class="fas fa-graduation-cap" style="color:var(--primary);margin-right:8px;"></i>Cursos completados</h3>
+      <div id="listaCursosCompletados"><p style="color:var(--gray-400);font-size:.875rem;">Cargando...</p></div>
 
       <h3 style="margin-top:22px;"><i class="fas fa-certificate" style="color:var(--primary);margin-right:8px;"></i>Certificaciones obtenidas</h3>
       <div id="listaCertificados"><p style="color:var(--gray-400);font-size:.875rem;">Cargando certificados...</p></div>
@@ -357,24 +412,79 @@
       fetch("/capacitrack/backend/usuarios/obtener_progreso.php", { credentials: "include" })
         .then(r => r.json())
         .then(d => {
-          const lista = document.getElementById("listaCursos");
+          const listaProgreso    = document.getElementById("listaCursosProgreso");
+          const listaCompletados = document.getElementById("listaCursosCompletados");
+
           if (!d.success || !d.cursos || d.cursos.length === 0) {
             actualizarProgresoGeneral(0, 0, 0);
-            lista.innerHTML = '<p style="color:var(--gray-400);font-size:.875rem;">No tienes cursos activos</p>';
+            listaProgreso.innerHTML    = '<p style="color:var(--gray-400);font-size:.875rem;">No tienes cursos en progreso</p>';
+            listaCompletados.innerHTML = '<p style="color:var(--gray-400);font-size:.875rem;">Aún no has completado ningún curso</p>';
+            document.getElementById("statProgreso").textContent    = '0';
+            document.getElementById("statCompletados").textContent = '0';
             return;
           }
-          let suma = 0, completados = 0;
-          d.cursos.forEach(c => { suma += parseInt(c.porcentaje); if (c.completado == 1) completados++; });
-          actualizarProgresoGeneral(Math.round(suma / d.cursos.length), completados, d.cursos.length);
-          lista.innerHTML = d.cursos.map(c => `
-            <div class="curso-item">
-              <div>
-                <div class="curso-nombre">${c.curso_nombre}</div>
-                <div class="curso-progreso">${c.completado == 1 ? "✅ Completado" : "En progreso"}</div>
-              </div>
-              <strong style="color:var(--primary);">${c.porcentaje}%</strong>
-            </div>`).join('');
+
+          const stats = d.stats || {};
+          document.getElementById("statProgreso").textContent    = stats.en_progreso  ?? 0;
+          document.getElementById("statCompletados").textContent = stats.completados  ?? 0;
+          actualizarProgresoGeneral(
+            stats.porcentaje_general ?? 0,
+            stats.completados ?? 0,
+            stats.total ?? d.cursos.length
+          );
+
+          const enProgreso  = d.cursos.filter(c => c.estado !== 'finalizado');
+          const completados = d.cursos.filter(c => c.estado === 'finalizado');
+
+          listaProgreso.innerHTML = enProgreso.length
+            ? enProgreso.map(c => renderCursoItem(c)).join('')
+            : '<p style="color:var(--gray-400);font-size:.875rem;">No tienes cursos en progreso</p>';
+
+          listaCompletados.innerHTML = completados.length
+            ? completados.map(c => renderCursoItem(c)).join('')
+            : '<p style="color:var(--gray-400);font-size:.875rem;">Aún no has completado ningún curso</p>';
         });
+    }
+
+    function renderCursoItem(c) {
+      const pct        = parseInt(c.porcentaje) || 0;
+      const finalizado = c.estado === 'finalizado';
+      const badge      = finalizado
+        ? '<span class="curso-badge badge-finalizado"><i class="fas fa-check"></i> Completado</span>'
+        : '<span class="curso-badge badge-progreso"><i class="fas fa-spinner fa-spin"></i> En progreso</span>';
+
+      let metaHtml = `<span class="curso-pct">${pct}%</span>`;
+
+      if (c.nota_evaluacion !== null && c.nota_evaluacion !== undefined) {
+        metaHtml += `<span class="curso-nota"><i class="fas fa-star"></i> ${c.nota_evaluacion}%</span>`;
+      }
+
+      if (c.ultima_visita) {
+        const fecha = new Date(c.ultima_visita).toLocaleDateString('es-MX', { day:'numeric', month:'short', year:'numeric' });
+        metaHtml += `<span class="curso-fecha"><i class="fas fa-clock"></i> ${fecha}</span>`;
+      } else if (c.fecha_inscripcion) {
+        const fecha = new Date(c.fecha_inscripcion).toLocaleDateString('es-MX', { day:'numeric', month:'short', year:'numeric' });
+        metaHtml += `<span class="curso-fecha"><i class="fas fa-calendar"></i> ${fecha}</span>`;
+      }
+
+      const btnContinuar = finalizado
+        ? `<a href="curso.html?id=${c.curso_id}" class="btn-continuar"><i class="fas fa-eye"></i> Ver</a>`
+        : `<a href="curso.html?id=${c.curso_id}" class="btn-continuar"><i class="fas fa-play"></i> Continuar</a>`;
+
+      return `
+        <div class="curso-item">
+          <div class="curso-item-top">
+            <div>
+              <div class="curso-nombre">${c.curso_nombre}</div>
+            </div>
+            ${badge}
+          </div>
+          <div class="curso-mini-bar"><div class="curso-mini-fill" style="width:${pct}%"></div></div>
+          <div class="curso-meta-row">
+            ${metaHtml}
+            ${btnContinuar}
+          </div>
+        </div>`;
     }
 
     function actualizarProgresoGeneral(pct, completados, total) {
@@ -389,10 +499,13 @@
         .then(r => r.json())
         .then(d => {
           const c = document.getElementById("listaCertificados");
+          const statEl = document.getElementById("statCertificados");
           if (!d.success || d.certificados.length === 0) {
+            if (statEl) statEl.textContent = '0';
             c.innerHTML = `<div class="no-certificados"><i class="fas fa-award"></i><p>Aún no tienes certificados</p><p style="font-size:.82rem;">Completa tus cursos para obtener certificaciones</p></div>`;
             return;
           }
+          if (statEl) statEl.textContent = d.certificados.length;
           c.innerHTML = d.certificados.map(cert => {
             const fecha = new Date(cert.fecha_emision).toLocaleDateString('es-MX', { year:'numeric', month:'long', day:'numeric' });
             return `

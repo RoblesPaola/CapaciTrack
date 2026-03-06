@@ -1877,3 +1877,31 @@ Curso ID: 1
 Módulos insertados: 1
 Evaluaciones insertadas: 1
 ============================================================
+
+
+============================================================
+2026-03-06 03:01:23 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 56
+Título: weg4G
+Descripción: G33AR
+Portada guardada: uploads/portadas/portada_1772762484_69aa35743b799.png
+Módulos recibidos: 1
+Módulo 0 es video YouTube: https://www.youtube.com/watch?v=ORdoYmofO1s
+Evaluaciones recibidas: 1
+Curso insertado - ID: 2
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: EA5HA5
+Módulo 0 insertado
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: g4GA53
+Evaluación 0 insertada
+
+============================================================
+EXITO TOTAL
+Curso ID: 2
+Módulos insertados: 1
+Evaluaciones insertadas: 1
+============================================================
