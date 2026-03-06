@@ -48,7 +48,7 @@
     .doc-estado { font-size: .8rem; font-weight: 600; padding: 3px 10px; border-radius: var(--radius-full); }
     .doc-estado.subido  { background: #dcfce7; color: #15803d; }
     .doc-estado.pendiente { background: #fef3c7; color: #92400e; }
-    .doc-actions { display: flex; gap: 8px; margin-top: 8px; }
+    .doc-actions { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; align-items: center; }
     .btn-small {
       padding: 5px 12px; font-size: .78rem; font-weight: 600;
       background: var(--primary-50); color: var(--primary-dark);
@@ -56,6 +56,25 @@
       text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: var(--ease);
     }
     .btn-small:hover { background: var(--primary-100); }
+    .btn-small.danger { background: #fee2e2; color: #b91c1c; }
+    .btn-small.danger:hover { background: #fecaca; }
+
+    /* Previsualización de documentos */
+    .doc-preview {
+      margin-top: 10px; border-radius: var(--radius); overflow: hidden;
+    }
+    .doc-preview img {
+      width: 100%; max-height: 160px; object-fit: cover; border-radius: var(--radius);
+      cursor: pointer; border: 1.5px solid var(--gray-200); transition: var(--ease);
+      display: block;
+    }
+    .doc-preview img:hover { border-color: var(--primary-100); transform: scale(1.01); }
+    .doc-preview-pdf {
+      display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+      background: #fff7ed; border: 1.5px solid #fed7aa; border-radius: var(--radius);
+    }
+    .doc-preview-pdf i { font-size: 1.8rem; color: #ea580c; flex-shrink: 0; }
+    .doc-preview-pdf span { font-size: .82rem; color: var(--gray-600); font-weight: 500; }
 
     /* Progreso */
     .progreso-widget {
@@ -236,30 +255,32 @@
           <strong><i class="fas fa-id-card" style="color:var(--primary);margin-right:6px;"></i>Licencia de conducir</strong>
           <span id="estado_licencia" class="doc-estado pendiente">Pendiente</span>
         </div>
-        <div class="doc-actions">
-          <label class="btn-small">
-            <i class="fas fa-upload"></i> Subir
+        <div class="doc-preview" id="preview_licencia"></div>
+        <div class="doc-actions" style="margin-top:10px;">
+          <label class="btn-small" id="label_licencia">
+            <i class="fas fa-upload"></i> <span id="txt_licencia">Subir</span>
             <input type="file" id="licencia" accept=".pdf,.jpg,.jpeg,.png" hidden onchange="subirDocumento('licencia_conducir', this)">
           </label>
           <a id="ver_licencia" href="#" target="_blank" class="btn-small" style="display:none;">
-            <i class="fas fa-eye"></i> Ver
+            <i class="fas fa-external-link-alt"></i> Abrir
           </a>
         </div>
       </div>
 
-      <!-- Acta médica -->
+      <!-- Apto médico -->
       <div class="doc">
         <div class="doc-header">
           <strong><i class="fas fa-file-medical" style="color:var(--primary);margin-right:6px;"></i>Apto médico</strong>
           <span id="estado_acta" class="doc-estado pendiente">Pendiente</span>
         </div>
-        <div class="doc-actions">
-          <label class="btn-small">
-            <i class="fas fa-upload"></i> Subir
+        <div class="doc-preview" id="preview_acta"></div>
+        <div class="doc-actions" style="margin-top:10px;">
+          <label class="btn-small" id="label_acta">
+            <i class="fas fa-upload"></i> <span id="txt_acta">Subir</span>
             <input type="file" id="acta_medica" accept=".pdf,.jpg,.jpeg,.png" hidden onchange="subirDocumento('acta_medica', this)">
           </label>
           <a id="ver_acta" href="#" target="_blank" class="btn-small" style="display:none;">
-            <i class="fas fa-eye"></i> Ver
+            <i class="fas fa-external-link-alt"></i> Abrir
           </a>
         </div>
       </div>
@@ -364,19 +385,52 @@
           if (d.perfil) document.getElementById("avatar").src = "/capacitrack/" + d.perfil + "?t=" + Date.now();
           let docs = d.documentos;
           if (typeof docs === "string") { try { docs = JSON.parse(docs); } catch(e) { docs = {}; } }
-          if (docs?.licencia_conducir) {
-            document.getElementById("estado_licencia").textContent = "✔ Subida";
-            document.getElementById("estado_licencia").classList.replace("pendiente","subido");
-            document.getElementById("ver_licencia").href = "/capacitrack/" + docs.licencia_conducir;
-            document.getElementById("ver_licencia").style.display = "inline-flex";
-          }
-          if (docs?.acta_medica) {
-            document.getElementById("estado_acta").textContent = "✔ Subida";
-            document.getElementById("estado_acta").classList.replace("pendiente","subido");
-            document.getElementById("ver_acta").href = "/capacitrack/" + docs.acta_medica;
-            document.getElementById("ver_acta").style.display = "inline-flex";
-          }
+          if (docs?.licencia_conducir) mostrarDocumento('licencia_conducir', docs.licencia_conducir);
+          if (docs?.acta_medica)      mostrarDocumento('acta_medica',      docs.acta_medica);
         });
+    }
+
+    // Muestra preview, badge "Subida" y botón "Abrir" para un documento
+    function mostrarDocumento(tipo, ruta) {
+      const esLicencia  = tipo === 'licencia_conducir';
+      const idEstado    = esLicencia ? 'estado_licencia'  : 'estado_acta';
+      const idVer       = esLicencia ? 'ver_licencia'     : 'ver_acta';
+      const idPreview   = esLicencia ? 'preview_licencia' : 'preview_acta';
+      const idTxt       = esLicencia ? 'txt_licencia'     : 'txt_acta';
+
+      const url = '/capacitrack/' + ruta + '?t=' + Date.now();
+      const ext = ruta.split('.').pop().toLowerCase();
+
+      // Badge
+      const badge = document.getElementById(idEstado);
+      badge.textContent = '✔ Subida';
+      badge.className   = 'doc-estado subido';
+
+      // Botón "Abrir"
+      const verBtn = document.getElementById(idVer);
+      verBtn.href  = '/capacitrack/' + ruta;
+      verBtn.style.display = 'inline-flex';
+
+      // Texto del botón de carga
+      document.getElementById(idTxt).textContent = 'Actualizar';
+
+      // Preview
+      const preview = document.getElementById(idPreview);
+      if (['jpg','jpeg','png','webp','gif'].includes(ext)) {
+        preview.innerHTML = `<img src="${url}" alt="Documento" onclick="window.open('/capacitrack/${ruta}','_blank')" title="Clic para ver en tamaño completo">`;
+      } else {
+        const nombre = ruta.split('/').pop();
+        preview.innerHTML = `
+          <div class="doc-preview-pdf">
+            <i class="fas fa-file-pdf"></i>
+            <div>
+              <div style="font-weight:600;font-size:.83rem;color:var(--gray-700);margin-bottom:4px;">${nombre}</div>
+              <a href="/capacitrack/${ruta}" target="_blank" style="font-size:.78rem;color:#ea580c;font-weight:600;text-decoration:none;">
+                <i class="fas fa-external-link-alt"></i> Ver documento PDF
+              </a>
+            </div>
+          </div>`;
+      }
     }
 
     function guardarPerfil() {
@@ -403,9 +457,18 @@
     function subirDocumento(tipo, el) {
       const file = el.files[0]; if (!file) return;
       const fd = new FormData(); fd.append("documento", file); fd.append("tipo_documento", tipo);
+      mostrarToast('Subiendo documento...', 'exito');
       fetch("/capacitrack/backend/usuarios/subir_documentos.php", { method: "POST", credentials: "include", body: fd })
         .then(r => r.json())
-        .then(d => mostrarToast(d.success ? "Documento subido ✅" : "Error al subir el documento ❌", d.success ? "exito" : "error"));
+        .then(d => {
+          if (d.success) {
+            mostrarDocumento(tipo, d.ruta);
+            mostrarToast('Documento actualizado ✅', 'exito');
+          } else {
+            mostrarToast('Error: ' + (d.message || 'No se pudo subir el documento') + ' ❌', 'error');
+          }
+          el.value = ''; // limpiar input para permitir re-subir el mismo archivo
+        });
     }
 
     function cargarProgreso() {

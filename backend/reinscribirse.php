@@ -25,22 +25,45 @@ if ($curso_id <= 0) {
 
 try {
 
+    // Resetear tabla progreso (completado es BOOLEAN en PostgreSQL)
     $stmt = $conn->prepare("
         INSERT INTO progreso
         (usuario_id, curso_id, porcentaje, completado, intento, fecha_actualizacion)
-        VALUES (?, ?, 0, 0, 1, NOW())
+        VALUES (?, ?, 0, FALSE, 1, NOW())
         ON CONFLICT (usuario_id, curso_id) DO UPDATE SET
-            intento           = progreso.intento + 1,
-            porcentaje        = 0,
-            completado        = 0,
+            intento             = progreso.intento + 1,
+            porcentaje          = 0,
+            completado          = FALSE,
+            fecha_completado    = NULL,
             fecha_actualizacion = NOW()
     ");
-
     $stmt->execute([$usuario_id, $curso_id]);
+
+    // Resetear inscripción a en_progreso y limpiar datos de la sesión anterior
+    $conn->prepare("
+        UPDATE inscripciones SET
+            estado                = 'en_progreso',
+            progreso              = 0,
+            nota_evaluacion       = NULL,
+            intentos_evaluacion   = 0,
+            certificado_generado  = FALSE,
+            codigo_certificado    = NULL,
+            fecha_finalizacion    = NULL,
+            ultima_visita         = NOW()
+        WHERE usuario_id = ? AND curso_id = ?
+    ")->execute([$usuario_id, $curso_id]);
+
+    // Limpiar módulos completados de la sesión anterior
+    $conn->prepare("
+        DELETE FROM progreso_modulos
+        WHERE usuario_id = ? AND modulo_id IN (
+            SELECT id FROM modulos WHERE curso_id = ?
+        )
+    ")->execute([$usuario_id, $curso_id]);
 
     echo json_encode([
         "success" => true,
-        "message" => "Intento actualizado correctamente"
+        "message" => "Reinscripción realizada correctamente"
     ]);
 
 } catch (Exception $e) {

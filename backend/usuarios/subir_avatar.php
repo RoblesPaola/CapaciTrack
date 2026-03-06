@@ -44,6 +44,17 @@ if (!move_uploaded_file($_FILES['foto']['tmp_name'], $ruta_destino)) {
 
 require_once __DIR__ . '/../config/db.php';
 
+// Obtener foto anterior para borrarla
+$stmtOld = $conn->prepare("SELECT perfil FROM usuarios WHERE id = ?");
+$stmtOld->execute([$usuario_id]);
+$rowOld = $stmtOld->fetch(PDO::FETCH_ASSOC);
+if ($rowOld && !empty($rowOld['perfil'])) {
+    $rutaVieja = __DIR__ . '/../../' . $rowOld['perfil'];
+    if (file_exists($rutaVieja)) {
+        unlink($rutaVieja);
+    }
+}
+
 $stmt = $conn->prepare("UPDATE usuarios SET perfil = ? WHERE id = ?");
 
 try {
