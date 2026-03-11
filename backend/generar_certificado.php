@@ -22,7 +22,7 @@ try {
         FROM progreso p
         INNER JOIN usuarios u ON p.usuario_id = u.id
         INNER JOIN cursos c ON p.curso_id = c.id
-        WHERE p.usuario_id = ? AND p.curso_id = ? AND p.completado = 1
+        WHERE p.usuario_id = ? AND p.curso_id = ? AND p.completado = TRUE
         LIMIT 1
     ");
     $stmt->execute([$usuario_id, $curso_id]);
@@ -32,13 +32,20 @@ try {
         die("No se encontró certificado para este curso o el usuario no lo ha completado");
     }
 
-    $codigo_verificacion = 'CERT-' . strtoupper(uniqid());
+    $checkCert = $conn->prepare("SELECT codigo_verificacion FROM certificados WHERE usuario_id = ? AND curso_id = ?");
+    $checkCert->execute([$usuario_id, $curso_id]);
+    $certExistente = $checkCert->fetch(PDO::FETCH_ASSOC);
 
-    $insert = $conn->prepare("
-        INSERT INTO certificados (usuario_id, curso_id, codigo_verificacion)
-        VALUES (?, ?, ?)
-    ");
-    $insert->execute([$usuario_id, $curso_id, $codigo_verificacion]);
+    if ($certExistente) {
+        $codigo_verificacion = $certExistente['codigo_verificacion'];
+    } else {
+        $codigo_verificacion = 'CERT-' . strtoupper(uniqid());
+        $insert = $conn->prepare("
+            INSERT INTO certificados (usuario_id, curso_id, codigo_verificacion)
+            VALUES (?, ?, ?)
+        ");
+        $insert->execute([$usuario_id, $curso_id, $codigo_verificacion]);
+    }
 
     /* =====================================================
        CREAR PDF

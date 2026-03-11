@@ -71,7 +71,7 @@ try {
 
         $stmt = $conn->prepare("
             UPDATE progreso
-            SET completado = 1, porcentaje = 100
+            SET completado = TRUE, porcentaje = 100
             WHERE usuario_id = ? AND curso_id = ?
         ");
         $stmt->execute([$usuario_id, $curso_id]);

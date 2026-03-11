@@ -3,12 +3,12 @@ header('Content-Type: application/json');
 session_start();
 require_once(__DIR__ . '/config/db.php');
 
-if (!isset($_SESSION['usuario_id'])) {
+if (!isset($_SESSION['user_id'])) {
     echo json_encode(["success" => false, "error" => "No autenticado"]);
     exit;
 }
 
-$usuario_id = $_SESSION['usuario_id'];
+$usuario_id = $_SESSION['user_id'];
 $curso_id   = $_POST['curso_id'] ?? null;
 
 if (!$curso_id) {
