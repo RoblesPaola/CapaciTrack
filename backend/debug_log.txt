@@ -1905,3 +1905,121 @@ Curso ID: 2
 Módulos insertados: 1
 Evaluaciones insertadas: 1
 ============================================================
+
+
+============================================================
+2026-03-11 16:07:32 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 62
+Título: MANEJO DEFENSIVO
+Descripción: El curso de Manejo Defensivo está diseñado para desarrollar en los conductores habilidades y actit
+Portada guardada: uploads/portadas/portada_1773241653_69b18535583da.png
+Módulos recibidos: 6
+Módulo 0 es video YouTube: https://www.youtube.com/watch?v=3za9SHvV7dI&list=PLKy8Bsnh7shtIb5lL-9DA5kp4SfdjXtIX&index=6
+Módulo 1 es video YouTube: https://www.youtube.com/watch?v=-sHmB4xtxXw&list=PLKy8Bsnh7shtIb5lL-9DA5kp4SfdjXtIX&index=5
+Módulo 2 es video YouTube: https://www.youtube.com/watch?v=fx7X1PZOeYI&list=PLKy8Bsnh7shtIb5lL-9DA5kp4SfdjXtIX&index=4
+Módulo 3 es video YouTube: https://www.youtube.com/watch?v=2TCDOK-39_Q&list=PLKy8Bsnh7shtIb5lL-9DA5kp4SfdjXtIX&index=3
+Módulo 4 es video YouTube: https://www.youtube.com/watch?v=NaCVwzyzass&list=PLKy8Bsnh7shtIb5lL-9DA5kp4SfdjXtIX&index=2
+Módulo 5 es video YouTube: https://www.youtube.com/watch?v=qRAGPi7iJY4&list=PLKy8Bsnh7shtIb5lL-9DA5kp4SfdjXtIX&index=1
+Evaluaciones recibidas: 9
+Curso insertado - ID: 3
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: INTRODUCCIÓN
+Módulo 0 insertado
+Módulo 1: INFORMACIÓN DE ACCIDENTES
+Módulo 1 insertado
+Módulo 2: ZONA DE NO LIBERTAD, INCERTIDUMBRE, COJÍN DE SEGURIDAD Y TIEMPO DE REACCIÓN
+Módulo 2 insertado
+Módulo 3: TÉCNICAS DE MANEJO DEFENSIVO
+Módulo 3 insertado
+Módulo 4: TIPOS DE ACCIDENTES Y COMO EVITARLOS
+Módulo 4 insertado
+Módulo 5: CONDICIONES ADVERSAS DEL MANEJO
+Módulo 5 insertado
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: ¿Qué es el manejo defensivo?
+Evaluación 0 insertada
+Evaluación 1: ¿Qué es un accidente?
+Evaluación 1 insertada
+Evaluación 2: ¿Quién es el principal elemento de la previsión
+Evaluación 2 insertada
+Evaluación 3: ¿Qué es el cojín de seguridad?
+Evaluación 3 insertada
+Evaluación 4: ¿Cuáles son las condiciones adversas del manejo?
+Evaluación 4 insertada
+Evaluación 5: ¿Cuál es la distancia que debe llevar un vehícu
+Evaluación 5 insertada
+Evaluación 6: ¿Cómo se aplica la regla de los 4 segundos?
+Evaluación 6 insertada
+Evaluación 7: ¿Qué porcentaje de accidentes son evitables?
+Evaluación 7 insertada
+Evaluación 8: ¿Cuánto dura el tiempo de reacción de un operad
+Evaluación 8 insertada
+
+============================================================
+EXITO TOTAL
+Curso ID: 3
+Módulos insertados: 6
+Evaluaciones insertadas: 9
+============================================================
+
+
+============================================================
+2026-03-11 16:07:43 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 62
+Título: MANEJO DEFENSIVO
+Descripción: El curso de Manejo Defensivo está diseñado para desarrollar en los conductores habilidades y actit
+Portada guardada: uploads/portadas/portada_1773241664_69b185407cfcf.png
+Módulos recibidos: 6
+Módulo 0 es video YouTube: https://www.youtube.com/watch?v=3za9SHvV7dI&list=PLKy8Bsnh7shtIb5lL-9DA5kp4SfdjXtIX&index=6
+Módulo 1 es video YouTube: https://www.youtube.com/watch?v=-sHmB4xtxXw&list=PLKy8Bsnh7shtIb5lL-9DA5kp4SfdjXtIX&index=5
+Módulo 2 es video YouTube: https://www.youtube.com/watch?v=fx7X1PZOeYI&list=PLKy8Bsnh7shtIb5lL-9DA5kp4SfdjXtIX&index=4
+Módulo 3 es video YouTube: https://www.youtube.com/watch?v=2TCDOK-39_Q&list=PLKy8Bsnh7shtIb5lL-9DA5kp4SfdjXtIX&index=3
+Módulo 4 es video YouTube: https://www.youtube.com/watch?v=NaCVwzyzass&list=PLKy8Bsnh7shtIb5lL-9DA5kp4SfdjXtIX&index=2
+Módulo 5 es video YouTube: https://www.youtube.com/watch?v=qRAGPi7iJY4&list=PLKy8Bsnh7shtIb5lL-9DA5kp4SfdjXtIX&index=1
+Evaluaciones recibidas: 9
+Curso insertado - ID: 4
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: INTRODUCCIÓN
+Módulo 0 insertado
+Módulo 1: INFORMACIÓN DE ACCIDENTES
+Módulo 1 insertado
+Módulo 2: ZONA DE NO LIBERTAD, INCERTIDUMBRE, COJÍN DE SEGURIDAD Y TIEMPO DE REACCIÓN
+Módulo 2 insertado
+Módulo 3: TÉCNICAS DE MANEJO DEFENSIVO
+Módulo 3 insertado
+Módulo 4: TIPOS DE ACCIDENTES Y COMO EVITARLOS
+Módulo 4 insertado
+Módulo 5: CONDICIONES ADVERSAS DEL MANEJO
+Módulo 5 insertado
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: ¿Qué es el manejo defensivo?
+Evaluación 0 insertada
+Evaluación 1: ¿Qué es un accidente?
+Evaluación 1 insertada
+Evaluación 2: ¿Quién es el principal elemento de la previsión
+Evaluación 2 insertada
+Evaluación 3: ¿Qué es el cojín de seguridad?
+Evaluación 3 insertada
+Evaluación 4: ¿Cuáles son las condiciones adversas del manejo?
+Evaluación 4 insertada
+Evaluación 5: ¿Cuál es la distancia que debe llevar un vehícu
+Evaluación 5 insertada
+Evaluación 6: ¿Cómo se aplica la regla de los 4 segundos?
+Evaluación 6 insertada
+Evaluación 7: ¿Qué porcentaje de accidentes son evitables?
+Evaluación 7 insertada
+Evaluación 8: ¿Cuánto dura el tiempo de reacción de un operad
+Evaluación 8 insertada
+
+============================================================
+EXITO TOTAL
+Curso ID: 4
+Módulos insertados: 6
+Evaluaciones insertadas: 9
+============================================================
