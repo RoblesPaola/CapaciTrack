@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "name": "CapaciTrack",
   "short_name": "CapaciTrack",
@@ -20,26 +19,3 @@
     }
   ]
 }
-=======
-{
-  "name": "CapaciTrack",
-  "short_name": "CapaciTrack",
-  "description": "Aplicación de capacitación en línea",
-  "start_url": "frontend/index.html",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#4f46e5",
-  "icons": [
-    {
-      "src": "frontend/assets/logo.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "frontend/assets/logo.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
-}
->>>>>>> bcac7488b91498c92bd39d5c7a0d11ac154d235f

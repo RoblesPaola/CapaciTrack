@@ -52,13 +52,16 @@
     .search-box input { border: none; outline: none; font-size: .9rem; font-family: inherit; color: var(--gray-800); background: transparent; width: 100%; }
     .search-box input::placeholder { color: var(--gray-400); }
 
-    .table-wrap {
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(0,0,0,.05);
-      box-shadow: var(--shadow-card);
-      overflow: hidden;
-    }
+     .table-wrap {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(0,0,0,.05);
+  box-shadow: var(--shadow-card);
+
+  overflow-x: auto;  /* horizontal */
+  overflow-y: auto;  /* vertical */
+  max-height: 400px; /* 👈 CLAVE para activar scroll vertical */
+}
     #tablaUsuarios { width: 100%; border-collapse: collapse; font-size: .875rem; }
     #tablaUsuarios thead { background: var(--gray-50); border-bottom: 2px solid var(--gray-200); }
     #tablaUsuarios th { padding: 12px 16px; text-align: left; font-size: .72rem; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; }
@@ -128,10 +131,19 @@
           <i class="fas fa-search"></i>
           <input type="text" id="buscador" placeholder="Buscar por nombre, correo o rol...">
         </div>
+              <div id="contadorUsuarios" style="
+        font-size:.85rem;
+        color:var(--gray-500);
+        font-weight:600;
+        margin-top:4px;
+      ">
+        Total de usuarios: 0
+      </div>
         <a href="agregar-usuario.html" class="btn btn-primary">
           <i class="fas fa-user-plus"></i> Agregar Usuario
         </a>
       </div>
+      
 
       <div class="table-wrap">
         <table id="tablaUsuarios">
@@ -198,37 +210,46 @@
     }
 
     function renderTabla(data) {
-      const tbody = document.querySelector("#tablaUsuarios tbody");
-      tbody.innerHTML = "";
-      if (!data.length) {
-        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--gray-400);">No se encontraron usuarios</td></tr>`;
-        return;
-      }
-      data.forEach(u => {
-        const progreso = u.progreso ?? 0;
-        tbody.innerHTML += `
-          <tr>
-            <td><strong>${u.nombre}</strong></td>
-            <td style="color:var(--gray-500);font-size:.82rem;">${u.email}</td>
-            <td>${rolBadge(u.rol)}</td>
-            <td>${u.telefono || '—'}</td>
-            <td>${u.razon_social || '—'}</td>
-            <td style="text-align:center;font-weight:700;">${u.total_cursos}</td>
-            <td style="font-size:.82rem;color:var(--gray-500);">${u.cursos ?? '—'}</td>
-            <td class="progress-cell">${progreso}%</td>
-            <td><button class="btn-del" onclick="eliminar(${u.id})" title="Eliminar"><i class="fas fa-trash"></i></button></td>
-          </tr>`;
-      });
-    }
+  const tbody = document.querySelector("#tablaUsuarios tbody");
+  tbody.innerHTML = "";
+
+  if (!data.length) {
+    tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--gray-400);">No se encontraron usuarios</td></tr>`;
+    actualizarContador([]); // 👈 IMPORTANTE
+    return;
+  }
+
+  data.forEach(u => {
+    const progreso = u.progreso ?? 0;
+    tbody.innerHTML += `
+      <tr>
+        <td><strong>${u.nombre}</strong></td>
+        <td style="color:var(--gray-500);font-size:.82rem;">${u.email}</td>
+        <td>${rolBadge(u.rol)}</td>
+        <td>${u.telefono || '—'}</td>
+        <td>${u.razon_social || '—'}</td>
+        <td style="text-align:center;font-weight:700;">${u.total_cursos}</td>
+        <td style="font-size:.82rem;color:var(--gray-500);">${u.cursos ?? '—'}</td>
+        <td class="progress-cell">${progreso}%</td>
+        <td><button class="btn-del" onclick="eliminar(${u.id})"><i class="fas fa-trash"></i></button></td>
+      </tr>`;
+  });
+
+  actualizarContador(data); // 👈 AQUÍ
+}
 
     document.getElementById("buscador").addEventListener("input", e => {
       const t = e.target.value.toLowerCase();
-      renderTabla(usuarios.filter(u =>
+
+      const filtrados = usuarios.filter(u =>
         u.nombre.toLowerCase().includes(t) ||
         u.email.toLowerCase().includes(t) ||
         u.rol.toLowerCase().includes(t)
-      ));
+      );
+
+      renderTabla(filtrados);
     });
+
 
     let usuarioAEliminar = null;
     function eliminar(id) { usuarioAEliminar = id; document.getElementById("modalEliminar").style.display = "flex"; }
@@ -261,6 +282,12 @@
       sidebarToggle.classList.remove('rotate');
       sidebarOverlay.classList.remove('active');
     });
+
+    function actualizarContador(data) {
+  const total = data.length;
+  document.getElementById("contadorUsuarios").textContent =
+    `Usuarios mostrados: ${total}`;
+}
   </script>
 
 </body>

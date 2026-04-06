@@ -2023,3 +2023,324 @@ Curso ID: 4
 Módulos insertados: 6
 Evaluaciones insertadas: 9
 ============================================================
+
+
+============================================================
+2026-03-11 20:00:13 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 62
+Título: SEGURIDAD VIAL
+Descripción: El curso de Seguridad Vial tiene como objetivo proporcionar a los participantes los conocimientos y 
+Portada guardada: uploads/portadas/portada_1773255615_69b1bbbfe4aba.png
+Módulos recibidos: 3
+Módulo 0 es video YouTube: https://www.youtube.com/watch?v=-BG88m2-6Cs
+Módulo 1 es video YouTube: https://www.youtube.com/watch?v=Bh2rZu_kZZg
+Módulo 2 es video YouTube: https://www.youtube.com/watch?v=VyTSAcLbU8I
+Evaluaciones recibidas: 10
+Curso insertado - ID: 5
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: INTRODUCCIÓN
+Módulo 0 insertado
+Módulo 1: CONCEPTOS BÁSICOS
+Módulo 1 insertado
+Módulo 2: SEÑALAMIENTOS VIALES
+Módulo 2 insertado
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: ¿Para qué nos sirven los señalamientos viales?
+Evaluación 0 insertada
+Evaluación 1: ¿Qué es el Reglamento de Tránsito?
+Evaluación 1 insertada
+Evaluación 2: ¿Qué es la vía pública?
+Evaluación 2 insertada
+Evaluación 3: ¿Cuál es la finalidad de las señales preventiva
+Evaluación 3 insertada
+Evaluación 4: ¿Cuál es la finalidad de las señales restrictiv
+Evaluación 4 insertada
+Evaluación 5: ¿Cuál es la finalidad de las señales turística
+Evaluación 5 insertada
+Evaluación 6: Seleccione a que grupo de señales pertenece la si
+Evaluación 6 insertada
+Imagen pregunta 7 guardada: uploads/preguntas/pregunta_1773255617_69b1bbc1b3ae0_7.png
+Evaluación 7: Seleccione a que grupo de señales pertenece la si
+Evaluación 7 insertada
+Imagen pregunta 8 guardada: uploads/preguntas/pregunta_1773255617_69b1bbc1d7053_8.png
+Evaluación 8: Selecciona el nombre correcto de las señales turi
+Evaluación 8 insertada
+Imagen pregunta 9 guardada: uploads/preguntas/pregunta_1773255618_69b1bbc201755_9.png
+Evaluación 9: Seleccione a que grupo de señales pertenece la si
+Evaluación 9 insertada
+
+============================================================
+EXITO TOTAL
+Curso ID: 5
+Módulos insertados: 3
+Evaluaciones insertadas: 10
+============================================================
+
+
+============================================================
+2026-03-26 17:02:54 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 62
+Título: sss
+Descripción: cs
+Módulos recibidos: 1
+Archivo módulo 0: uploads/modulos/modulo_1774540974_69c558aece06d_0.pdf
+Evaluaciones recibidas: 0
+Curso insertado - ID: 6
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: csdv
+Módulo 0 insertado
+
+============================================================
+EXITO TOTAL
+Curso ID: 6
+Módulos insertados: 1
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-03-26 17:03:53 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 62
+Título: dvs
+Descripción: dv
+Portada guardada: uploads/portadas/portada_1774541035_69c558eb5f7a6.png
+Módulos recibidos: 1
+Archivo módulo 0: uploads/modulos/modulo_1774541035_69c558eb60afb_0.pdf
+Evaluaciones recibidas: 0
+Curso insertado - ID: 7
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: cazs
+Módulo 0 insertado
+
+============================================================
+EXITO TOTAL
+Curso ID: 7
+Módulos insertados: 1
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-03-26 17:05:36 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 62
+Título: aesvew
+Descripción: adva
+Portada guardada: uploads/portadas/portada_1774541137_69c5595141531.png
+Módulos recibidos: 1
+Archivo módulo 0: uploads/modulos/modulo_1774541137_69c559514296a_0.png
+Evaluaciones recibidas: 0
+Curso insertado - ID: 8
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: asv
+Módulo 0 insertado
+
+============================================================
+EXITO TOTAL
+Curso ID: 8
+Módulos insertados: 1
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-03-26 17:07:38 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 62
+Título: scaa
+Descripción: av
+Portada guardada: uploads/portadas/portada_1774541259_69c559cb05404.png
+Módulos recibidos: 1
+Archivo módulo 0: uploads/modulos/modulo_1774541259_69c559cb05ad4_0.pdf
+Evaluaciones recibidas: 0
+Curso insertado - ID: 9
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: av
+Módulo 0 insertado
+
+============================================================
+EXITO TOTAL
+Curso ID: 9
+Módulos insertados: 1
+Evaluaciones insertadas: 0
+============================================================
+
+
+============================================================
+2026-03-26 17:11:36 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 62
+Título: azs
+Descripción: asv
+Portada guardada: uploads/portadas/portada_1774541497_69c55ab95c5cb.png
+Módulos recibidos: 1
+Archivo módulo 0: uploads/modulos/modulo_1774541497_69c55ab95d24d_0.png
+Evaluaciones recibidas: 1
+Curso insertado - ID: 10
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: casc
+Módulo 0 insertado
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: asvc
+Evaluación 0 insertada
+
+============================================================
+EXITO TOTAL
+Curso ID: 10
+Módulos insertados: 1
+Evaluaciones insertadas: 1
+============================================================
+
+
+============================================================
+2026-03-26 17:16:32 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 62
+Título: sss
+Descripción: cs
+Portada guardada: uploads/portadas/portada_1774541793_69c55be12372f.png
+Módulos recibidos: 1
+Archivo módulo 0: uploads/modulos/modulo_1774541793_69c55be1247bb_0.png
+Evaluaciones recibidas: 1
+Curso insertado - ID: 11
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: asv
+Módulo 0 insertado
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: as
+Evaluación 0 insertada
+
+============================================================
+EXITO TOTAL
+Curso ID: 11
+Módulos insertados: 1
+Evaluaciones insertadas: 1
+============================================================
+
+
+============================================================
+2026-03-26 17:39:01 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 62
+Título: SEGURIDAD VIAL
+Descripción: Bienvenido al curso de Seguridad Vial. En esta introducción conocerás la importancia de respetar l
+Portada guardada: uploads/portadas/portada_1774543142_69c56126a1b6d.png
+Módulos recibidos: 3
+Módulo 0 es video YouTube: https://www.youtube.com/watch?v=-BG88m2-6Cs&list=PLKy8Bsnh7shvqWngEDZlS_keZeXCslNBB&index=3
+Módulo 1 es video YouTube: https://www.youtube.com/watch?v=Bh2rZu_kZZg&list=PLKy8Bsnh7shvqWngEDZlS_keZeXCslNBB&index=2
+Módulo 2 es video YouTube: https://www.youtube.com/watch?v=VyTSAcLbU8I&list=PLKy8Bsnh7shvqWngEDZlS_keZeXCslNBB&index=1
+Evaluaciones recibidas: 10
+Curso insertado - ID: 12
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: INTRODUCCION
+Módulo 0 insertado
+Módulo 1: CONCEPTOS BÁSICOS
+Módulo 1 insertado
+Módulo 2: SEÑALAMIENTOS VIALES
+Módulo 2 insertado
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: ¿Para qué nos sirven los señalamientos viales?
+Evaluación 0 insertada
+Evaluación 1: ¿Qué es el Reglamento de Tránsito?
+Evaluación 1 insertada
+Evaluación 2: ¿Qué es la vía pública?
+Evaluación 2 insertada
+Evaluación 3: ¿Cuáles de las siguientes opciones son recomenda
+Evaluación 3 insertada
+Evaluación 4: ¿Cuál es la finalidad de las señales preventiva
+Evaluación 4 insertada
+Evaluación 5: ¿Cuál es la finalidad de las señales restrictiv
+Evaluación 5 insertada
+Evaluación 6: ¿Cuál es la finalidad de las señales turística
+Evaluación 6 insertada
+Imagen pregunta 7 guardada: uploads/preguntas/pregunta_1774543144_69c561284dd7d_7.png
+Evaluación 7: Selecciona a que grupo de señales pertenece la si
+Evaluación 7 insertada
+Imagen pregunta 8 guardada: uploads/preguntas/pregunta_1774543144_69c56128670ff_8.png
+Evaluación 8: Selecciona el nombre correcto de las siguientes se
+Evaluación 8 insertada
+Imagen pregunta 9 guardada: uploads/preguntas/pregunta_1774543144_69c5612884400_9.png
+Evaluación 9: Selecciona el grupo correcto al que pertenecen las
+Evaluación 9 insertada
+
+============================================================
+EXITO TOTAL
+Curso ID: 12
+Módulos insertados: 3
+Evaluaciones insertadas: 10
+============================================================
+
+
+============================================================
+2026-03-26 17:54:05 - INICIO CREAR CURSO
+============================================================
+Usuario ID REAL: 62
+Título: SERVICIO AL CLIENTE
+Descripción: El servicio al cliente es fundamental para brindar una atención de calidad y generar confianza con 
+Portada guardada: uploads/portadas/portada_1774544046_69c564aea82c6.png
+Módulos recibidos: 5
+Módulo 0 es video YouTube: https://www.youtube.com/watch?v=DaROY61DV5Q&list=PLKy8Bsnh7shsBiaYMzrYNJ9H-OgF1paXi&index=5
+Módulo 1 es video YouTube: https://www.youtube.com/watch?v=44BpxMrr2M8&list=PLKy8Bsnh7shsBiaYMzrYNJ9H-OgF1paXi&index=4
+Módulo 2 es video YouTube: https://www.youtube.com/watch?v=I1VsR3qDACI&list=PLKy8Bsnh7shsBiaYMzrYNJ9H-OgF1paXi&index=3
+Módulo 3 es video YouTube: https://www.youtube.com/watch?v=QWW9EkqJW7A&list=PLKy8Bsnh7shsBiaYMzrYNJ9H-OgF1paXi&index=2
+Módulo 4 es video YouTube: https://www.youtube.com/watch?v=Sr0T_DY6s90&list=PLKy8Bsnh7shsBiaYMzrYNJ9H-OgF1paXi&index=1
+Evaluaciones recibidas: 11
+Curso insertado - ID: 13
+
+--- INSERTANDO MÓDULOS EN TABLA ---
+Módulo 0: INTRODUCCION
+Módulo 0 insertado
+Módulo 1: EL OPERADOR REPRESENTA A LA EMPRESA
+Módulo 1 insertado
+Módulo 2: COMUNICACIÓN Y TRATO CON EL CLIENTE
+Módulo 2 insertado
+Módulo 3: MANEJO DE PROBLEMAS Y CONFLICTOS
+Módulo 3 insertado
+Módulo 4: FIN DEL CURSO
+Módulo 4 insertado
+
+--- INSERTANDO EVALUACIONES EN TABLA ---
+Evaluación 0: ¿Cuál es el objetivo principal del servicio al c
+Evaluación 0 insertada
+Evaluación 1: Un buen servicio al cliente implica:
+Evaluación 1 insertada
+Evaluación 2: El operador representa:
+Evaluación 2 insertada
+Evaluación 3: ¿En qué momento el cliente forma su opinión del
+Evaluación 3 insertada
+Evaluación 4: La actitud profesional depende de:
+Evaluación 4 insertada
+Evaluación 5: ¿Cuál es la conducta básica del operador?
+Evaluación 5 insertada
+Evaluación 6: La comunicación efectiva consiste en:
+Evaluación 6 insertada
+Evaluación 7: ¿Qué elemento es clave en la comunicación?
+Evaluación 7 insertada
+Evaluación 8: La escucha activa significa:
+Evaluación 8 insertada
+Evaluación 9: ¿Cuál es una causa común de conflictos?
+Evaluación 9 insertada
+Evaluación 10: ¿Qué debe hacer el operador ante un conflicto?
+Evaluación 10 insertada
+
+============================================================
+EXITO TOTAL
+Curso ID: 13
+Módulos insertados: 5
+Evaluaciones insertadas: 11
+============================================================
